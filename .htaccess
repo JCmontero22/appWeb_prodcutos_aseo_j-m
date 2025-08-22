@@ -1,22 +1,15 @@
-
-
 # Activar motor de reescritura
 RewriteEngine On
 
-# Si tu proyecto está en el dominio raíz (productos.jcmonterodev.pw),
-# entonces la base es simplemente /
+# Establecer base relativa (opcional, normalmente no se requiere)
 RewriteBase /
 
-# Si no se indica nada en la URL, cargar index.php
-DirectoryIndex index.php
-
-# Redirigir todas las peticiones al index.php
+# Redirigir todas las peticiones al index.php si no es archivo/carpeta
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ index.php [L]
+RewriteRule ^ index.php [L]
 
 # Proteger archivos sensibles
 <FilesMatch "\.(env|sql|log|ini|sh|bat|inc|bak|config|php~)$">
-    Order allow,deny
-    Deny from all
+    Require all denied
 </FilesMatch>
