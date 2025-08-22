@@ -1,10 +1,10 @@
 # Activar motor de reescritura
 RewriteEngine On
 
-# Establecer la base del proyecto (ajústalo según la carpeta donde subiste tu proyecto)
+# Definir la base del proyecto en producción
 RewriteBase /
 
-# Si no se indica nada en la URL, cargar index.php de /public
+# Si no se indica nada en la URL, cargar index.php
 DirectoryIndex public/index.php
 
 # Redirigir todas las peticiones al index.php dentro de /public
