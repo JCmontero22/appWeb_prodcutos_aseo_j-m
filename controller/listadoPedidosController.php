@@ -25,6 +25,8 @@
                     $data[] = [
                         'idPedido' => $resultadoPedidos[$i]['idPedido'],
                         'cliente' => $resultadoPedidos[$i]['cliente'],
+                        'telefono' => $resultadoPedidos[$i]['telefono'],
+                        'direccion' => $resultadoPedidos[$i]['direccion'],
                         'totalVenta' => $resultadoPedidos[$i]['totalVenta'],
                         'totalGanancia' => $resultadoPedidos[$i]['totalGanancia'],
                         'fechaPedido' => $resultadoPedidos[$i]['fechaPedido'],
