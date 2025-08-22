@@ -11,6 +11,8 @@
             $query = "SELECT 
                             p.id_pedidos AS idPedido, 
                             u.nombre_usuario AS cliente, 
+                            u.telefono_usuario AS telefono,
+                            u.direccion_usuario AS direccion,
                             p.valor_total_pedido AS totalVenta,  
                             p.ganancia_total_pedido AS totalGanancia,
                             p.fecha_pedido AS fechaPedido,

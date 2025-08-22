@@ -28,6 +28,8 @@ function cargarTable(data) {
                 /* {data: "id"}, */
                 {data: "idPedido"},
                 {data: "cliente"},
+                {data: "telefono"},
+                {data: "direccion"},
                 {data: "totalVenta",
                     className: "text-center",
                     render: function(data, type, row) {

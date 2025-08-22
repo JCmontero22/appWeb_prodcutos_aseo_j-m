@@ -29,6 +29,8 @@
                         <tr>
                             <th>#</th>
                             <th>Cliente</th>
+                            <th>Teléfono</th>
+                            <th>Dirección</th>
                             <th>Total</th>
                             <th>Ganancia</th>
                             <th>Fecha Pedido</th>
