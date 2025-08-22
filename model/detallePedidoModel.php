@@ -11,7 +11,7 @@
                                 p.nombre_produto AS nombreProducto, 
                                 ped.tamano_presentacion  AS presentacion,
                                 dp.cantidad_detalle_pedido AS cantidad, 
-                                dp.subtotal_unidatario_detalle_pedido AS subtotal
+                                dp.subtotal_unitario_detalle_pedido AS subtotal
                             FROM detalle_pedido dp
                             INNER JOIN presentacion_producto ped ON dp.id_presentacion = ped.id_presentacion
                             INNER JOIN productos p ON ped.id_producto = p.id_producto

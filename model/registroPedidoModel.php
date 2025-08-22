@@ -50,8 +50,8 @@
                                 id_pedido, 
                                 id_presentacion, 
                                 cantidad_detalle_pedido, 
-                                precio_unidaterio_detalle_pedido, 
-                                subtotal_unidatario_detalle_pedido
+                                precio_unitario_detalle_pedido, 
+                                subtotal_unitario_detalle_pedido
                             ) 
                             VALUES (
                                 :id_pedido, 
