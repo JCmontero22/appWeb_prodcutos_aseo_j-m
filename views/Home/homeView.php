@@ -44,7 +44,7 @@
 
 
 <?php 
-    $password = 'maron';
+  /*   $password = 'maron';
     $hash = password_hash($password, PASSWORD_DEFAULT); 
-    var_dump($hash);
+    var_dump($hash); */
 ?>
