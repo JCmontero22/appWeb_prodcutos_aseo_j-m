@@ -1,0 +1,19 @@
+# Activar motor de reescritura
+RewriteEngine On
+
+# Definir la base del proyecto (ajusta según tu carpeta)
+RewriteBase /PROYECTO_JM-ML/proyecto_productos_aseo/
+
+# Si no se indica nada en la URL, cargar index.php
+DirectoryIndex public/index.php
+
+# Redirigir todas las peticiones al index.php dentro de /public
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ public/index.php [L]
+
+# Proteger archivos sensibles
+<FilesMatch "\.(env|sql|log|ini|sh|bat|inc|bak|config|php~)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
