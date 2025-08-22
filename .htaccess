@@ -1,15 +1,6 @@
-# Asegurar que se cargue index.php como archivo por defecto
-DirectoryIndex index.php
-
 RewriteEngine On
-RewriteBase /
 
-# Redirigir todo a index.php si no es archivo o carpeta real
+# Redirigir todo a index.php
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ index.php [L]
-
-# Proteger archivos sensibles
-<FilesMatch "\.(env|sql|log|ini|sh|bat|inc|bak|config|php~)$">
-    Require all denied
-</FilesMatch>
