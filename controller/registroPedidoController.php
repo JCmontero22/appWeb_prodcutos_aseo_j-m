@@ -38,7 +38,7 @@
                 
 
                 $respuestaPedido = $this->set_registroPedido($data);
-                var_dump($respuestaPedido);
+                
                 if ($respuestaPedido) {
                     $respuestaDetalle = $this->registroDetallePedido($respuestaPedido);
                     if ($respuestaDetalle) {
