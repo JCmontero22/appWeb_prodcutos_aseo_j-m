@@ -98,9 +98,11 @@
                         if ($_SESSION['rol'] == '1' || $_SESSION['rol'] == '2') {
                             echo    '<option value="2">Confirmado</option>
                                     <option value="3">Alistado</option>
-                                    <option value="5">Cancelado</option>';
+                                    <option value="5">Cancelado</option>
+                                    <option value="4">Entregado</option>';
                         }elseif ($_SESSION['rol'] == '4') {
-                            echo '<option value="4">Entregado</option>';
+                            echo '<option value="4">Entregado</option> ';
+                                    
                         }
                     
                     ?>
