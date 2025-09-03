@@ -100,11 +100,11 @@
                     <option value="">Seleccione Estado</option>
                     <?php 
                         if ($_SESSION['rol'] == '1' || $_SESSION['rol'] == '2') {
-                            echo    '<option value="2">Confirmado</option>
-                                    <option value="3">Alistado</option>
-                                    <option value="5">Cancelado</option>
-                                    <option value="4">Entregado</option>
-                                    <option value="6">Finalizado</option>';
+                            echo    '<option id="estado-2" value="2">Confirmado</option>
+                                    <option id="estado-3" value="3">Alistado</option>
+                                    <option id="estado-5" value="5">Cancelado</option>
+                                    <option id="estado-4" value="4">Entregado</option>
+                                    <option id="estado-6" value="6">Finalizado</option>';
                                     
                         }elseif ($_SESSION['rol'] == '4') {
                             echo '<option value="4">Entregado</option> ';
