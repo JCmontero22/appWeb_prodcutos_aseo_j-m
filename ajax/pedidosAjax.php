@@ -4,6 +4,11 @@
     require_once('../controller/listadoPedidosController.php');
     require_once('../controller/detallePedidoController.php');
     require_once('../controller/editarEstadoPedidoController.php');
+    require_once('../controller/actualizarPedidoController.php');
+    require_once('../controller/eliminarDetallePedidoController.php');
+    require_once('../controller/calculoVentasEntregadasController.php');
+    require_once('../controller/finalizarPedidosController.php');
+    require_once('../controller/AgregarPoductoAlPedidoController.php');
 
     $accion = isset($_GET['accion']) ? $_GET['accion'] :  $_POST['accion'];
     
@@ -31,7 +36,37 @@
             echo json_encode($respuestaDetalle);
             break;
 
-        
+        case 'actualizarPedido':
+            $actualizarPedido = new actualizarPedidoController($_POST['cantidad'], $_POST['idDetallePedido'], $_POST['idPedido']);
+            $respuesta = $actualizarPedido->actualizarPedido();
+            echo json_encode($respuesta);
+            break;
+
+        case 'eliminarProducto':
+            $eliminarProducto = new eliminarDetallePedidoController($_POST['idDetallePedido']);
+            $respuesta = $eliminarProducto->eliminarDetallePedido();
+            echo json_encode($respuesta);
+            break;
+
+        case 'calculoVentas':
+            $eliminarProducto = new calculoVentasEntregadasController();
+            $respuesta = $eliminarProducto->calculoVentaEntregada();
+            echo json_encode($respuesta);
+            break;
+
+        case 'finalizarPedidos':
+            $finalizarPedidos = new finalizarPedidosController();
+            $respuesta = $finalizarPedidos->finalizarPedido();
+            echo json_encode($respuesta);
+            break;
+
+        case 'agregarProducto':
+            $finalizarPedidos = new AgregarPoductoAlPedidoController($_POST['idPedido'], $_POST['idPresentacion'], $_POST['cantidad'], $_POST['total'], $_POST['precioVenta']);
+            $respuesta = $finalizarPedidos->agregarProducto();
+            echo json_encode($respuesta);
+            break;
+
+            
 
         default:
             echo json_encode(['error' => 'Acción no válida']);

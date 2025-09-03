@@ -2,7 +2,7 @@
 
     require_once('../core/conexion.php');
 
-    class listadoPedidosModel 
+    class ListadoPedidosModel 
     {
         public function get_listadoPedidos($idUsuario, $idRol)
         {

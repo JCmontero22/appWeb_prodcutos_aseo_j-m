@@ -1,8 +1,8 @@
 <?php 
 
-    require_once('../model/listadoClientesModel.php');
+    require_once('../model/ListadoClientesModel.php');
 
-    class listadoClientesController extends listadoClientesModel
+    class listadoClientesController extends ListadoClientesModel
     {
         public function listarClientes()
         {

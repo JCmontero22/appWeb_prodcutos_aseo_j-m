@@ -1,10 +1,10 @@
  <?php 
 
-    require_once('../model/listadoPedidosModel.php');
+    require_once('../model/ListadoPedidosModel.php');
 
     session_start();
 
-    class listadoPedidosController extends listadoPedidosModel
+    class listadoPedidosController extends ListadoPedidosModel
     {
         public function listarMisPedidos(){
             $respuesta = [];

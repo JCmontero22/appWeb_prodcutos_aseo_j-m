@@ -32,6 +32,11 @@
                 <h2>Mis Pedidos</h2>
                 <i class="fa-solid fa-clipboard-list card-option-icon"></i>
             </div>
+
+            <!-- <div class="card-option listaPedidos" onclick="redireccionar('clientes')">
+                <h2>Clientes</h2>
+                <i class="fa-solid fa-users-line card-option-icon"></i>
+            </div> -->
         </div>
 
         

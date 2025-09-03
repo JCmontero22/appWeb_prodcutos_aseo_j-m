@@ -19,7 +19,7 @@
                 $respuesta = $db->execute($query, $parametros);
                 return $respuesta;
             } catch (\Exception $e) {
-                throw $e;
+                throw new Exception($e->getMessage());
             }
             
         }        

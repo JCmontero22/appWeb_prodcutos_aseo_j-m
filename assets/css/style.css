@@ -166,6 +166,19 @@ p {
     background-color: var(--color-warning);
 }
 
+/*************** CALCULO ***************/
+.calculo{
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.calculo h3{
+    margin-bottom: 2rem;
+    border-radius: .5rem;
+    padding: 1rem 0 ;
+}
+
 /***********************************************************
 
         ************ MEDIA QUERYS **********

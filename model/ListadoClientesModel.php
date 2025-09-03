@@ -2,7 +2,7 @@
 
     require_once('../core/conexion.php');
 
-    class listadoClientesModel 
+    class ListadoClientesModel 
     {
         protected function get_listarClientes() {            
             $db = new Conexion();
