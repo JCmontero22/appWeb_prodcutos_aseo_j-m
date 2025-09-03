@@ -43,7 +43,11 @@
             break;
 
         case 'eliminarProducto':
-            $eliminarProducto = new eliminarDetallePedidoController($_POST['idDetallePedido']);
+            $consultaTotales = new ConsultaTotalesModel();
+            $recalcularModel = new RecalcularTotalesModel();
+            $recalcular = new RecalcularTotalesController($_POST['idPedido'], $consultaTotales, $recalcularModel);
+
+            $eliminarProducto = new eliminarDetallePedidoController($_POST['idDetallePedido'], $_POST['idPedido'], $recalcular);
             $respuesta = $eliminarProducto->eliminarDetallePedido();
             echo json_encode($respuesta);
             break;

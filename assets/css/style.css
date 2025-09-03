@@ -83,6 +83,13 @@ p {
     font-size: 1.4rem !important;
 }
 
+.estados{
+    font-size: 1.3rem;
+}
+
+.btnAccionListadoPedidos{
+    font-size: 1.2rem !important;
+}
 /*************** LOGIN ***************/
 .login{
     display: flex;

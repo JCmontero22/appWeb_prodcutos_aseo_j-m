@@ -5,9 +5,7 @@
     class AgregarPoductoAlPedidoModel 
     {
         protected function set_agregarProductoPedido($idPedido, $idPresentacion, $cantidad, $total, $precioVenta){
-
             try {
-
                 $db = new Conexion();
                 $query = "INSERT INTO detalle_pedido (
                                 id_pedido, 
@@ -23,7 +21,6 @@
                             :precioVenta, 
                             :subtotal
                         )";
-            
                 $params = [
                     ':id_pedido' => $idPedido,
                     ':id_presentacion' => $idPresentacion,
@@ -31,9 +28,9 @@
                     ':precioVenta' => $precioVenta,
                     ':subtotal' => $total
                 ];
-                
                 $respuesta = $db->execute($query, $params);
 
+                
                 return $respuesta;
             } catch (\Exception $e) {
                 throw new Exception($e->getMessage());

@@ -20,6 +20,7 @@
             <div class="col-md-12 d-flex justify-content-end mb-5">
                 <button class="btn btn-success" style="margin-right: 10px;" onclick="realizarCalculo('home')">Calcular cuenta</button>
                 <button class="btn btn-primary" onclick="redireccionar('home')">Regresar</button>
+                
             </div>
         </div>
 

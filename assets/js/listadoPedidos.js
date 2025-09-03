@@ -54,17 +54,17 @@ function cargarTable(data) {
             }},
             {data: "estado", className: "text-center", render: function(data, type, row) {
                 if (data === 'Creado') {
-                    return '<span class="bg-secondary p-2">Creado</span>';
+                    return '<span class="bg-secondary text-white p-2 estados">Creado</span>';
                 } else if (data === 'Confirmado') {
-                    return '<span class="bg-info p-2">Confirmado</span>';
+                    return '<span class="bg-info p-2 estados">Confirmado</span>';
                 } else if (data === 'Alistado') {
-                    return '<span class="bg-warning p-2">Alistado</span>';
+                    return '<span class="bg-warning p-2 estados">Alistado</span>';
                 } else if (data === 'Entregado') {
-                    return '<span class="bg-success p-2">Entregado</span>';
+                    return '<span class="bg-success text-white p-2 estados">Entregado</span>';
                 } else if (data === 'Cancelado') {
-                    return '<span class="bg-danger p-2">Cancelado</span>';
+                    return '<span class="bg-danger p-2 estados">Cancelado</span>';
                 } else if (data === 'Finalizado') {
-                    return '<span class="bg-dark p-2">Finalizado</span>';
+                    return '<span class="bg-dark text-white p-2 estados">Finalizado</span>';
                 }
                 
             }},
@@ -74,12 +74,12 @@ function cargarTable(data) {
                 render: function(data, type, row){
                     if ( data != 'Finalizado') {/* data != 'Entregado' && */
                         return `
-                            <button class="btn btn-primary btn-sm" onclick="detallePedido(${row.idPedido})"> <i class="fa-solid fa-magnifying-glass"></i> </button>
-                            <button class="btn btn-success btn-sm" onclick="modalEditarEstado(${row.idPedido}, ${row.idEstado})"> <i class="fa-solid fa-pencil"></i> </button>
+                            <button class="btn btn-primary btn-sm btnAccionListadoPedidos" onclick="detallePedido(${row.idPedido})"> <i class="fa-solid fa-magnifying-glass"></i> </button>
+                            <button class="btn btn-success btn-sm btnAccionListadoPedidos" onclick="modalEditarEstado(${row.idPedido}, ${row.idEstado})"> <i class="fa-solid fa-pencil"></i> </button>
                         `;
                     } else {
                         return `
-                            <button class="btn btn-primary btn-sm" onclick="detallePedido(${row.idPedido})"> <i class="fa-solid fa-magnifying-glass"></i> </button>
+                            <button class="btn btn-primary btn-sm btnAccionListadoPedidos" onclick="detallePedido(${row.idPedido})"> <i class="fa-solid fa-magnifying-glass"></i> </button>
                         `;
                     }
                 }
@@ -149,7 +149,7 @@ function mostrarDetallesPedido(data, idPedido) {
         if (item.estado != 6) {
             botones = `
                 <button class="btn btn-warning btn-sm btn-editar-cantidad" onclick="editarCantidad(${item.idPresentacion}, ${idPedido}, ${item.cantidad}, ${item.idDetallePedido})"> <i class="fa-solid fa-pencil"></i> </button>
-                <button class="btn btn-danger btn-sm btn-eliminar-producto" onclick="eliminarProducto(${item.idDetallePedido})" style="margin-top: 5px;"> <i class="fa-solid fa-trash"></i> </button>
+                <button class="btn btn-danger btn-sm btn-eliminar-producto" onclick="eliminarProducto(${item.idDetallePedido} , ${idPedido})" style="margin-top: 5px;"> <i class="fa-solid fa-trash"></i> </button>
             `;
         }
         $("#detallePedidoBody").append(`
@@ -276,7 +276,7 @@ function actualizarEstado() {
     });
 }
 
-function eliminarProducto(idDetallePedido) {
+function eliminarProducto(idDetallePedido, idPedido) {
     Swal.fire({
         title: '¿Estás seguro?',
         text: "No podrás recuperar este producto eliminado.",
@@ -292,7 +292,8 @@ function eliminarProducto(idDetallePedido) {
                 type: 'POST',
                 data: {
                     accion: 'eliminarProducto',
-                    idDetallePedido: idDetallePedido
+                    idDetallePedido: idDetallePedido,
+                    idPedido: idPedido
                 },
                 success: function(response) {
                     response = JSON.parse(response);
@@ -303,6 +304,7 @@ function eliminarProducto(idDetallePedido) {
                             'success'
                         );
                         initListadoPedidos();
+                        detallePedido(idPedido);
                     } else {
                         Swal.fire(
                             'Error!',
@@ -455,7 +457,10 @@ function confirmarAgregarProducto() {
                             text: 'El producto ha sido agregado al pedido.'
                         });
                         
+                        initListadoPedidos();
                         detallePedido(idPedidoSeleccionado);
+                        
+                        
 
                     } else {
                         Swal.fire({
