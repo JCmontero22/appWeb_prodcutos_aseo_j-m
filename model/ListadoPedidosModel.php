@@ -17,7 +17,8 @@
                             p.ganancia_total_pedido AS totalGanancia,
                             p.fecha_pedido AS fechaPedido,
                             p.fecha_entrega_pedido AS fechaEntrega,
-                            e.nombre_estado AS estado
+                            e.nombre_estado AS estado,
+                            e.id_estado_pedido AS idEstado
                         FROM 
                             pedidos p
                         INNER JOIN usuarios u ON p.id_cliente = u.id_usuario

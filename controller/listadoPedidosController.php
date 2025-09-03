@@ -31,8 +31,8 @@
                         'totalGanancia' => $resultadoPedidos[$i]['totalGanancia'],
                         'fechaPedido' => $resultadoPedidos[$i]['fechaPedido'],
                         'fechaEntrega' => $resultadoPedidos[$i]['fechaEntrega'],
-                        'estado' => $resultadoPedidos[$i]['estado']
-                        
+                        'estado' => $resultadoPedidos[$i]['estado'],
+                        'idEstado' => $resultadoPedidos[$i]['idEstado']
                     ];
                 }
 

@@ -75,7 +75,7 @@ function cargarTable(data) {
                     if ( data != 'Finalizado') {/* data != 'Entregado' && */
                         return `
                             <button class="btn btn-primary btn-sm" onclick="detallePedido(${row.idPedido})"> <i class="fa-solid fa-magnifying-glass"></i> </button>
-                            <button class="btn btn-success btn-sm" onclick="modalEditarEstado(${row.idPedido}, ${row.estado})"> <i class="fa-solid fa-pencil"></i> </button>
+                            <button class="btn btn-success btn-sm" onclick="modalEditarEstado(${row.idPedido}, ${row.idEstado})"> <i class="fa-solid fa-pencil"></i> </button>
                         `;
                     } else {
                         return `
@@ -214,14 +214,17 @@ function confirmarEdicionCantidad(idPresentacion, idPedido, idDetallePedido) {
     });
 }
 
-function modalEditarEstado(idPedido, estado) {
-
-    if (estado == 'Entregado') {
+function modalEditarEstado(idPedido, idEstado) {
+    console.log(idEstado);
+    // Reiniciar el select al valor vacío
+    $("#estado").val('');
+    if (idEstado === 4) {
         $("#estado-2").hide();
         $("#estado-3").hide();
         $("#estado-5").hide();
         $("#estado-4").hide();
-    }else{
+        $("#estado-6").show();
+    } else {
         $("#estado-2").show();
         $("#estado-3").show();
         $("#estado-5").show();
@@ -231,8 +234,6 @@ function modalEditarEstado(idPedido, estado) {
 
     $("#modalEditarEstado").modal('show');
     idEditarEstado = idPedido;
-
-
 }
 
 function actualizarEstado() {
@@ -263,7 +264,7 @@ function actualizarEstado() {
                     text: 'El estado del pedido ha sido actualizado.'
                 });
                 $("#modalEditarEstado").modal('hide');
-                initListadoPedidos();
+                listadoMisPedidos();
             } else {
                 Swal.fire({
                     icon: 'error',
