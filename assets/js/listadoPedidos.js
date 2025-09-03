@@ -221,6 +221,12 @@ function modalEditarEstado(idPedido, estado) {
         $("#estado-3").hide();
         $("#estado-5").hide();
         $("#estado-4").hide();
+    }else{
+        $("#estado-2").show();
+        $("#estado-3").show();
+        $("#estado-5").show();
+        $("#estado-4").show();
+        $("#estado-6").hide();
     }
 
     $("#modalEditarEstado").modal('show');
