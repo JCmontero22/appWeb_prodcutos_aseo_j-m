@@ -216,7 +216,7 @@ function confirmarEdicionCantidad(idPresentacion, idPedido, idDetallePedido) {
 
 function modalEditarEstado(idPedido, estado) {
 
-    if (estado == 4) {
+    if (estado == 'Entregado') {
         $("#estado-2").hide();
         $("#estado-3").hide();
         $("#estado-5").hide();
