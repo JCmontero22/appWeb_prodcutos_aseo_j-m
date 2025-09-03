@@ -148,7 +148,7 @@ function mostrarDetallesPedido(data, idPedido) {
         // Si item.estado != 6, mostrar botones
         if (item.estado != 6) {
             botones = `
-                <button class="btn btn-warning btn-sm btn-editar-cantidad" onclick="editarCantidad(${item.idPresentacion}, ${idPedido}, ${item.cantidad}, ${item.idDetallePedido})"> <i class="fa-solid fa-pencil"></i> </button>
+                <button class="btn btn-warning btn-sm btn-editar-cantidad" onclick="editarCantidad(${item.idPresentacion}, ${idPedido}, ${item.cantidad}, ${item.idDetallePedido}, ${item.precioVenta})"> <i class="fa-solid fa-pencil"></i> </button>
                 <button class="btn btn-danger btn-sm btn-eliminar-producto" onclick="eliminarProducto(${item.idDetallePedido} , ${idPedido})" style="margin-top: 5px;"> <i class="fa-solid fa-trash"></i> </button>
             `;
         }
@@ -166,14 +166,14 @@ function mostrarDetallesPedido(data, idPedido) {
     });
 }
 
-function editarCantidad(idPresentacion, idPedido, cantidadActual, idDetallePedido) {
+function editarCantidad(idPresentacion, idPedido, cantidadActual, idDetallePedido, precioVenta) {
     const inputHtml = `<input type='number' min='1' class='form-control form-control-sm' id='input-cantidad-edit-${idPresentacion}' value='${cantidadActual}' style='width:80px;display:inline-block;'>`;
 
     $(`#td-cantidad-${idPresentacion}`).html(inputHtml);
 
     // Ocultar botones editar y eliminar
     $(`#td-btns-${idPresentacion}`).html(`
-        <button class="btn btn-success btn-sm btn-confirmar-cantidad"  onclick="confirmarEdicionCantidad(${idPresentacion}, ${idPedido}, ${idDetallePedido})"> <i class="fa-solid fa-check"></i> </button>
+        <button class="btn btn-success btn-sm btn-confirmar-cantidad"  onclick="confirmarEdicionCantidad(${idPresentacion}, ${idPedido}, ${idDetallePedido}, ${precioVenta})"> <i class="fa-solid fa-check"></i> </button>
 
         <button class="btn btn-danger btn-sm btn-cancelar-cantidad" onclick="cancelarEdicionCantidad(${idPresentacion}, ${idPedido}, ${idDetallePedido})"> <i class="fa-solid fa-xmark"></i> </button>
     `);
@@ -183,7 +183,7 @@ function cancelarEdicionCantidad(idPresentacion, idPedido, idDetallePedido) {
     detallePedido(idPedido);
 }
 
-function confirmarEdicionCantidad(idPresentacion, idPedido, idDetallePedido) {
+function confirmarEdicionCantidad(idPresentacion, idPedido, idDetallePedido, precioVenta) {
     const nuevaCantidad = $(`#input-cantidad-edit-${idPresentacion}`).val();
 
     if (nuevaCantidad <= 0) {
@@ -199,14 +199,16 @@ function confirmarEdicionCantidad(idPresentacion, idPedido, idDetallePedido) {
             accion: 'actualizarPedido',
             idDetallePedido: idDetallePedido,
             cantidad: nuevaCantidad,
-            idPedido: idPedido
+            idPedido: idPedido,
+            precioVenta: precioVenta
         },
         success: function(response) {
             response = JSON.parse(response);
 
             if (response.status == 'success') {
                 Swal.fire({ icon: 'success', title: 'Actualizado', text: 'Cantidad actualizada correctamente.' });
-                detallePedido(response.data); // idPedido debe venir en la respuesta
+                listadoMisPedidos();
+                detallePedido(idPedido); // idPedido debe venir en la respuesta
             } else {
                 Swal.fire({ icon: 'error', title: 'Error', text: response.message || 'No se pudo actualizar la cantidad.' });
             }
@@ -303,7 +305,7 @@ function eliminarProducto(idDetallePedido, idPedido) {
                             'El producto ha sido eliminado.',
                             'success'
                         );
-                        initListadoPedidos();
+                        listadoMisPedidos();
                         detallePedido(idPedido);
                     } else {
                         Swal.fire(
@@ -368,7 +370,7 @@ function finalizarPedidos() {
                     title: 'Finalizado',
                     text: 'Los pedidos han sido finalizados.'
                 });
-                initListadoPedidos();
+                listadoMisPedidos();
                 $('#modalCalculo').modal('hide');
             } else {
                 Swal.fire({
@@ -457,7 +459,7 @@ function confirmarAgregarProducto() {
                             text: 'El producto ha sido agregado al pedido.'
                         });
                         
-                        initListadoPedidos();
+                        listadoMisPedidos();
                         detallePedido(idPedidoSeleccionado);
                         
                         

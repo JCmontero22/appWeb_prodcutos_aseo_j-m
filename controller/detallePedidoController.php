@@ -34,7 +34,8 @@ class detallePedidoController extends DetallePedidoModel
                     'cantidad' => $respuestaDetalle[$i]['cantidad'],
                     'subtotal' => $respuestaDetalle[$i]['subtotal'],
                     'idDetallePedido' => $respuestaDetalle[$i]['idDetallePedido'],
-                    'estado' => $respuestaDetalle[$i]['estado']
+                    'estado' => $respuestaDetalle[$i]['estado'],
+                    'precioVenta' => $respuestaDetalle[$i]['precioVenta']
                 ];
             }
 

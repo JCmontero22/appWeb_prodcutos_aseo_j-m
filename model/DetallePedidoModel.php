@@ -14,7 +14,8 @@
                                 dp.cantidad_detalle_pedido AS cantidad, 
                                 dp.subtotal_unitario_detalle_pedido AS subtotal,
                                 dp.id_detalle_pedido AS idDetallePedido,
-                                pe.id_estado AS estado
+                                pe.id_estado AS estado,
+                                ped.precio_venta_cliente_presentacion AS precioVenta
                             FROM detalle_pedido dp
                             INNER JOIN presentacion_producto ped ON dp.id_presentacion = ped.id_presentacion
                             INNER JOIN productos p ON ped.id_producto = p.id_producto

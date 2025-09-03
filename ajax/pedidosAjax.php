@@ -37,7 +37,7 @@
             break;
 
         case 'actualizarPedido':
-            $actualizarPedido = new actualizarPedidoController($_POST['cantidad'], $_POST['idDetallePedido'], $_POST['idPedido']);
+            $actualizarPedido = new actualizarPedidoController($_POST['cantidad'], $_POST['idDetallePedido'], $_POST['idPedido'], $_POST['precioVenta']);
             $respuesta = $actualizarPedido->actualizarPedido();
             echo json_encode($respuesta);
             break;
