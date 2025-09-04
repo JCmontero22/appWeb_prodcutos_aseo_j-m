@@ -4,20 +4,25 @@ var productosListados = [];
 var carrito = [];
 var idPedidoSeleccionado = 0;
 
-function initListadoPedidos() {
-    listadoMisPedidos();
+function initListadoVentas() {
+    listadoVentas();
 }
 
-function listadoMisPedidos() {
+function listadoVentas(admin = 2) {
     $.ajax({
         url: 'ajax/pedidosAjax.php',
         type: 'GET',
         data: {
-            accion: 'listadoPedidos'
+            accion: 'listadoVentas',
+            admin: admin
         },
         success: function(response) {
             response = JSON.parse(response);
-            cargarTable(response.data);
+            if (admin == 1) {
+                cargarTablaVentasAdmin(response.data);
+            }else{
+                cargarTable(response.data);
+            }
         }
     });
 }
@@ -36,13 +41,13 @@ function cargarTable(data) {
             {data: "totalVenta",
                 className: "text-center",
                 render: function(data, type, row) {
-                    return separarMiles(data);
+                    return '$' + separarMiles(data);
                 }
             },
             {data: "totalGanancia",
                 className: "text-center",
                 render: function(data, type, row) {
-                    return separarMiles(data);
+                    return '$' + separarMiles(data);
                 }
             },
             {data: "fechaPedido"},
@@ -70,7 +75,95 @@ function cargarTable(data) {
             }},
             {
                 data: "estado",
-                className: "text-center", // <-- Centra el contenido de la columna
+                className: "text-center",
+                render: function(data, type, row){
+                    if ( data != 'Finalizado') {/* data != 'Entregado' && */
+                        return `
+                            <button class="btn btn-primary btn-sm btnAccionListadoPedidos" onclick="detallePedido(${row.idPedido})"> <i class="fa-solid fa-magnifying-glass"></i> </button>
+                            <button class="btn btn-success btn-sm btnAccionListadoPedidos" onclick="modalEditarEstado(${row.idPedido}, ${row.idEstado})"> <i class="fa-solid fa-pencil"></i> </button>
+                        `;
+                    } else {
+                        return `
+                            <button class="btn btn-primary btn-sm btnAccionListadoPedidos" onclick="detallePedido(${row.idPedido})"> <i class="fa-solid fa-magnifying-glass"></i> </button>
+                        `;
+                    }
+                }
+            }
+        ],
+        order: [[0, "desc"]],
+        language: {
+            "processing": "Procesando...",
+            "lengthMenu": "Mostrar _MENU_ registros",
+            "zeroRecords": "No se encontraron resultados",
+            "emptyTable": "No hay datos disponibles en la tabla",
+            "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+            "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+            "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "search": "Buscar:",
+            "paginate": {
+                "first": "Primero",
+                "last": "Último",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            },
+            "loadingRecords": "Cargando...",
+            "aria": {
+                "sortAscending": ": Activar para ordenar la columna de manera ascendente",
+                "sortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+        }
+    });
+}
+
+function cargarTablaVentasAdmin(data) {
+    
+    $("#tabla_ventas_admin").DataTable({
+        destroy: true,
+        responsive: true,
+        data: data,
+        columns: [
+            {data: "idPedido"},
+            {data: "cliente"},
+            {data: "telefono"},
+            {data: "direccion"},
+            {data: "totalVenta",
+                className: "text-center",
+                render: function(data, type, row) {
+                    return '$' + separarMiles(data);
+                }
+            },
+            {data: "gananciaAdmin",
+                className: "text-center",
+                render: function(data, type, row) {
+                    return '$' + separarMiles(data);
+                }
+            },
+            {data: "fechaPedido"},
+            {data: "fechaEntrega", render: function(data, type, row) {
+                if (!data || data === '') {
+                    return '<span>No Entregado</span>';
+                }
+                return data;
+            }},
+            {data: "estado", className: "text-center", render: function(data, type, row) {
+                if (data === 'Creado') {
+                    return '<span class="bg-secondary text-white p-2 estados">Creado</span>';
+                } else if (data === 'Confirmado') {
+                    return '<span class="bg-info p-2 estados">Confirmado</span>';
+                } else if (data === 'Alistado') {
+                    return '<span class="bg-warning p-2 estados">Alistado</span>';
+                } else if (data === 'Entregado') {
+                    return '<span class="bg-success text-white p-2 estados">Entregado</span>';
+                } else if (data === 'Cancelado') {
+                    return '<span class="bg-danger p-2 estados">Cancelado</span>';
+                } else if (data === 'Finalizado') {
+                    return '<span class="bg-dark text-white p-2 estados">Finalizado</span>';
+                }
+                
+            }},
+            {
+                data: "estado",
+                className: "text-center",
                 render: function(data, type, row){
                     if ( data != 'Finalizado') {/* data != 'Entregado' && */
                         return `
@@ -134,7 +227,7 @@ function mostrarDetallesPedido(data, idPedido) {
     cargarProductosListado();
 
     $("#modalDetalle").modal('show');
-    $("#detallePedidoBody").empty(); // Limpiar contenido previo
+    $("#detallePedidoBody").empty(); 
 
     data.forEach(item => {
         const rowId = `detalle-row-${item.idPresentacion}`;
@@ -207,7 +300,7 @@ function confirmarEdicionCantidad(idPresentacion, idPedido, idDetallePedido, pre
 
             if (response.status == 'success') {
                 Swal.fire({ icon: 'success', title: 'Actualizado', text: 'Cantidad actualizada correctamente.' });
-                listadoMisPedidos();
+                listadoVentas();
                 detallePedido(idPedido); // idPedido debe venir en la respuesta
             } else {
                 Swal.fire({ icon: 'error', title: 'Error', text: response.message || 'No se pudo actualizar la cantidad.' });
@@ -266,7 +359,7 @@ function actualizarEstado() {
                     text: 'El estado del pedido ha sido actualizado.'
                 });
                 $("#modalEditarEstado").modal('hide');
-                listadoMisPedidos();
+                listadoVentas();
             } else {
                 Swal.fire({
                     icon: 'error',
@@ -305,7 +398,7 @@ function eliminarProducto(idDetallePedido, idPedido) {
                             'El producto ha sido eliminado.',
                             'success'
                         );
-                        listadoMisPedidos();
+                        listadoVentas();
                         detallePedido(idPedido);
                     } else {
                         Swal.fire(
@@ -370,7 +463,7 @@ function finalizarPedidos() {
                     title: 'Finalizado',
                     text: 'Los pedidos han sido finalizados.'
                 });
-                listadoMisPedidos();
+                listadoVentas();
                 $('#modalCalculo').modal('hide');
             } else {
                 Swal.fire({
@@ -383,8 +476,6 @@ function finalizarPedidos() {
     });
 }
 
-
-// Cargar productos para el select (puedes llamar esto al inicializar la vista)
 function cargarProductosListado() {
     $.ajax({
         url: 'ajax/listadoProductosAjax.php',
@@ -400,7 +491,6 @@ function cargarProductosListado() {
         }
     });
 }
-
 
 function agregarProducto() {
     
@@ -459,7 +549,7 @@ function confirmarAgregarProducto() {
                             text: 'El producto ha sido agregado al pedido.'
                         });
                         
-                        listadoMisPedidos();
+                        listadoVentas();
                         detallePedido(idPedidoSeleccionado);
                         
                         
@@ -480,11 +570,9 @@ function confirmarAgregarProducto() {
 }
 
 function separarMiles(numero) {
-    return numero.toLocaleString("es-CO"); // formato Colombia
+    numero = Number(numero); // convierte a número (acepta enteros y decimales)
+    return new Intl.NumberFormat("es-CO").format(numero);
 }
 
-// Llama cargarProductosListado() al inicializar la vista donde se agregan productos
-// Asegúrate de tener los inputs/selects con id="producto-select" y id="cantidad" y un tbody con id="detallePedidoBody"
-// Agrega un elemento con id="total" para mostrar el total del carrito
 
-initListadoPedidos();
+initListadoVentas();

@@ -24,7 +24,7 @@
 
         <div class="row">
             <div class="col-md-12 table-responsive">
-                <table class="table mt-5 table-bordered table-hover" id="tabla_pedidos">
+                <table class="table mt-5 table-bordered table-hover" id="tabla-clientes">
                     <thead class="table-dark">
                         <tr>
                             <th>#</th>
@@ -47,7 +47,7 @@
 
 
 <!-- Modal Detalle-->
-<div class="modal fade" id="modalDetalle" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="modalUsuario" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -55,61 +55,29 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div id="detalleContenido" class="table-responsive">
-                    <table class="table table-bordered table-hover">
-                        <thead class="table-dark">
-                            <tr>
-                                <th>Producto</th>
-                                <th>Presentación</th>
-                                <th>Cantidad</th>
-                                <th>Subtotal</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody id="detallePedidoBody">
-                            <!-- Aquí se agregarán las filas de detalles del pedido -->
-                        </tbody>
-                    </table>
-
+                <div class="row">
+                    <form action="" id="formActualizarCliente">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input type="text" id="nombre" name="nombre" class="form-control mb-3" placeholder="Nombre completo">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" id="telefono" name="telefono" class="form-control mb-3" placeholder="Teléfono">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" id="direccion" name="direccion" class="form-control mb-3" placeholder="Dirección">
+                            </div>
+                        </div>
+                        
+                    </form>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" onclick="actualizarCliente()">Guardar Cambios</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Modal Editar estado-->
-<div class="modal fade" id="modalEditarEstado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Editar Estado del Pedido</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <select name="estado" id="estado" class="form-select">
-                    <option value="">Seleccione Estado</option>
-                    <?php 
-                        if ($_SESSION['rol'] == '1' || $_SESSION['rol'] == '2') {
-                            echo    '<option value="2">Confirmado</option>
-                                    <option value="3">Alistado</option>
-                                    <option value="5">Cancelado</option>';
-                        }elseif ($_SESSION['rol'] == '4') {
-                            echo '<option value="4">Entregado</option>';
-                        }
-                    
-                    ?>
-                    
-                </select>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="actualizarEstado()">Actualizar Estado</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script src="assets/js/listadoPedidos.js"></script>
+<script src="assets/js/clientes.js"></script>

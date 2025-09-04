@@ -22,7 +22,8 @@
         'listadoProductos' => 'Productos/listadoProductosView.php',
         'pedidos' => 'Pedidos/pedido.php',
         'misPedidos' => 'Pedidos/misPedidos.php',
-        'clientes' => 'Clientes/listadoClientes.php'
+        'clientes' => 'Clientes/listadoClientes.php',
+        'ganancias' => 'Ganancias/ganancias.php'
     ];
 
     $uri = $_SERVER['REQUEST_URI']; 

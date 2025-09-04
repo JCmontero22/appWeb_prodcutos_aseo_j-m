@@ -90,6 +90,14 @@ p {
 .btnAccionListadoPedidos{
     font-size: 1.2rem !important;
 }
+
+.tableVentas{
+    font-size: 1.3rem !important;
+}
+
+.tituloTab{
+    font-size: 2rem !important;
+}
 /*************** LOGIN ***************/
 .login{
     display: flex;
@@ -125,7 +133,7 @@ p {
 }
 
 .content-body{
-    margin-top: 5rem;
+    margin-top: 2rem;
     border: solid 1px var(--color-gris);
     padding: 5rem 3rem;
     box-shadow: var(--box-shadow);
@@ -147,12 +155,12 @@ p {
     text-align: center;
     box-shadow: var(--box-shadow);
     transition: transform 0.15s ease-in-out;
-    margin-left: 1rem;
+    /* margin-left: 1rem; */
     /* flex: calc(33.3% - 1rem); */
 }
 
 .card-option:hover{
-    transform: scale(1.05);
+    transform: scale(1.02);
     cursor: pointer;
 }
 
@@ -171,6 +179,10 @@ p {
 
 .listaPedidos{
     background-color: var(--color-warning);
+}
+
+.clientes{
+    background-color: var(--color-primario);
 }
 
 /*************** CALCULO ***************/
@@ -193,9 +205,9 @@ p {
 ************************************************************/
 
 @media (max-width: 768px) {
-    tbody,thead{
+   /*  tbody,thead{
         font-size: 1.3rem;
-    }
+    } */
 
     button{
         font-size: 1rem !important;
@@ -234,6 +246,41 @@ p {
     }
 
     .bienvenida_subtitulo{
+        font-size: 1.3rem;
+    }
+
+     /* Tamaño general de los textos de DataTables */
+    .dt-layout-row {
+        font-size: 1.3rem !important; /* cambia aquí el tamaño general */
+    }
+
+    /* Buscador */
+    .dt-input{
+        font-size: 1.3rem !important;
+    }
+
+    /* Selector de cantidad de registros */
+    .dt-length  {
+        font-size: 1.3rem !important;
+    }
+
+    .tableVentas, .tablaProductos{
+        font-size: 1.1rem !important;
+    }
+
+    .estados{
+        font-size: 1.2rem;  
+    }
+
+    .tituloTab{
+        font-size: 1.2rem !important;
+    }
+
+    .content-header h1{
+        font-size: 3rem;
+    }
+
+    .content-header p{
         font-size: 1.3rem;
     }
 

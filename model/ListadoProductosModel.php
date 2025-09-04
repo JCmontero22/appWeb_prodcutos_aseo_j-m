@@ -7,28 +7,28 @@
         
         protected function get_listadoProdcutos()
         {
-            $db = new Conexion();
 
-            $sql = "SELECT 
-                        pr.id_producto AS id, 
-                        pr.nombre_produto AS nombre, 
-                        ps.tamano_presentacion AS presentacion, 
-                        ps.stock_disponible_presentacion AS cantidad, 
-                        ps.precio_venta_cliente_presentacion AS presioVenta,
-                        ps.id_presentacion AS idPresentacion,
-                        ps.precio_compra_presentacion AS precioCompra,
-                        ps.precio_venta_jm_presentacion AS precioVentaJM
+            try {
+                $db = new Conexion();
 
-                    FROM productos pr 
-                    INNER JOIN presentacion_producto ps on ps.id_producto  = pr.id_producto
-                    ORDER BY pr.id_producto ASC";
+                $sql = "SELECT 
+                            pr.id_producto AS id, 
+                            pr.nombre_produto AS nombre, 
+                            ps.tamano_presentacion AS presentacion, 
+                            ps.stock_disponible_presentacion AS cantidad, 
+                            ps.precio_venta_cliente_presentacion AS presioVenta,
+                            ps.id_presentacion AS idPresentacion,
+                            ps.precio_compra_presentacion AS precioCompra,
+                            ps.precio_venta_jm_presentacion AS precioVentaJM
 
-            $respuesta = $db->select($sql);
+                        FROM productos pr 
+                        INNER JOIN presentacion_producto ps on ps.id_producto  = pr.id_producto
+                        ORDER BY pr.id_producto ASC";
 
-            if ($respuesta) {
+                $respuesta = $db->select($sql);
                 return $respuesta;
-            } else {
-                throw new Exception("No se encontraron productos");
+            } catch (\Exception $e) {
+                throw new Exception($e->getMessage());
             }
         }
     }

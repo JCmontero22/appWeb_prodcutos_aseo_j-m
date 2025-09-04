@@ -1,17 +1,17 @@
  <?php 
 
-    require_once('../model/ListadoPedidosModel.php');
+    require_once('../model/ListadoVentasModel.php');
 
     session_start();
 
-    class listadoPedidosController extends ListadoPedidosModel
+    class listadoVentasController extends ListadoVentasModel
     {
-        public function listarMisPedidos(){
+        public function listarVentas($admin){
             $respuesta = [];
 
             try {
 
-                $resultadoPedidos = $this->get_listadoPedidos($_SESSION['id'], $_SESSION['rol']);
+                $resultadoPedidos = $this->get_listadoVentas($_SESSION['id'], $_SESSION['rol'], $admin);
 
                 if (empty($resultadoPedidos)) {
                     return [
@@ -32,7 +32,8 @@
                         'fechaPedido' => $resultadoPedidos[$i]['fechaPedido'],
                         'fechaEntrega' => $resultadoPedidos[$i]['fechaEntrega'],
                         'estado' => $resultadoPedidos[$i]['estado'],
-                        'idEstado' => $resultadoPedidos[$i]['idEstado']
+                        'idEstado' => $resultadoPedidos[$i]['idEstado'],
+                        'gananciaAdmin' => $resultadoPedidos[$i]['gananciaAdmin']
                     ];
                 }
 

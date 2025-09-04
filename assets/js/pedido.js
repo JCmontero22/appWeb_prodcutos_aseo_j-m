@@ -36,7 +36,7 @@ function dataSelectProductos(params) {
     params.forEach(item => {
         $data.push({
             id: item.idPresentacion,
-            text: `${item.nombre} - ${item.presentacion} - ${separarMiles(item.precio)}`
+            text: `${item.nombre} - ${item.presentacion} - $${separarMiles(item.precio)}`
         });
     });
 
@@ -115,7 +115,7 @@ function mostrarCarrito() {
             <tr>
                 <td>${item.nombre}</td>
                 <td>${item.cantidad}</td>
-                <td>${separarMiles(item.total)}</td>
+                <td>$${separarMiles(item.total)}</td>
                 <td><button class="btn btn-danger" onclick="eliminarProducto('${item.presentacion}')">X</button></td>
             </tr>
         `;
@@ -136,7 +136,8 @@ function calcularTotal() {
 }
 
 function separarMiles(numero) {
-  return numero.toLocaleString("es-CO"); // formato Colombia
+    numero = Number(numero); // convierte a número (acepta enteros y decimales)
+    return new Intl.NumberFormat("es-CO").format(numero);
 }
 
 function realizarPedido() {

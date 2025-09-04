@@ -20,7 +20,7 @@
 
         <div class="row">
             <div class="col-md-12 table-responsive">
-                <table class="table mt-5 table-bordered table-hover" id="tablaProductos">
+                <table class="table mt-5 table-bordered table-hover tablaProductos" id="tablaProductos">
                     <thead class="table-dark">
                         <tr>
                             <!-- <th>ID</th> -->

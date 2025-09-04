@@ -18,9 +18,9 @@
             $respuesta = $registroProducto->registrarPedido();
             echo json_encode($respuesta);
             break;
-        case 'listadoPedidos':
-            $listadoPedidos = new ListadoPedidosController();
-            echo json_encode($listadoPedidos->listarMisPedidos());
+        case 'listadoVentas':
+            $listadoPedidos = new listadoVentasController();
+            echo json_encode($listadoPedidos->listarVentas($_GET['admin']));
             break;
         
         case 'detallePedido':
@@ -69,6 +69,8 @@
             $respuesta = $finalizarPedidos->agregarProducto();
             echo json_encode($respuesta);
             break;
+
+        
 
             
 

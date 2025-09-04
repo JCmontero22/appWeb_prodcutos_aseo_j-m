@@ -18,20 +18,31 @@
     <section class="content-body">
 
         <div class="content-option">
-            <div class="card-option stock" onclick="redireccionar('listadoProductos')">
+            <div class="card-option bg-primary" onclick="redireccionar('listadoProductos')">
                 <h2>Stock Productos</h2>
                 <i class="fa-solid fa-cart-flatbed card-option-icon"></i>
             </div>
 
-            <div class="card-option pedidos" onclick="redireccionar('pedidos')">
-                <h2>Realizar Pedidos</h2>
+            <div class="card-option bg-secondary" onclick="redireccionar('pedidos')">
+                <h2>Realizar Pedido</h2>
                 <i class="fa-solid fa-cart-plus card-option-icon"></i>
             </div>
 
-            <div class="card-option listaPedidos" onclick="redireccionar('misPedidos')">
-                <h2>Mis Pedidos</h2>
+            <div class="card-option bg-info" onclick="redireccionar('misPedidos')">
+                <h2>Mis Ventas</h2>
                 <i class="fa-solid fa-clipboard-list card-option-icon"></i>
             </div>
+
+            <div class="card-option bg-warning" onclick="redireccionar('clientes')">
+                <h2>Clientes</h2>
+                <i class="fa-solid fa-clipboard-list card-option-icon"></i>
+            </div>
+
+            <!-- <div class="card-option bg-success" onclick="redireccionar('ganancias')">
+                <h2>Mis Ganancias</h2>
+                <i class="fa-solid fa-clipboard-list card-option-icon"></i>
+            </div> -->
+
 
             <!-- <div class="card-option listaPedidos" onclick="redireccionar('clientes')">
                 <h2>Clientes</h2>

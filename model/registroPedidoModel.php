@@ -70,7 +70,7 @@
 
                 return $respuesta = $db->execute($query, $params);
             } catch (\Exception $e) {
-                return $e->getMessage();    
+                throw new Exception($e->getMessage());
             }
         }
 
