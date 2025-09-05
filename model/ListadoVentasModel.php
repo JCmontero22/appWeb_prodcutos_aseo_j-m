@@ -10,7 +10,7 @@
             try {
                 $db = new Conexion();
             
-                $where = ($idRol === 2 || $admin == 1) ? "AND p.id_usuario = :idUsuario" : "";
+                $where = ($idRol == 2 || $admin == 1) ? "AND p.id_usuario = :idUsuario" : "";
                 
                 $query = "SELECT 
                                 p.id_pedidos AS idPedido, 
