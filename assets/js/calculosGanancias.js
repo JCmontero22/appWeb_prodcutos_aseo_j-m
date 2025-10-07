@@ -12,14 +12,18 @@ function realizarCalculos(pantalla) {
             
             let gananciasTotales = (response.data[0].gananciasPorJM != null | response.data[0].gananciasDeVentas != null) ? (parseInt(response.data[0].gananciasPorJM) + parseInt(response.data[0].gananciasDeVentas)) : '0';
 
-            $('#gananciasNetas').text('$ ' + gananciasTotales);
-            $('#totalVendido').text('$ ' + (response.data[0].totalVendido != null ? response.data[0].totalVendido : '0'));
-            $('#costoVendido').text('$ ' + (response.data[0].totalCostoVendido != null ? response.data[0].totalCostoVendido : '0'));
+            $('#gananciasNetas').text('$ ' + separarMiles(gananciasTotales));
+            $('#totalVendido').text('$ ' + (response.data[0].totalVendido != null ? separarMiles(response.data[0].totalVendido) : '0'));
+            $('#costoVendido').text('$ ' + (response.data[0].totalCostoVendido != null ? separarMiles(response.data[0].totalCostoVendido) : '0'));
             
             
         }
     });
 }
 
+function separarMiles(numero) {
+    numero = Number(numero); // convierte a número (acepta enteros y decimales)
+    return new Intl.NumberFormat("es-CO").format(numero);
+}
 
 init();
