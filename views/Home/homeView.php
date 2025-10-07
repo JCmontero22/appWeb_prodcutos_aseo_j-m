@@ -38,6 +38,11 @@
                 <i class="fa-solid fa-clipboard-list card-option-icon"></i>
             </div>
 
+            <div class="card-option bg-success" onclick="redireccionar('ganancias')">
+                <h2>Ganancias</h2>
+                <i class="fa-solid fa-money-check-dollar card-option-icon"></i>
+            </div>
+
             <!-- <div class="card-option bg-success" onclick="redireccionar('ganancias')">
                 <h2>Mis Ganancias</h2>
                 <i class="fa-solid fa-clipboard-list card-option-icon"></i>

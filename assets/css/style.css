@@ -159,6 +159,18 @@ p {
     /* flex: calc(33.3% - 1rem); */
 }
 
+.detalle-card{
+    font-size: 1.2rem;
+    display: block;
+    font-weight: 400;
+}
+
+.valor-card{
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-top: 1rem;
+}
+
 .card-option:hover{
     transform: scale(1.02);
     cursor: pointer;

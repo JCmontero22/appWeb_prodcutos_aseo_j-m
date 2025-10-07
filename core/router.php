@@ -23,7 +23,9 @@
         'pedidos' => 'Pedidos/pedido.php',
         'misPedidos' => 'Pedidos/misPedidos.php',
         'clientes' => 'Clientes/listadoClientes.php',
-        'ganancias' => 'Ganancias/ganancias.php'
+        'ganancias' => 'Ganancias/ganancias.php',
+        'gananciasDelMes' => 'Ganancias/gananciasDelMes.php',
+        'ganaciasTotales' => 'Ganancias/ganaciasTotales.php'
     ];
 
     $uri = $_SERVER['REQUEST_URI']; 

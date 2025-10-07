@@ -22,13 +22,13 @@
             </div>
         </div>
 
-        <div class="row mt-5">
-            <div class="card-option bg-primary" onclick="redireccionar('pedidos')">
+        <div class="row mt-5 content-option">
+            <div class="card-option bg-primary" onclick="redireccionar('gananciasDelMes')">
                 <h2>Ganancias del mes actual</h2>
                 <!-- <i class="fa-solid fa-cart-plus card-option-icon"></i> -->
             </div>
 
-            <div class="card-option bg-success" onclick="redireccionar('pedidos')">
+            <div class="card-option bg-success" onclick="redireccionar('ganaciasTotales')">
                 <h2>Ganancias Totales</h2>
                 
             </div>
@@ -38,4 +38,3 @@
 </main>
 
 
-<script src="assets/js/listadoPedidos.js"></script>
