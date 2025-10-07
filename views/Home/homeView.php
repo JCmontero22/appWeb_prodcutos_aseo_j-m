@@ -37,12 +37,12 @@
                 <h2>Clientes</h2>
                 <i class="fa-solid fa-clipboard-list card-option-icon"></i>
             </div>
-
+             <?php if ($_SESSION['rol'] == 1) : ?>
             <div class="card-option bg-success" onclick="redireccionar('ganancias')">
                 <h2>Ganancias</h2>
                 <i class="fa-solid fa-money-check-dollar card-option-icon"></i>
             </div>
-
+            <?php endif; ?>
             <!-- <div class="card-option bg-success" onclick="redireccionar('ganancias')">
                 <h2>Mis Ganancias</h2>
                 <i class="fa-solid fa-clipboard-list card-option-icon"></i>
