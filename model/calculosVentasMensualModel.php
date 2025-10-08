@@ -20,7 +20,7 @@
 
                             -- Total vendido (de todos)
                             SUM(CASE WHEN p.id_estado = 6
-                                    THEN (valor_total_pedido - p.ganancia_total_pedido)
+                                    THEN (valor_total_pedido)
                                     ELSE 0 END) AS totalVendido,
 
                             -- Costo total vendido
