@@ -1,4 +1,4 @@
-function initProdcutos() {
+function initProductos() {
     listadoProductos();
 }
 
@@ -68,7 +68,8 @@ function cargarTable(data) {
 
 
 function separarMiles(numero) {
-  return numero.toLocaleString("es-CO"); // formato Colombia
+    numero = Number(numero);
+    return numero.toLocaleString("es-CO"); // formato Colombia
 }
 
-initProdcutos();
+initProductos();
