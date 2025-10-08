@@ -9,8 +9,6 @@ function initListadoVentas() {
 }
 
 function listadoVentas(admin = 2) {
-    console.log(rol);
-    
     $.ajax({
         url: 'ajax/pedidosAjax.php',
         type: 'GET',

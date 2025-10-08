@@ -45,6 +45,11 @@
                 <h2>Ganancias</h2>
                 <i class="fa-solid fa-money-check-dollar card-option-icon"></i>
             </div>
+
+            <div class="card-option bg-danger" onclick="redireccionar('movimientosFinancieros')">
+                <h2>Movimientos Finanacieros</h2>
+                <i class="fa-solid fa-money-bill-transfer card-option-icon"></i>
+            </div>
             <?php endif; ?>
             <!-- <div class="card-option bg-success" onclick="redireccionar('ganancias')">
                 <h2>Mis Ganancias</h2>

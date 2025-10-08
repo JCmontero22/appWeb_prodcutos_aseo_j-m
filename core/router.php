@@ -25,7 +25,9 @@
         'clientes' => 'Clientes/listadoClientes.php',
         'ganancias' => 'Ganancias/ganancias.php',
         'gananciasDelMes' => 'Ganancias/gananciasDelMes.php',
-        'ganaciasTotales' => 'Ganancias/ganaciasTotales.php'
+        'ganaciasTotales' => 'Ganancias/ganaciasTotales.php',
+        'movimientosFinancieros' => 'Ganancias/movimientosFinancieros.php',
+        
     ];
 
     $uri = $_SERVER['REQUEST_URI']; 
