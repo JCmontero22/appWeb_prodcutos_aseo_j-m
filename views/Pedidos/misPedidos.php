@@ -27,7 +27,7 @@
         <!--*************** tabs ***************-->
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <button class="nav-link active tituloTab" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true" >Listado Ventas</button>
+                <button class="nav-link active tituloTab" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true" onclick="listadoVentas(2)">Listado Ventas</button>
                 <?php if ($_SESSION['rol'] == 1) : ?>
                     <button class="nav-link tituloTab" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"  onclick="listadoVentas(1)">Mis Ventas</button>
                 <?php endif; ?>
@@ -47,7 +47,9 @@
                                     <th>Total</th>
                                     <th>Ganancia</th>
                                     <th>Fecha Pedido</th>
-                                    <th>Fecha Entrega</th>
+                                    <?php if ($_SESSION['rol'] == 1) : ?>
+                                        <th>Vendedor</th>
+                                    <?php endif; ?>
                                     <th>Estado</th>
                                     <th>Acciones</th>
                                 </tr>
@@ -72,7 +74,6 @@
                                     <th>Total</th>
                                     <th>Ganancia</th>
                                     <th>Fecha Pedido</th>
-                                    <th>Fecha Entrega</th>
                                     <th>Estado</th>
                                     <th>Acciones</th>
                                 </tr>
@@ -185,4 +186,5 @@
 </div>
 
 
+<script> var rol = <?php echo $_SESSION['rol']; ?></script>
 <script src="assets/js/listadoVentas.js"></script>

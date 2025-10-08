@@ -41,6 +41,12 @@
                     <span class="detalle-card">Costo total de lo vendido</span>
                     <p class="valor-card" id="costoVendido"></p>
                 </div>
+
+                <div class="card-option bg-success">
+                    <h2>Dinero recaudado</h2>
+                    <span class="detalle-card">Total del dinero en la cuenta</span>
+                    <p class="valor-card" id="dineroRecaudado"></p>
+                </div>
             </div>
         </div>
     </section>

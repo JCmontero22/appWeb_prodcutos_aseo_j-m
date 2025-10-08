@@ -15,6 +15,7 @@ function realizarCalculos(pantalla) {
             $('#gananciasNetas').text('$ ' + separarMiles(gananciasTotales));
             $('#totalVendido').text('$ ' + (response.data[0].totalVendido != null ? separarMiles(response.data[0].totalVendido) : '0'));
             $('#costoVendido').text('$ ' + (response.data[0].totalCostoVendido != null ? separarMiles(response.data[0].totalCostoVendido) : '0'));
+            $('#dineroRecaudado').text('$ ' + (response.data[0].total != null ? separarMiles(response.data[0].total) : '0'));
             
             
         }

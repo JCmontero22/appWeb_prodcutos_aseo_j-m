@@ -9,6 +9,8 @@ function initListadoVentas() {
 }
 
 function listadoVentas(admin = 2) {
+    console.log(rol);
+    
     $.ajax({
         url: 'ajax/pedidosAjax.php',
         type: 'GET',
@@ -21,15 +23,15 @@ function listadoVentas(admin = 2) {
             if (admin == 1) {
                 cargarTablaVentasAdmin(response.data);
             }else{
-                cargarTable(response.data);
+                cargarTable(response.data, rol);
             }
         }
     });
 }
 
-function cargarTable(data) {
+function cargarTable(data, rol) {
     
-    $("#tabla_pedidos").DataTable({
+    const tabla = $("#tabla_pedidos").DataTable({
         destroy: true,
         responsive: true,
         data: data,
@@ -51,12 +53,15 @@ function cargarTable(data) {
                 }
             },
             {data: "fechaPedido"},
-            {data: "fechaEntrega", render: function(data, type, row) {
+            {data: "vendedor"},
+
+          
+            /* {data: "fechaEntrega", render: function(data, type, row) {
                 if (!data || data === '') {
                     return '<span>No Entregado</span>';
                 }
                 return data;
-            }},
+            }}, */
             {data: "estado", className: "text-center", render: function(data, type, row) {
                 if (data === 'Creado') {
                     return '<span class="bg-secondary text-white p-2 estados">Creado</span>';
@@ -77,7 +82,7 @@ function cargarTable(data) {
                 data: "estado",
                 className: "text-center",
                 render: function(data, type, row){
-                    if ( data != 'Finalizado') {/* data != 'Entregado' && */
+                    if ( data != 'Finalizado' && data !='Cancelado') {/* data != 'Entregado' && */
                         return `
                             <button class="btn btn-primary btn-sm btnAccionListadoPedidos" onclick="detallePedido(${row.idPedido})"> <i class="fa-solid fa-magnifying-glass"></i> </button>
                             <button class="btn btn-success btn-sm btnAccionListadoPedidos" onclick="modalEditarEstado(${row.idPedido}, ${row.idEstado})"> <i class="fa-solid fa-pencil"></i> </button>
@@ -113,6 +118,10 @@ function cargarTable(data) {
             }
         }
     });
+
+    if (rol != 1) {
+        tabla.column(7).visible(false); // columna 7 = vendedor
+    }
 }
 
 function cargarTablaVentasAdmin(data) {
@@ -139,12 +148,7 @@ function cargarTablaVentasAdmin(data) {
                 }
             },
             {data: "fechaPedido"},
-            {data: "fechaEntrega", render: function(data, type, row) {
-                if (!data || data === '') {
-                    return '<span>No Entregado</span>';
-                }
-                return data;
-            }},
+            
             {data: "estado", className: "text-center", render: function(data, type, row) {
                 if (data === 'Creado') {
                     return '<span class="bg-secondary text-white p-2 estados">Creado</span>';

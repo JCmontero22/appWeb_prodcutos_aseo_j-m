@@ -33,7 +33,8 @@
                         'fechaEntrega' => $resultadoPedidos[$i]['fechaEntrega'],
                         'estado' => $resultadoPedidos[$i]['estado'],
                         'idEstado' => $resultadoPedidos[$i]['idEstado'],
-                        'gananciaAdmin' => $resultadoPedidos[$i]['gananciaAdmin']
+                        'gananciaAdmin' => $resultadoPedidos[$i]['gananciaAdmin'],
+                        'vendedor' => $resultadoPedidos[$i]['vendedor']
                     ];
                 }
 

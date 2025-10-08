@@ -23,10 +23,12 @@
                                 p.fecha_entrega_pedido AS fechaEntrega,
                                 e.nombre_estado AS estado,
                                 e.id_estado_pedido AS idEstado,
-                                p.valor_total_pedido - p.costo_total_pedido AS gananciaAdmin
+                                p.valor_total_pedido - p.costo_total_pedido AS gananciaAdmin,
+                                ve.nombre_usuario AS vendedor
                             FROM 
                                 pedidos p
                             INNER JOIN usuarios u ON p.id_cliente = u.id_usuario
+                            INNER JOIN usuarios ve ON p.id_usuario = ve.id_usuario
                             INNER JOIN estados_pedido e ON p.id_estado = e.id_estado_pedido
                             WHERE 1=1 $where
                             ORDER BY p.id_pedidos DESC";
