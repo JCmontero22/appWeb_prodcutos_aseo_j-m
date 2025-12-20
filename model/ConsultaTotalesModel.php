@@ -15,7 +15,7 @@
                             detalle_pedido dp
                             INNER JOIN presentacion_producto ped ON dp.id_presentacion = ped.id_presentacion
                         WHERE 
-                            dp.id_pedido = :idPedido AND dp.estado = 1";
+                            dp.id_pedidos = :idPedido AND dp.estado = 1";
 
                 $resultado = $db->select($query, [':idPedido' => $idPedido]);
 

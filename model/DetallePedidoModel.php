@@ -19,8 +19,8 @@
                             FROM detalle_pedido dp
                             INNER JOIN presentacion_producto ped ON dp.id_presentacion = ped.id_presentacion
                             INNER JOIN productos p ON ped.id_producto = p.id_producto
-                            INNER JOIN pedidos pe ON dp.id_pedido = pe.id_pedidos
-                            WHERE dp.id_pedido = :idPedido AND dp.estado = 1";
+                            INNER JOIN pedidos pe ON dp.id_pedidos = pe.id_pedidos
+                            WHERE dp.id_pedidos = :idPedido AND dp.estado = 1";
 
                 $params = [':idPedido' => $idPedido];
                 $respuesta = $db->select($query, $params);

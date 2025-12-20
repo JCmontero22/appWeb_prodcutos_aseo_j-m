@@ -64,9 +64,9 @@
                         'subtotal' => $this->producto[$i]['total']
                     ];
 
+                    
 
                     $respuesta = $this->set_registroDetallePedido($data);
-                    
                     if (!$respuesta) {
                         return ['status' => 'error', 'mensaje' => 'Error al registrar el detalle del pedido.'];
                     }

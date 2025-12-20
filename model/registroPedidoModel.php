@@ -47,7 +47,7 @@
                 $db = new Conexion();
 
                 $query = 'INSERT INTO detalle_pedido (
-                                id_pedido, 
+                                id_pedidos, 
                                 id_presentacion, 
                                 cantidad_detalle_pedido, 
                                 precio_unitario_detalle_pedido, 
