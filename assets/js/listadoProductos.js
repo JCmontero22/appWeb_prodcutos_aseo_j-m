@@ -26,7 +26,11 @@ function cargarTable(data) {
                 {data: "cantidad",
                     createdCell: function (td, cellData, rowData, row, col) {
 
-                        if (cellData <= rowData.cantidadMinima) {
+
+                        const cantidad = Number(cellData);                        
+                        const minimo   = Number(rowData.cantidadMinima);
+
+                        if (cantidad <= minimo) {
                             $(td).addClass("bg-danger text-white fw-bold");
                         }
 
