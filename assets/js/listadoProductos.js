@@ -23,7 +23,17 @@ function cargarTable(data) {
                 /* {data: "id"}, */
                 {data: "nombre"},
                 {data: "presentacion"},
-                {data: "cantidad"},
+                {data: "cantidad",
+                    createdCell: function (td, cellData, rowData, row, col) {
+
+                        if (cellData <= rowData.cantidadMinima) {
+                            $(td).addClass("bg-danger text-white fw-bold");
+                        }
+
+                    },
+                    render: function (data) {
+                        return data;
+                    }},
                 {data: "precio",
                     className: "text-center",
                     render: function(data, type, row) {

@@ -24,6 +24,13 @@
 
         <div class="row mt-5">
              <div class="content-option">
+
+                <div class="card-option bg-primary">
+                    <h2>Total diferencia / Dinero en cuenta</h2>
+                    <span class="detalle-card">Total de ingresos - Total de egresos</span>
+                    <p class="valor-card" id="diferencia"></p>
+                </div>
+
                 <div class="card-option bg-success">
                     <h2>Ingresos</h2>
                     <span class="detalle-card">Suma de todos los ingresos</span>
@@ -34,12 +41,6 @@
                     <h2>Egresos</h2>
                     <span class="detalle-card">Total de todos los egresos</span>
                     <p class="valor-card" id="egresos"></p>
-                </div>
-
-                <div class="card-option bg-primary">
-                    <h2>Total diferencia</h2>
-                    <span class="detalle-card">Total de ingresos - Total de egresos</span>
-                    <p class="valor-card" id="diferencia"></p>
                 </div>
             </div>
         </div>

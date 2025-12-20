@@ -1,7 +1,7 @@
 <?php 
 
     require_once('../core/conexion.php');
-
+    session_start();
     class ListadoProductosModel
     {
         
@@ -15,14 +15,17 @@
                             pr.id_producto AS id, 
                             pr.nombre_produto AS nombre, 
                             ps.tamano_presentacion AS presentacion, 
-                            ps.stock_disponible_presentacion AS cantidad, 
+                            ssp.cantidad_stock_presentacion_sede AS cantidad, 
                             ps.precio_venta_cliente_presentacion AS presioVenta,
                             ps.id_presentacion AS idPresentacion,
                             ps.precio_compra_presentacion AS precioCompra,
-                            ps.precio_venta_jm_presentacion AS precioVentaJM
+                            ps.precio_venta_jm_presentacion AS precioVentaJM,
+                            ssp.stock_minimo_stock_presentacion_sede cantidadMinima
 
                         FROM productos pr 
                         INNER JOIN presentacion_producto ps on ps.id_producto  = pr.id_producto
+                        INNER JOIN stock_sede_presentacion ssp on ssp.id_presentacion = ps.id_presentacion
+                        WHERE ssp.id_sede = '".$_SESSION['sede']."' AND ps.estado = 1
                         ORDER BY pr.id_producto ASC";
 
                 $respuesta = $db->select($sql);

@@ -45,5 +45,6 @@
             $_SESSION['user'] = $dataUsuario['user_usuario'];
             $_SESSION['nombre'] = $dataUsuario['nombre_usuario'];
             $_SESSION['rol'] = $dataUsuario['id_rol'];
+            $_SESSION['sede'] = $dataUsuario['id_sede'];
         }
     }

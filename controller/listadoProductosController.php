@@ -24,6 +24,7 @@
                         'idPresentacion' => $resultadoProdcutos[$i]['idPresentacion'],
                         'precioCompra' => $resultadoProdcutos[$i]['precioCompra'],
                         'precioVentaJM' => $resultadoProdcutos[$i]['precioVentaJM'],
+                        'cantidadMinima' => $resultadoProdcutos[$i]['cantidadMinima']
                     ];
                 }
 
