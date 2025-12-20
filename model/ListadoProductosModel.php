@@ -6,6 +6,7 @@
         
         protected function get_listadoProdcutos()
         {
+            var_dump($_SESSION);die();
 
             try {
                 $db = new Conexion();
