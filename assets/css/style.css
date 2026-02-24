@@ -139,6 +139,15 @@ p {
     box-shadow: var(--box-shadow);
 }
 
+.content-ganancias{
+    padding: 1rem;
+}
+
+.content-ganancias span{
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
 .content-option{
     display: flex;
     justify-content: space-around;

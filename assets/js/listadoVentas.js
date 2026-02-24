@@ -6,6 +6,7 @@ var idPedidoSeleccionado = 0;
 
 function initListadoVentas() {
     listadoVentas();
+    calcularGananciasTotales();
 }
 
 function listadoVentas(admin = 2) {
@@ -576,5 +577,18 @@ function separarMiles(numero) {
     return new Intl.NumberFormat("es-CO").format(numero);
 }
 
+function calcularGananciasTotales() {
+    $.ajax({
+        url: 'ajax/pedidosAjax.php',
+        type: 'GET',
+        data: {
+            accion: 'calcularGananciasTotales',
+        },
+        success: function(response) {
+            response = JSON.parse(response);
+            $("#totalGanancias").text(separarMiles(response.data[0].ganancias));
+        }
+    });
+}
 
 initListadoVentas();

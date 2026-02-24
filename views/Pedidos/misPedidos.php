@@ -23,6 +23,13 @@
                 
             </div>
         </div>
+        <div class="row mt-5">
+            <div class="col-md-12 d-flex justify-content-end">
+                <div class="content-ganancias bg-warning" style="margin-right: 10px;">
+                    <span>Total Ganancias: $<span id="totalGanancias">0</span></span>
+                </div>
+            </div>
+        </div>
 
         <!--*************** tabs ***************-->
         <nav>

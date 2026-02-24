@@ -9,6 +9,7 @@
     require_once('../controller/calculoVentasEntregadasController.php');
     require_once('../controller/finalizarPedidosController.php');
     require_once('../controller/AgregarPoductoAlPedidoController.php');
+    require_once('../controller/calcularGananciasTotalesController.php');
 
     $accion = isset($_GET['accion']) ? $_GET['accion'] :  $_POST['accion'];
     
@@ -70,6 +71,11 @@
             echo json_encode($respuesta);
             break;
 
+        case 'calcularGananciasTotales':
+            $calcularGananciasTotales = new calcularGananciasTotalesController();
+            $respuesta = $calcularGananciasTotales->calcularGanancias();
+            echo json_encode($respuesta);
+            break;
         
         default:
             echo json_encode(['error' => 'Acción no válida']);
