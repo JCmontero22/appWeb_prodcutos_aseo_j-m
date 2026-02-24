@@ -8,7 +8,15 @@
 
             $db = new Conexion();
             
-            $query = "SELECT SUM(ganancia_total_pedido) AS ganancias FROM pedidos WHERE id_usuario = " . $id_usuario . " AND id_estado = 6";
+            $query = "SELECT 
+                        SUM(
+                            CASE 
+                                WHEN id_usuario = 6 THEN (valor_total_pedido - costo_total_pedido)
+                                ELSE ganancia_total_pedido 
+                            END
+                        ) AS ganancia_total_global
+                    FROM pedidos 
+                    WHERE id_estado = 6 and id_usuario= $id_usuario;";
 
             $respuesta = $db->select($query);
             return $respuesta;
