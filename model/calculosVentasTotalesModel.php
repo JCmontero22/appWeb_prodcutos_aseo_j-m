@@ -4,8 +4,13 @@
 
     class calculosVentasTotalesModel 
     {
-        protected function get_calculosVentasTotales(){
+        protected function get_calculosVentasTotales($tipoConsulta){
             try {
+
+                $filtro = "";
+
+                /* $tipoConsulta == 1 ? $filtro = " WHERE p.fecha_pedido <= '2025-08-22' " : $filtro = " WHERE p.fecha_pedido > '2025-08-22' "; */
+
                 $db = new Conexion();
                 $query = "SELECT
                             -- Ganancias de J&M (usuario 1)
@@ -38,7 +43,7 @@
                                 END
                             ) AS total
 
-                            FROM pedidos p";
+                            FROM pedidos p" . $filtro;
 
                 $respuesta = $db->select($query);
                 

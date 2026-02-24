@@ -1,5 +1,5 @@
-<?php 
-    session_start();
+<?php
+session_start();
 ?>
 
 <main class="container mt-5">
@@ -19,11 +19,12 @@
         <div class="row">
             <div class="col-md-12 d-flex justify-content-end">
                 <button class="btn btn-primary" onclick="redireccionar('home')">Regresar</button>
+                <button class="btn btn-warning" style="margin-left: 1rem;" onclick="obtenerListadoMovimientosAntiguos()">Historial</button>
             </div>
         </div>
 
         <div class="row mt-5">
-             <div class="content-option">
+            <div class="content-option">
 
                 <div class="card-option bg-primary">
                     <h2>Total diferencia / Dinero en cuenta</h2>
@@ -56,21 +57,22 @@
                 </div>
 
                 <div class="table-responsive mt-4">
-                <table class="table table-striped table-bordered table-hover" id="tablaMovimientosFinancieros">
-                    <thead>
-                        <tr>
-                            <th>Fecha</th>
-                            <th>Movimiento</th>
-                            <th>Monto</th>
-                            <th>Descripción</th>
-                            <th>Referencia</th>
-                            <th>Realizado por</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tablaMovimientos" class="text-center">
-                        <!-- Los movimientos se cargarán aquí mediante JavaScript -->
-                    </tbody>
-                </table>
+                    <table class="table table-striped table-bordered table-hover" id="tablaMovimientosFinancieros">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Movimiento</th>
+                                <th>Monto</th>
+                                <th>Descripción</th>
+                                <th>Referencia</th>
+                                <th>Realizado por</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaMovimientos" class="text-center">
+                            <!-- Los movimientos se cargarán aquí mediante JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </section>
@@ -81,32 +83,69 @@
 <div class="modal fade" id="formEgreso" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
-        <div class="modal-header">
-            <h3 class="modal-title" id="staticBackdropLabel">Registro Egreso</h3>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <div class="form">
-                <div class="row">
-                    <div class="col-md-4">
-                        <input class="form-control" type="number" name="montoEgreso" id="montoEgreso" placeholder="* Monto" required>
-                    </div>
-                    <div class="col-md-4">
-                        <input class="form-control" type="text" name="referencia" id="referencia" placeholder="* Referencia">
-                    </div>
-                    <div class="col-md-4">
-                        <textarea name="descripcion" id="descripcion" class="form-control" placeholder="* Descripción"></textarea>
+            <div class="modal-header">
+                <h3 class="modal-title" id="staticBackdropLabel">Registro Egreso</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input class="form-control" type="number" name="montoEgreso" id="montoEgreso" placeholder="* Monto" required>
+                        </div>
+                        <div class="col-md-4">
+                            <input class="form-control" type="text" name="referencia" id="referencia" placeholder="* Referencia">
+                        </div>
+                        <div class="col-md-4">
+                            <textarea name="descripcion" id="descripcion" class="form-control" placeholder="* Descripción"></textarea>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-primary" onclick="registrarEgreso()">Registrar</button>
-        </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="registrarEgreso()">Registrar</button>
+            </div>
         </div>
     </div>
 </div>
 
+
+<!-- MODAL PARA EL HISTORIAL -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="historialModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="historialModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="historialModalLabel">Historial de Movimientos Financieros</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive mt-4">
+                    <table class="table table-striped table-bordered table-hover" id="tablaMovimientosHistorial">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Movimiento</th>
+                                <th>Monto</th>
+                                <th>Descripción</th>
+                                <th>Referencia</th>
+                                <th>Realizado por</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaMovimientosHistorial" class="text-center">
+                            <!-- Los movimientos se cargarán aquí mediante JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="assets/js/movimientosFinancieros.js"></script>

@@ -4,9 +4,9 @@
 
     class calculosVentasMensualController extends calculosVentasMensualModel
     {
-        public function calculoVentasMensuales(){
+        public function calculoVentasMensuales($tipoConsulta){
             try {
-                $calculos = $this->get_calculosVentasMensual();
+                $calculos = $this->get_calculosVentasMensual($tipoConsulta);
                 return $respuesta = ['status' => 'success', 'mensaje' => 'Calculos realizados', 'data' => $calculos];
             } catch (\Exception $e) {
                 return ['status' => 'error', 'mensaje' => $e->getMessage()];

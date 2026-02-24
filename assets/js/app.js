@@ -54,8 +54,14 @@ function logout() {
 
 
 
-function redireccionar(vista) {
-    window.location.href = vista;
+function redireccionar(vista, parametroBusqueda = null) {
+
+    if (parametroBusqueda == null) {
+        window.location.href = vista;    
+        return;
+    }
+    
+    window.location.href = vista + "?search=" + parametroBusqueda;
 }
 
 

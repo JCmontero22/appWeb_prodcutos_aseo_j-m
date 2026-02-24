@@ -5,14 +5,15 @@
 
 
     $pantalla =  $_GET['pantalla'];
+    $tipoConsulta = $_GET['tipoConsulta'];
     
     if ($pantalla == 1) {
         $calculosVentasMensual = new calculosVentasMensualController();
-        $respuesta = $calculosVentasMensual->calculoVentasMensuales();
+        $respuesta = $calculosVentasMensual->calculoVentasMensuales($tipoConsulta);
         echo json_encode($respuesta);
     }else{
-        $calculosVentasTotales = new calculosVentasTotalesController();
-        $respuesta = $calculosVentasTotales->calculoVentasTotales();
+        $calculosVentasTotales = new calculosVentasTotalesController($tipoConsulta);
+        $respuesta = $calculosVentasTotales->calculoVentasTotales($tipoConsulta);
         echo json_encode($respuesta);
     }
 

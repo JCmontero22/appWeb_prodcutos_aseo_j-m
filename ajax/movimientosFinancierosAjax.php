@@ -5,11 +5,11 @@
     require_once('../controller/totalesMovimientosFinancierosController.php');
 
     $accion = isset($_POST['accion']) ? $_POST['accion'] : (isset($_GET['accion']) ? $_GET['accion'] : 'listadoMovimientos');
-
+    $filtro = $_GET['filtro'];
     switch ($accion) {
         case 'listadoMovimientos':
             $listadoMovimientos = new listadoMovimientosController();
-            $respuesta = $listadoMovimientos->obtenerListadoMovimientos();
+            $respuesta = $listadoMovimientos->obtenerListadoMovimientos($filtro);
             echo json_encode($respuesta);
             break;
         case 'registrarEgreso':

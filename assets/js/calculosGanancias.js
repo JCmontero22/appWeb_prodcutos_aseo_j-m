@@ -1,12 +1,14 @@
 function init() {
-    this.realizarCalculos(pantalla);
+    const tipoConsulta = new URLSearchParams(window.location.search).get('search');
+    
+    this.realizarCalculos(pantalla, tipoConsulta);
 }
 
-function realizarCalculos(pantalla) {
+function realizarCalculos(pantalla, tipoConsulta) {
     $.ajax({
         url: 'ajax/calculoVentasAjax.php',
         type: 'GET',
-        data: {pantalla: pantalla},
+        data: {pantalla: pantalla, tipoConsulta: tipoConsulta},
         success: function(response){
             response = JSON.parse(response);
             

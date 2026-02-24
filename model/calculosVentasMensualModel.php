@@ -5,6 +5,7 @@
     class calculosVentasMensualModel 
     {
         protected function get_calculosVentasMensual(){
+
             try {
                 $db = new Conexion();
                 $query = "SELECT

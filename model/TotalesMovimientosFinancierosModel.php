@@ -8,11 +8,15 @@
             try {
                 $bd = new Conexion();
 
+                $filtro = "";
+                /* $filtro = " and fecha_registro_movimiento_financiero > '2025-11-01'  ";     */
+                
+
                 $query = "SELECT 
-                            (SELECT IFNULL(SUM(monto_movimiento_financiero), 0) FROM movimientos_financieros WHERE categoria_financiera = 1) AS total_ingresos,
-                            (SELECT IFNULL(SUM(monto_movimiento_financiero), 0) FROM movimientos_financieros WHERE categoria_financiera = 2) AS total_egresos,
-                            ((SELECT IFNULL(SUM(monto_movimiento_financiero), 0) FROM movimientos_financieros WHERE categoria_financiera = 1) - 
-                             (SELECT IFNULL(SUM(monto_movimiento_financiero), 0) FROM movimientos_financieros WHERE categoria_financiera = 2)) AS total_diferencia
+                            (SELECT IFNULL(SUM(monto_movimiento_financiero), 0) FROM movimientos_financieros WHERE categoria_financiera = 1 $filtro) AS total_ingresos,
+                            (SELECT IFNULL(SUM(monto_movimiento_financiero), 0) FROM movimientos_financieros WHERE categoria_financiera = 2 $filtro) AS total_egresos,
+                            ((SELECT IFNULL(SUM(monto_movimiento_financiero), 0) FROM movimientos_financieros WHERE categoria_financiera = 1 $filtro) - 
+                            (SELECT IFNULL(SUM(monto_movimiento_financiero), 0) FROM movimientos_financieros WHERE categoria_financiera = 2 $filtro)) AS total_diferencia
                         ";
                 $respuesta = $bd->select($query);
                 return $respuesta;

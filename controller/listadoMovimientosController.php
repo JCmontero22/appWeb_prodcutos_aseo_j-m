@@ -5,11 +5,11 @@
     class listadoMovimientosController extends ListadoMovimientosFinancierosModel
     {
 
-        public function obtenerListadoMovimientos() {
+        public function obtenerListadoMovimientos($filtro) {
             $respuesta = [];
 
             try {
-                $resultadoMovimientos = $this->get_listadoMovimientosFinancieros();
+                $resultadoMovimientos = $this->get_listadoMovimientosFinancieros($filtro);
                 for ($i=0; $i < count($resultadoMovimientos); $i++) { 
                     $data[] = [
                         'id' => $resultadoMovimientos[$i]['id'],

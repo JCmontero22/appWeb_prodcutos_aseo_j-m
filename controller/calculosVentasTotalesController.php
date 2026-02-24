@@ -4,9 +4,9 @@
 
     class calculosVentasTotalesController extends calculosVentasTotalesModel
     {
-        public function calculoVentasTotales(){
+        public function calculoVentasTotales($tipoConsulta){
             try {
-                $calculos = $this->get_calculosVentasTotales();
+                $calculos = $this->get_calculosVentasTotales($tipoConsulta);
                 return $respuesta = ['status' => 'success', 'mensaje' => 'Calculos realizados', 'data' => $calculos];
             } catch (\Exception $e) {
                 return ['status' => 'error', 'mensaje' => $e->getMessage()];
