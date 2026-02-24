@@ -586,7 +586,7 @@ function calcularGananciasTotales() {
         },
         success: function(response) {
             response = JSON.parse(response);
-            $("#totalGanancias").text(separarMiles(response.data[0].ganancias));
+            $("#totalGanancias").text(separarMiles(response.data[0].ganancia_total_global));
         }
     });
 }
