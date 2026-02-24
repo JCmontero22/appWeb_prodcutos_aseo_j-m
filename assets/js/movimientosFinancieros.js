@@ -131,7 +131,7 @@ function totales() {
 }
 
 function obtenerListadoMovimientosAntiguos() {
-    /* $("#historialModal").modal("show"); */
+    $("#historialModal").modal("show");
     
     $.ajax({
         url: 'ajax/movimientosFinancierosAjax.php',
