@@ -9,7 +9,12 @@ function initListadoVentas() {
     calcularGananciasTotales();
 }
 
-function listadoVentas(admin = 2) {
+function listadoVentas(admin = 2, historial = 0) {
+
+    if (historial == 1) {
+        $("#historialModal").modal("show");
+    }
+
     $.ajax({
         url: 'ajax/pedidosAjax.php',
         type: 'GET',

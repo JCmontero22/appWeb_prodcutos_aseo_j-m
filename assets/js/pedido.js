@@ -6,7 +6,7 @@ function initPedidos() {
     listadoClientes();
 }
 
-function listadoProductos() {
+function listadoProductos(historial = 0) {
     $.ajax({
         url: 'ajax/listadoProductosAjax.php',
         type: 'GET',

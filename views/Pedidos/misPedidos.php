@@ -18,6 +18,7 @@
     <section class="content-body">
         <div class="row">
             <div class="col-md-12 d-flex justify-content-end mb-5">
+                <button class="btn btn-secondary" style="margin-right: 10px;" onclick="listadoVentas(2,1)">Historial</button>
                 <button class="btn btn-success" style="margin-right: 10px;" onclick="realizarCalculo('home')">Calcular cuenta</button>
                 <button class="btn btn-primary" onclick="redireccionar('home')">Regresar</button>
                 
@@ -190,6 +191,25 @@
             </div>
         </div>
     </div>
+</div>
+
+<!-- Modal Historial -->
+<div class="modal fade" id="historialModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="historialModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="historialModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Understood</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 
