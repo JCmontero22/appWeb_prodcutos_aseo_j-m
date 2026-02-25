@@ -1,98 +1,1574 @@
--- MySQL database export
+-- phpMyAdmin SQL Dump
+-- version 5.2.2
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: localhost:3306
+-- Tiempo de generación: 25-02-2026 a las 13:06:59
+-- Versión del servidor: 10.11.15-MariaDB-cll-lve
+-- Versión de PHP: 8.4.17
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
-
-CREATE TABLE IF NOT EXISTS `usuarios` (
-    `id_usuario` INT NOT NULL,
-    `nombre_usuario` VARCHAR(255),
-    `user_usuario` VARCHAR(255) UNIQUE,
-    `telefono_usuario` VARCHAR(255) UNIQUE,
-    `direccion_usuario` VARCHAR(255),
-    `id_rol` INT,
-    `password_usuario` VARCHAR(255),
-    `estado` tinyint,
-    PRIMARY KEY (`id_usuario`)
-);
+SET time_zone = "+00:00";
 
 
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
-CREATE TABLE IF NOT EXISTS `rol_usuario` (
-    `id_rol` INT NOT NULL,
-    `nombre_rol` VARCHAR(255),
-    `estado` tinyint,
-    PRIMARY KEY (`id_rol`)
-);
+--
+-- Base de datos: `jcmonter_productos_aseo`
+--
 
+-- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `categorias_financieras`
+--
 
-CREATE TABLE IF NOT EXISTS `Productos` (
-    `id_producto` INT NOT NULL,
-    `nombre_produto` VARCHAR(150),
-    `descripcion_producto` VARCHAR(256),
-    `stock_producto` INT,
-    `estado` tinyint,
-    PRIMARY KEY (`id_producto`)
-);
+CREATE TABLE `categorias_financieras` (
+  `id_categoria_financiera` int(11) NOT NULL,
+  `nombre_categoria_financiera` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `categorias_financieras`
+--
 
+INSERT INTO `categorias_financieras` (`id_categoria_financiera`, `nombre_categoria_financiera`) VALUES
+(1, 'Ingresos'),
+(2, 'Egresos');
 
-CREATE TABLE IF NOT EXISTS `presentacion_producto` (
-    `id_presentacion` INT NOT NULL,
-    `id_producto` INT,
-    `tamano_presentacion` VARCHAR(256),
-    `precio_compra_presentacion` DECIMAL(10, 2),
-    `precio_venta_cliente_presentacion` DECIMAL(10, 2),
-    `precio_venta_jm_presentacion` DECIMAL(10, 2),
-    `stock_disponible_presentacion` INT,
-    `estado` tinyint,
-    PRIMARY KEY (`id_presentacion`)
-);
+-- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `categoria_productos`
+--
 
+CREATE TABLE `categoria_productos` (
+  `id_categoria` int(11) NOT NULL,
+  `nombre_categoria` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
-CREATE TABLE IF NOT EXISTS `pedidos` (
-    `id_pedidos` INT NOT NULL,
-    `id_usuario` INT,
-    `id_cliente` INT,
-    `id_estado` INT,
-    `fecha_pedido` DATETIME,
-    `fecha_entrega_pedido` DATE,
-    `costo_total_pedido` DECIMAL(10, 2),
-    `valor_total_pedido` DECIMAL(10, 2),
-    `ganancia_total_pedido` DECIMAL(10, 2),
-    `estado` tinyint,
-    PRIMARY KEY (`id_pedidos`)
-);
+--
+-- Volcado de datos para la tabla `categoria_productos`
+--
 
+INSERT INTO `categoria_productos` (`id_categoria`, `nombre_categoria`) VALUES
+(1, 'Cocina'),
+(2, 'Hogar'),
+(3, 'Ropa');
 
+-- --------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS `estados_pedido` (
-    `id_estado_pedido` INT NOT NULL,
-    `nombre_estado` VARCHAR(150),
-    PRIMARY KEY (`id_estado_pedido`)
-);
+--
+-- Estructura de tabla para la tabla `detalle_pedido`
+--
 
+CREATE TABLE `detalle_pedido` (
+  `id_detalle_pedido` int(11) NOT NULL,
+  `id_pedidos` int(11) DEFAULT NULL,
+  `id_presentacion` int(11) DEFAULT NULL,
+  `cantidad_detalle_pedido` int(11) DEFAULT NULL,
+  `precio_unitario_detalle_pedido` int(11) DEFAULT NULL,
+  `subtotal_unitario_detalle_pedido` int(11) DEFAULT NULL,
+  `estado` tinyint(4) DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `detalle_pedido`
+--
 
-CREATE TABLE IF NOT EXISTS `detalle_pedido` (
-    `id_detalle_pedido` INT NOT NULL,
-    `id_pedido` INT,
-    `id_presentacion` INT,
-    `cantidad_detalle_pedido` INT,
-    `precio_unidaterio_detalle_pedido` DECIMAL(10, 2),
-    `subtotal_unidatario_detalle_pedido` DECIMAL(10, 2),
-    `estado` tinyint,
-    PRIMARY KEY (`id_detalle_pedido`)
-);
+INSERT INTO `detalle_pedido` (`id_detalle_pedido`, `id_pedidos`, `id_presentacion`, `cantidad_detalle_pedido`, `precio_unitario_detalle_pedido`, `subtotal_unitario_detalle_pedido`, `estado`) VALUES
+(1, 19, 20, 2, 15000, 30000, 1),
+(2, 19, 3, 2, 5500, 11000, 1),
+(3, 19, 19, 2, 15500, 31000, 1),
+(4, 20, 8, 1, 8500, 8500, 1),
+(5, 20, 3, 1, 5500, 5500, 1),
+(6, 20, 20, 1, 15000, 15000, 1),
+(7, 20, 21, 1, 20500, 20500, 1),
+(8, 21, 18, 1, 5000, 5000, 1),
+(9, 21, 8, 1, 8500, 8500, 1),
+(10, 22, 8, 1, 8500, 8500, 1),
+(11, 22, 4, 1, 6500, 6500, 1),
+(12, 23, 18, 1, 5000, 5000, 1),
+(13, 23, 3, 1, 5500, 5500, 1),
+(14, 24, 8, 1, 8500, 8500, 1),
+(15, 24, 15, 1, 5000, 5000, 1),
+(16, 24, 17, 1, 3000, 3000, 1),
+(17, 24, 26, 1, 3000, 3000, 1),
+(18, 25, 21, 1, 20500, 20500, 1),
+(19, 25, 23, 1, 18500, 18500, 1),
+(20, 25, 3, 1, 5500, 5500, 1),
+(21, 25, 13, 1, 15500, 15500, 1),
+(22, 26, 3, 1, 5500, 5500, 1),
+(23, 26, 22, 1, 6000, 6000, 1),
+(24, 26, 8, 1, 8500, 8500, 1),
+(25, 27, 15, 1, 5000, 5000, 1),
+(26, 28, 21, 1, 20500, 20500, 1),
+(27, 28, 4, 1, 6500, 6500, 1),
+(28, 29, 13, 1, 15500, 15500, 1),
+(29, 29, 23, 1, 18500, 18500, 1),
+(30, 29, 30, 1, 3500, 3500, 1),
+(31, 30, 23, 1, 18500, 18500, 1),
+(32, 30, 4, 1, 6500, 6500, 1),
+(33, 30, 8, 1, 8500, 8500, 1),
+(34, 31, 16, 1, 15500, 15500, 1),
+(35, 32, 20, 1, 15000, 15000, 1),
+(36, 32, 22, 1, 6000, 6000, 1),
+(37, 33, 6, 1, 4000, 4000, 1),
+(38, 34, 26, 1, 3000, 3000, 1),
+(39, 35, 12, 1, 5000, 5000, 1),
+(40, 35, 30, 2, 3500, 7000, 1),
+(41, 36, 9, 1, 20000, 20000, 1),
+(42, 37, 4, 1, 6500, 6500, 1),
+(43, 38, 3, 1, 5500, 5500, 1),
+(44, 38, 8, 1, 8500, 8500, 1),
+(45, 38, 15, 1, 5000, 5000, 1),
+(46, 38, 20, 1, 15000, 15000, 1),
+(47, 38, 22, 1, 6000, 6000, 1),
+(48, 38, 24, 1, 6000, 6000, 1),
+(49, 38, 26, 1, 3000, 3000, 1),
+(50, 39, 6, 1, 4000, 4000, 1),
+(51, 39, 15, 1, 5000, 5000, 1),
+(52, 39, 20, 1, 15000, 15000, 1),
+(53, 39, 24, 1, 6000, 6000, 1),
+(54, 39, 26, 1, 3000, 3000, 1),
+(55, 40, 19, 1, 15500, 15500, 1),
+(56, 40, 22, 1, 6000, 6000, 1),
+(57, 40, 20, 1, 15000, 15000, 1),
+(58, 40, 28, 1, 3500, 3500, 1),
+(59, 40, 7, 1, 7000, 7000, 1),
+(60, 41, 2, 1, 5500, 5500, 1),
+(61, 42, 9, 1, 20000, 20000, 1),
+(62, 42, 8, 1, 8500, 8500, 1),
+(63, 43, 4, 1, 6500, 6500, 1),
+(64, 43, 21, 1, 20500, 20500, 1),
+(65, 44, 21, 1, 20500, 20500, 1),
+(66, 45, 21, 1, 20500, 20500, 1),
+(67, 46, 21, 1, 20500, 20500, 0),
+(68, 47, 1, 1, 3500, 3500, 1),
+(69, 47, 30, 1, 3500, 3500, 1),
+(70, 48, 16, 1, 15500, 15500, 1),
+(71, 49, 2, 1, 5500, 5500, 1),
+(72, 50, 21, 1, 20500, 20500, 1),
+(73, 50, 9, 1, 20000, 20000, 1),
+(74, 50, 22, 1, 6000, 6000, 1),
+(75, 51, 21, 1, 20500, 20500, 1),
+(76, 52, 20, 1, 15000, 15000, 1),
+(77, 52, 23, 1, 18500, 18500, 1),
+(78, 53, 12, 1, 5000, 5000, 1),
+(79, 54, 9, 1, 20000, 20000, 1),
+(80, 55, 2, 1, 5500, 5500, 1),
+(81, 55, 9, 1, 20000, 20000, 1),
+(82, 56, 2, 2, 5500, 11000, 1),
+(83, 57, 23, 1, 18500, 18500, 1),
+(84, 57, 25, 1, 20500, 20500, 1),
+(85, 58, 18, 1, 5000, 5000, 1),
+(86, 58, 24, 1, 6000, 6000, 1),
+(87, 58, 20, 1, 15000, 15000, 1),
+(88, 59, 23, 1, 18500, 18500, 1),
+(89, 59, 13, 1, 15500, 15500, 1),
+(90, 60, 24, 2, 6000, 12000, 1),
+(91, 60, 15, 3, 5000, 15000, 1),
+(92, 60, 26, 3, 3000, 9000, 1),
+(93, 60, 8, 1, 8500, 8500, 1),
+(94, 61, 22, 2, 6000, 12000, 1),
+(95, 62, 17, 2, 3000, 6000, 1),
+(96, 62, 22, 1, 6000, 6000, 1),
+(97, 63, 8, 2, 8500, 17000, 1),
+(98, 63, 31, 1, 6000, 6000, 1),
+(99, 63, 28, 1, 3500, 3500, 1),
+(100, 63, 2, 1, 5500, 5500, 1),
+(101, 64, 9, 1, 20000, 20000, 1),
+(102, 65, 8, 1, 8500, 8500, 1),
+(103, 66, 8, 1, 8500, 8500, 1),
+(104, 66, 21, 1, 20500, 20500, 1),
+(105, 67, 20, 1, 15000, 15000, 1),
+(106, 67, 28, 1, 3500, 3500, 1),
+(107, 68, 24, 1, 6000, 6000, 1),
+(108, 68, 22, 1, 6000, 6000, 1),
+(109, 68, 21, 1, 20500, 20500, 1),
+(110, 68, 20, 1, 15000, 15000, 1),
+(111, 69, 7, 1, 7000, 7000, 1),
+(112, 69, 11, 1, 3000, 3000, 1),
+(113, 70, 12, 1, 5000, 5000, 1),
+(114, 71, 6, 1, 4000, 4000, 1),
+(115, 71, 30, 1, 3500, 3500, 1),
+(116, 71, 21, 1, 20500, 20500, 1),
+(117, 71, 24, 1, 6000, 6000, 1),
+(118, 71, 26, 1, 3000, 3000, 1),
+(119, 71, 18, 1, 5000, 5000, 1),
+(120, 72, 9, 1, 20000, 20000, 1),
+(121, 72, 16, 1, 15500, 15500, 1),
+(122, 72, 3, 1, 5500, 5500, 1),
+(123, 72, 21, 1, 20500, 20500, 1),
+(124, 72, 25, 1, 20500, 20500, 1),
+(125, 72, 31, 1, 6000, 6000, 1),
+(126, 72, 22, 1, 6000, 6000, 1),
+(127, 73, 24, 1, 6000, 6000, 1),
+(128, 73, 15, 1, 5000, 5000, 1),
+(129, 74, 9, 1, 20000, 20000, 1),
+(130, 75, 5, 1, 17500, 17500, 1),
+(131, 76, 9, 1, 20000, 20000, 1),
+(132, 76, 27, 1, 9000, 9000, 1),
+(133, 77, 27, 3, 9000, 27000, 1),
+(134, 77, 23, 1, 18500, 18500, 1),
+(135, 78, 2, 1, 5500, 5500, 1),
+(136, 79, 9, 1, 20000, 20000, 1),
+(137, 80, 15, 1, 5000, 5000, 1),
+(138, 80, 20, 1, 15000, 15000, 1),
+(139, 81, 9, 1, 20000, 20000, 1),
+(140, 81, 26, 1, 3000, 3000, 1),
+(141, 82, 9, 1, 20000, 20000, 1),
+(142, 83, 21, 1, 20500, 20500, 1),
+(143, 83, 23, 1, 18500, 18500, 1),
+(144, 84, 5, 1, 17500, 17500, 1),
+(145, 85, 24, 1, 6000, 6000, 1),
+(146, 86, 15, 1, 5000, 5000, 1),
+(147, 87, 12, 1, 5000, 5000, 1),
+(148, 88, 19, 1, 15500, 15500, 1),
+(149, 89, 8, 1, 8500, 8500, 1),
+(150, 89, 4, 1, 6500, 6500, 1),
+(151, 89, 19, 1, 15500, 15500, 1),
+(152, 89, 22, 1, 6000, 6000, 1),
+(153, 89, 20, 2, 15000, 30000, 1),
+(154, 89, 24, 2, 6000, 12000, 1),
+(155, 89, 31, 1, 6000, 6000, 1),
+(156, 90, 4, 1, 6500, 6500, 1),
+(157, 90, 26, 1, 3000, 3000, 1),
+(158, 91, 30, 1, 3500, 3500, 1),
+(159, 92, 9, 1, 20000, 20000, 1),
+(160, 92, 23, 2, 18500, 37000, 1),
+(161, 92, 22, 1, 6000, 6000, 1),
+(162, 92, 19, 1, 15500, 15500, 1),
+(163, 93, 2, 1, 5500, 5500, 1),
+(164, 93, 18, 1, 5000, 5000, 1),
+(165, 93, 24, 1, 6000, 6000, 1),
+(166, 94, 2, 1, 5500, 5500, 1),
+(167, 95, 21, 1, 20500, 20500, 1),
+(168, 95, 23, 1, 18500, 18500, 1),
+(169, 95, 3, 1, 5500, 5500, 1),
+(170, 96, 2, 1, 5500, 5500, 1),
+(171, 97, 2, 1, 5500, 5500, 1),
+(172, 97, 30, 1, 3500, 3500, 1),
+(173, 98, 6, 1, 4000, 4000, 1),
+(174, 98, 15, 1, 5000, 5000, 1),
+(175, 98, 26, 1, 3000, 3000, 1),
+(176, 99, 8, 1, 8500, 8500, 1),
+(177, 100, 23, 1, 18500, 18500, 1),
+(178, 101, 16, 1, 15500, 15500, 1),
+(179, 101, 5, 1, 17500, 17500, 1),
+(180, 102, 1, 1, 3500, 3500, 1),
+(181, 103, 31, 1, 6000, 6000, 1),
+(182, 104, 20, 1, 15000, 15000, 1),
+(183, 104, 22, 1, 6000, 6000, 1),
+(184, 104, 18, 1, 5000, 5000, 1),
+(185, 105, 17, 1, 3000, 3000, 1),
+(186, 105, 24, 1, 6000, 6000, 1),
+(187, 106, 25, 1, 20500, 20500, 1),
+(188, 106, 21, 1, 20500, 20500, 1),
+(189, 107, 21, 1, 20500, 20500, 1),
+(190, 107, 30, 1, 3500, 3500, 1),
+(191, 108, 20, 1, 15000, 15000, 1),
+(192, 109, 26, 1, 3000, 3000, 1),
+(193, 109, 22, 1, 6000, 6000, 1),
+(194, 110, 12, 1, 5000, 5000, 1),
+(195, 111, 18, 1, 5000, 5000, 1),
+(196, 112, 24, 1, 6000, 6000, 1),
+(197, 113, 27, 1, 9000, 9000, 1),
+(198, 114, 5, 1, 17500, 17500, 1),
+(199, 114, 8, 1, 8500, 8500, 1),
+(200, 115, 9, 1, 20000, 20000, 1),
+(201, 116, 2, 1, 5500, 5500, 1),
+(202, 116, 8, 1, 8500, 8500, 1),
+(203, 116, 21, 1, 20500, 20500, 1),
+(204, 116, 24, 1, 6000, 6000, 1),
+(205, 117, 26, 1, 3000, 3000, 1),
+(206, 118, 31, 1, 6000, 6000, 1),
+(207, 119, 4, 1, 6500, 6500, 1),
+(208, 119, 24, 1, 6000, 6000, 1),
+(209, 119, 20, 1, 15000, 15000, 1),
+(210, 119, 15, 1, 5000, 5000, 1),
+(211, 120, 5, 1, 17500, 17500, 1),
+(212, 120, 27, 1, 9000, 9000, 1),
+(213, 121, 8, 1, 8500, 8500, 1),
+(214, 121, 27, 1, 9000, 9000, 1),
+(215, 122, 7, 1, 7000, 7000, 1),
+(216, 122, 16, 1, 15500, 15500, 1),
+(217, 123, 22, 1, 6000, 6000, 1),
+(218, 124, 15, 1, 5000, 5000, 1),
+(219, 124, 22, 1, 6000, 6000, 1),
+(220, 124, 20, 1, 15000, 15000, 1),
+(221, 124, 2, 1, 5500, 5500, 1),
+(222, 124, 24, 1, 6000, 6000, 1),
+(223, 125, 20, 1, 15000, 15000, 1),
+(224, 126, 31, 1, 6000, 6000, 1),
+(225, 126, 25, 1, 20500, 20500, 1),
+(226, 126, 23, 1, 18500, 18500, 1),
+(227, 126, 16, 1, 15500, 15500, 1),
+(228, 127, 20, 1, 15000, 15000, 0),
+(229, 127, 7, 1, 7000, 7000, 1),
+(230, 127, 21, 1, 20500, 20500, 1),
+(231, 128, 7, 1, 7000, 7000, 1),
+(232, 128, 18, 1, 5000, 5000, 1),
+(233, 128, 22, 1, 6000, 6000, 1),
+(234, 128, 30, 1, 3500, 3500, 1),
+(235, 128, 26, 1, 3000, 3000, 1),
+(236, 128, 24, 1, 6000, 6000, 1),
+(237, 129, 21, 1, 20500, 20500, 1),
+(238, 129, 7, 1, 7000, 7000, 0),
+(239, 129, 15, 1, 5000, 5000, 1),
+(240, 130, 23, 1, 18500, 18500, 1),
+(241, 130, 21, 1, 20500, 20500, 1),
+(242, 131, 8, 1, 8500, 8500, 1),
+(243, 132, 12, 1, 5000, 5000, 1),
+(244, 132, 24, 1, 6000, 6000, 1),
+(245, 132, 6, 1, 4000, 4000, 1),
+(246, 133, 21, 1, 20500, 20500, 1),
+(247, 133, 8, 1, 8500, 8500, 1),
+(248, 133, 22, 1, 6000, 6000, 1),
+(249, 134, 16, 1, 15500, 15500, 1),
+(250, 135, 8, 1, 8500, 8500, 1),
+(251, 136, 2, 1, 5500, 5500, 1),
+(252, 136, 22, 1, 6000, 6000, 1),
+(253, 136, 25, 1, 20500, 20500, 1),
+(254, 137, 27, 2, 9000, 18000, 1),
+(255, 138, 8, 1, 8500, 8500, 1),
+(256, 138, 25, 1, 20500, 20500, 1),
+(257, 138, 29, 1, 6000, 6000, 1),
+(258, 138, 4, 1, 6500, 6500, 1),
+(259, 138, 16, 1, 15500, 15500, 1),
+(260, 138, 22, 1, 6000, 6000, 1),
+(261, 139, 7, 1, 7000, 7000, 1),
+(262, 139, 25, 1, 20500, 20500, 1),
+(263, 139, 21, 1, 20500, 20500, 1),
+(264, 139, 29, 1, 6000, 6000, 1),
+(265, 140, 8, 1, 8500, 8500, 1),
+(266, 140, 15, 1, 5000, 5000, 1),
+(267, 140, 2, 1, 5500, 5500, 1),
+(268, 140, 22, 1, 6000, 6000, 1),
+(269, 141, 20, 1, 15000, 15000, 1),
+(270, 141, 23, 1, 18500, 18500, 1),
+(271, 142, 24, 1, 6000, 6000, 1),
+(272, 143, 5, 1, 17500, 17500, 1),
+(273, 144, 31, 1, 6000, 6000, 1),
+(274, 145, 9, 1, 20000, 20000, 1),
+(275, 146, 23, 1, 18500, 18500, 1),
+(276, 146, 21, 1, 20500, 20500, 1),
+(277, 146, 25, 1, 20500, 20500, 1),
+(278, 147, 27, 1, 9000, 9000, 1),
+(279, 147, 7, 1, 7000, 7000, 1),
+(280, 148, 6, 1, 4000, 4000, 1),
+(281, 148, 18, 1, 5000, 5000, 1),
+(282, 148, 21, 1, 20500, 20500, 1),
+(283, 148, 26, 1, 3000, 3000, 1),
+(284, 149, 20, 1, 15000, 15000, 1),
+(285, 149, 24, 1, 6000, 6000, 1),
+(286, 149, 7, 1, 7000, 7000, 1),
+(287, 150, 27, 2, 9000, 18000, 1),
+(288, 150, 16, 2, 15500, 31000, 1),
+(289, 150, 21, 1, 20500, 20500, 1),
+(290, 150, 22, 1, 6000, 6000, 1),
+(291, 151, 9, 1, 20000, 20000, 1),
+(292, 151, 16, 1, 15500, 15500, 1),
+(293, 151, 21, 1, 20500, 20500, 1),
+(294, 152, 21, 1, 20500, 20500, 1),
+(295, 153, 4, 2, 6500, 13000, 1),
+(296, 154, 27, 2, 9000, 18000, 1),
+(297, 155, 27, 1, 9000, 9000, 1),
+(298, 155, 9, 1, 20000, 20000, 1),
+(299, 156, 7, 1, 7000, 7000, 1),
+(300, 156, 6, 1, 4000, 4000, 1),
+(301, 156, 12, 1, 5000, 5000, 1),
+(302, 156, 14, 1, 3000, 3000, 1),
+(303, 157, 21, 1, 20500, 20500, 1),
+(304, 157, 27, 1, 9000, 9000, 1),
+(305, 157, 22, 1, 6000, 6000, 1),
+(306, 157, 14, 2, 3000, 6000, 1),
+(307, 157, 28, 1, 3500, 3500, 1),
+(308, 158, 21, 1, 20500, 20500, 1),
+(309, 158, 8, 1, 8500, 8500, 1),
+(310, 159, 26, 1, 3000, 3000, 1),
+(311, 160, 5, 1, 17500, 17500, 1),
+(312, 161, 27, 1, 9000, 9000, 1),
+(313, 161, 8, 1, 8500, 8500, 1),
+(314, 161, 23, 1, 18500, 18500, 1),
+(315, 162, 12, 1, 5000, 5000, 1),
+(316, 163, 9, 1, 20000, 20000, 1),
+(317, 163, 21, 1, 20500, 20500, 1),
+(318, 164, 12, 1, 5000, 5000, 1),
+(319, 165, 23, 1, 18500, 18500, 1),
+(320, 165, 19, 1, 15500, 15500, 1),
+(321, 165, 21, 1, 20500, 20500, 1),
+(322, 165, 25, 1, 20500, 20500, 1),
+(323, 166, 27, 2, 9000, 18000, 1),
+(324, 166, 10, 1, 5000, 5000, 1),
+(325, 167, 7, 1, 7000, 7000, 1),
+(326, 168, 4, 1, 6500, 6500, 1),
+(327, 168, 31, 1, 6000, 6000, 1),
+(328, 168, 26, 1, 3000, 3000, 1),
+(329, 169, 13, 1, 15500, 15500, 1),
+(330, 169, 23, 1, 18500, 18500, 1),
+(331, 169, 4, 1, 6500, 6500, 1),
+(332, 170, 21, 1, 20500, 20500, 1),
+(333, 170, 9, 1, 20000, 20000, 1),
+(334, 171, 19, 1, 15500, 15500, 1),
+(335, 171, 10, 1, 5000, 5000, 1),
+(336, 172, 19, 1, 15500, 15500, 1),
+(337, 172, 9, 1, 20000, 20000, 1),
+(338, 172, 5, 1, 17500, 17500, 1),
+(339, 172, 21, 1, 20500, 20500, 1),
+(340, 172, 23, 1, 18500, 18500, 1),
+(341, 172, 25, 1, 20500, 20500, 1),
+(342, 172, 31, 1, 6000, 6000, 1),
+(343, 172, 10, 1, 5000, 5000, 1),
+(344, 173, 19, 1, 15500, 15500, 1),
+(345, 174, 19, 1, 15500, 15500, 1),
+(346, 175, 11, 1, 3000, 3000, 1),
+(347, 175, 14, 1, 3000, 3000, 1),
+(348, 175, 17, 1, 3000, 3000, 1),
+(349, 175, 20, 1, 15000, 15000, 1),
+(350, 175, 6, 1, 4000, 4000, 1),
+(351, 175, 1, 1, 3500, 3500, 1),
+(352, 175, 22, 2, 6000, 12000, 1),
+(353, 175, 24, 2, 6000, 12000, 1),
+(354, 175, 21, 1, 20500, 20500, 1),
+(355, 176, 31, 1, 6000, 6000, 1),
+(356, 177, 23, 1, 18500, 18500, 1),
+(357, 178, 22, 1, 6000, 6000, 1),
+(358, 179, 17, 1, 3000, 3000, 1),
+(359, 180, 9, 1, 20000, 20000, 1),
+(360, 181, 26, 1, 3000, 3000, 1),
+(361, 182, 9, 1, 20000, 20000, 1),
+(362, 183, 23, 1, 18500, 18500, 1),
+(363, 183, 9, 1, 20000, 20000, 1),
+(364, 183, 25, 1, 20500, 20500, 1),
+(365, 183, 20, 1, 15000, 15000, 1),
+(366, 184, 5, 1, 17500, 17500, 1),
+(367, 185, 12, 1, 5000, 5000, 1),
+(368, 186, 7, 1, 7000, 7000, 1),
+(369, 187, 24, 1, 6000, 6000, 1),
+(370, 187, 11, 1, 3000, 3000, 1),
+(371, 187, 15, 3, 5000, 15000, 1),
+(372, 188, 21, 1, 20500, 20500, 1),
+(373, 188, 29, 1, 6000, 6000, 1),
+(374, 188, 11, 1, 3000, 3000, 1),
+(375, 189, 21, 1, 20500, 20500, 1),
+(376, 189, 27, 1, 9000, 9000, 1),
+(377, 190, 9, 1, 20000, 20000, 1),
+(378, 191, 20, 1, 15000, 15000, 1),
+(379, 192, 26, 2, 3000, 6000, 1),
+(380, 192, 22, 1, 6000, 6000, 1),
+(381, 192, 7, 1, 7000, 7000, 1),
+(382, 193, 23, 2, 18500, 37000, 1),
+(383, 193, 9, 2, 20000, 40000, 1),
+(384, 194, 23, 1, 18500, 18500, 1),
+(385, 195, 25, 1, 20500, 20500, 1),
+(386, 195, 20, 2, 15000, 30000, 1),
+(387, 195, 31, 1, 6000, 6000, 1),
+(388, 196, 9, 1, 20000, 20000, 1),
+(389, 197, 21, 1, 20500, 20500, 1),
+(390, 198, 31, 1, 6000, 6000, 1),
+(391, 199, 6, 1, 4000, 4000, 1),
+(392, 200, 7, 1, 7000, 7000, 1),
+(393, 201, 15, 1, 5000, 5000, 1),
+(394, 202, 25, 1, 20500, 20500, 1),
+(395, 203, 25, 1, 20500, 20500, 1),
+(396, 204, 3, 1, 5500, 5500, 1),
+(397, 205, 23, 2, 18500, 37000, 1),
+(398, 205, 4, 1, 6500, 6500, 1),
+(399, 205, 26, 1, 3000, 3000, 1),
+(400, 206, 4, 2, 6500, 13000, 1),
+(401, 206, 7, 1, 7000, 7000, 1),
+(402, 206, 8, 1, 8500, 8500, 1),
+(403, 206, 31, 1, 6000, 6000, 1),
+(404, 207, 20, 1, 15000, 15000, 1),
+(405, 208, 15, 1, 5000, 5000, 1),
+(406, 208, 26, 1, 3000, 3000, 1),
+(407, 209, 2, 1, 5500, 5500, 1),
+(408, 210, 23, 1, 18500, 18500, 1),
+(409, 210, 9, 1, 20000, 20000, 1),
+(410, 211, 26, 1, 3000, 3000, 1),
+(411, 211, 22, 1, 6000, 6000, 1),
+(412, 212, 23, 1, 18500, 18500, 1),
+(413, 212, 20, 1, 15000, 15000, 1),
+(414, 213, 20, 1, 15000, 15000, 1),
+(415, 213, 4, 1, 6500, 6500, 1),
+(416, 214, 19, 1, 15500, 15500, 1),
+(417, 215, 27, 1, 9000, 9000, 1),
+(418, 215, 21, 1, 20500, 20500, 1),
+(419, 216, 24, 1, 6000, 6000, 1),
+(420, 216, 18, 1, 5000, 5000, 1),
+(421, 216, 26, 1, 3000, 3000, 1),
+(422, 216, 8, 1, 8500, 8500, 1),
+(423, 216, 20, 1, 15000, 15000, 1),
+(424, 217, 7, 1, 7000, 7000, 1),
+(425, 218, 20, 1, 15000, 15000, 1),
+(426, 218, 7, 1, 7000, 7000, 1),
+(427, 219, 21, 1, 20500, 20500, 1),
+(428, 220, 10, 1, 5000, 5000, 1),
+(429, 221, 4, 1, 6500, 6500, 1),
+(430, 221, 10, 1, 5000, 5000, 1),
+(431, 222, 3, 1, 5500, 5500, 1),
+(432, 223, 5, 1, 17500, 17500, 1),
+(433, 223, 27, 1, 9000, 9000, 1),
+(434, 224, 4, 1, 6500, 6500, 1),
+(435, 225, 28, 1, 3500, 3500, 1),
+(436, 226, 21, 1, 20500, 20500, 1),
+(437, 226, 23, 1, 18500, 18500, 1),
+(438, 226, 17, 1, 3000, 3000, 1),
+(439, 227, 9, 1, 20000, 20000, 1),
+(440, 228, 9, 1, 20000, 20000, 1),
+(441, 228, 27, 1, 9000, 9000, 1),
+(442, 229, 13, 1, 15500, 15500, 1),
+(443, 229, 12, 1, 5000, 5000, 1),
+(444, 230, 15, 1, 5000, 5000, 1),
+(445, 231, 7, 1, 7000, 7000, 1),
+(446, 232, 26, 1, 3000, 3000, 1),
+(447, 232, 12, 1, 5000, 5000, 1),
+(448, 232, 22, 1, 6000, 6000, 1),
+(449, 233, 17, 2, 3000, 6000, 1),
+(450, 234, 25, 1, 20500, 20500, 1),
+(451, 234, 23, 1, 18500, 18500, 1);
 
+--
+-- Disparadores `detalle_pedido`
+--
+DELIMITER $$
+CREATE TRIGGER `DESCUENTO_STOCK` BEFORE INSERT ON `detalle_pedido` FOR EACH ROW UPDATE stock_sede_presentacion 
+		SET cantidad_stock_presentacion_sede = cantidad_stock_presentacion_sede - NEW.cantidad_detalle_pedido
+	WHERE id_presentacion = NEW.id_presentacion
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `DESCUENTO_STOCK_UPDATE` BEFORE UPDATE ON `detalle_pedido` FOR EACH ROW BEGIN
 
--- Foreign key constraints
-ALTER TABLE `rol_usuario` ADD CONSTRAINT `fk_rol_usuario_id_rol` FOREIGN KEY(`id_rol`) REFERENCES `usuarios`(`id_rol`);
-ALTER TABLE `Productos` ADD CONSTRAINT `fk_Productos_id_producto` FOREIGN KEY(`id_producto`) REFERENCES `presentacion_producto`(`id_producto`);
-ALTER TABLE `usuarios` ADD CONSTRAINT `fk_usuarios_id_usuario` FOREIGN KEY(`id_usuario`) REFERENCES `pedidos`(`id_usuario`);
-ALTER TABLE `usuarios` ADD CONSTRAINT `fk_usuarios_id_usuario` FOREIGN KEY(`id_usuario`) REFERENCES `pedidos`(`id_cliente`);
-ALTER TABLE `estados_pedido` ADD CONSTRAINT `fk_estados_pedido_id_estado_pedido` FOREIGN KEY(`id_estado_pedido`) REFERENCES `pedidos`(`id_estado`);
-ALTER TABLE `pedidos` ADD CONSTRAINT `fk_pedidos_id_pedidos` FOREIGN KEY(`id_pedidos`) REFERENCES `detalle_pedido`(`id_pedido`);
-ALTER TABLE `presentacion_producto` ADD CONSTRAINT `fk_presentacion_producto_id_presentacion` FOREIGN KEY(`id_presentacion`) REFERENCES `detalle_pedido`(`id_presentacion`);
+    DECLARE diferencia INT;
 
+    -- 1️⃣ Si se anula el detalle → devolver stock
+    IF NEW.estado = 0 AND OLD.estado <> 0 THEN
+
+        UPDATE stock_sede_presentacion
+        SET cantidad_stock_presentacion_sede =
+            cantidad_stock_presentacion_sede + OLD.cantidad_detalle_pedido
+        WHERE id_presentacion = OLD.id_presentacion;
+
+    -- 2️⃣ Si cambia la presentación
+    ELSEIF OLD.id_presentacion <> NEW.id_presentacion THEN
+
+        -- devolver stock de la presentación anterior
+        UPDATE stock_sede_presentacion
+        SET cantidad_stock_presentacion_sede =
+            cantidad_stock_presentacion_sede + OLD.cantidad_detalle_pedido
+        WHERE id_presentacion = OLD.id_presentacion;
+
+        -- descontar stock de la nueva presentación
+        UPDATE stock_sede_presentacion
+        SET cantidad_stock_presentacion_sede =
+            cantidad_stock_presentacion_sede - NEW.cantidad_detalle_pedido
+        WHERE id_presentacion = NEW.id_presentacion;
+
+    -- 3️⃣ Si cambia SOLO la cantidad
+    ELSEIF OLD.cantidad_detalle_pedido <> NEW.cantidad_detalle_pedido THEN
+
+        SET diferencia = NEW.cantidad_detalle_pedido - OLD.cantidad_detalle_pedido;
+
+        -- aumentó cantidad → descontar stock
+        IF diferencia > 0 THEN
+            UPDATE stock_sede_presentacion
+            SET cantidad_stock_presentacion_sede =
+                cantidad_stock_presentacion_sede - diferencia
+            WHERE id_presentacion = NEW.id_presentacion;
+
+        -- disminuyó cantidad → devolver stock
+        ELSE
+            UPDATE stock_sede_presentacion
+            SET cantidad_stock_presentacion_sede =
+                cantidad_stock_presentacion_sede + ABS(diferencia)
+            WHERE id_presentacion = NEW.id_presentacion;
+        END IF;
+
+    END IF;
+
+END
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estados_pedido`
+--
+
+CREATE TABLE `estados_pedido` (
+  `id_estado_pedido` int(11) NOT NULL,
+  `nombre_estado` varchar(150) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `estados_pedido`
+--
+
+INSERT INTO `estados_pedido` (`id_estado_pedido`, `nombre_estado`) VALUES
+(1, 'Creado'),
+(2, 'Confirmado'),
+(3, 'Alistado'),
+(4, 'Entregado'),
+(5, 'Cancelado'),
+(6, 'Finalizado');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `movimientos_financieros`
+--
+
+CREATE TABLE `movimientos_financieros` (
+  `id_movimiento_financiero` int(11) NOT NULL,
+  `categoria_financiera` int(11) DEFAULT NULL,
+  `descripcion_movimiento_financiero` varchar(100) DEFAULT NULL,
+  `monto_movimiento_financiero` varchar(100) DEFAULT NULL,
+  `fecha_registro_movimiento_financiero` date DEFAULT NULL,
+  `referencia_movimiento_financiero` varchar(100) DEFAULT NULL COMMENT 'Codigo de venta o codigo de factura del gasto',
+  `id_usuario` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `movimientos_financieros`
+--
+
+INSERT INTO `movimientos_financieros` (`id_movimiento_financiero`, `categoria_financiera`, `descripcion_movimiento_financiero`, `monto_movimiento_financiero`, `fecha_registro_movimiento_financiero`, `referencia_movimiento_financiero`, `id_usuario`) VALUES
+(1, 1, 'Ingreso por venta de vendedor', '21500', '2025-10-08', 'Pedido ID: 114', 7),
+(2, 1, 'Ingreso por venta de vendedor', '17000', '2025-10-08', 'Pedido ID: 115', 7),
+(3, 1, 'Ingreso por venta de vendedor', '2500', '2025-10-14', 'Pedido ID: 117', 9),
+(4, 1, 'Ingreso por venta de vendedor', '33500', '2025-10-14', 'Pedido ID: 116', 9),
+(5, 1, 'Ingreso por venta de vendedor', '21500', '2025-10-16', 'Pedido ID: 104', 8),
+(6, 1, 'Ingreso por venta de vendedor', '20000', '2025-10-16', 'Pedido ID: 107', 8),
+(7, 1, 'Ingreso por venta de vendedor', '12500', '2025-10-18', 'Pedido ID: 108', 8),
+(8, 1, 'Ingreso por venta de vendedor', '7500', '2025-10-18', 'Pedido ID: 109', 8),
+(9, 1, 'Ingreso por venta de vendedor', '19000', '2025-10-18', 'Pedido ID: 122', 8),
+(10, 1, 'Ingreso por venta de vendedor', '5000', '2025-10-18', 'Pedido ID: 123', 8),
+(11, 1, 'Ingreso por venta de J&M', '30500', '2025-10-30', 'Pedido ID: 128', 6),
+(12, 1, 'Ingreso por venta de vendedor', '5000', '2025-10-31', 'Pedido ID: 118', 7),
+(13, 1, 'Ingreso por venta de vendedor', '27000', '2025-10-31', 'Pedido ID: 119', 7),
+(14, 1, 'Ingreso por venta de vendedor', '22000', '2025-10-31', 'Pedido ID: 120', 7),
+(15, 1, 'Ingreso por venta de vendedor', '14500', '2025-10-31', 'Pedido ID: 121', 7),
+(16, 1, 'Ingreso por venta de vendedor', '31000', '2025-10-31', 'Pedido ID: 124', 7),
+(17, 1, 'Ingreso por venta de vendedor', '12500', '2025-10-31', 'Pedido ID: 125', 7),
+(18, 1, 'Ingreso por venta de vendedor', '50500', '2025-10-31', 'Pedido ID: 126', 7),
+(19, 1, 'Ingreso por venta de vendedor', '23000', '2025-10-31', 'Pedido ID: 127', 7),
+(20, 1, 'Ingreso por venta de vendedor', '12500', '2025-11-04', 'Pedido ID: 132', 9),
+(21, 1, 'Ingreso por venta de vendedor', '29000', '2025-11-04', 'Pedido ID: 133', 9),
+(22, 1, 'Ingreso por venta de vendedor', '13000', '2025-11-04', 'Pedido ID: 134', 9),
+(23, 1, 'Ingreso por venta de vendedor', '45000', '2025-11-12', 'Pedido ID: 139', 8),
+(24, 1, 'Ingreso por venta de vendedor', '5000', '2025-11-12', 'Pedido ID: 144', 8),
+(25, 1, 'Ingreso por venta de vendedor', '52500', '2025-11-12', 'Pedido ID: 138', 9),
+(26, 1, 'Ingreso por venta de vendedor', '21000', '2025-11-12', 'Pedido ID: 129', 7),
+(27, 1, 'Ingreso por venta de vendedor', '32500', '2025-11-12', 'Pedido ID: 130', 7),
+(28, 1, 'Ingreso por venta de vendedor', '7000', '2025-11-12', 'Pedido ID: 131', 7),
+(29, 1, 'Ingreso por venta de vendedor', '7000', '2025-11-12', 'Pedido ID: 135', 7),
+(30, 1, 'Ingreso por venta de vendedor', '26500', '2025-11-12', 'Pedido ID: 136', 7),
+(31, 1, 'Ingreso por venta de vendedor', '15000', '2025-11-12', 'Pedido ID: 137', 7),
+(32, 1, 'Ingreso por venta de vendedor', '20500', '2025-11-12', 'Pedido ID: 140', 7),
+(33, 1, 'Ingreso por venta de vendedor', '28000', '2025-11-12', 'Pedido ID: 141', 7),
+(34, 1, 'Ingreso por venta de vendedor', '5000', '2025-11-12', 'Pedido ID: 142', 7),
+(35, 1, 'Ingreso por venta de vendedor', '14500', '2025-11-12', 'Pedido ID: 143', 7),
+(36, 1, 'Ingreso por venta de J&M', '20000', '2025-11-12', 'Pedido ID: 145', 6),
+(38, 1, 'Ingreso por venta de J&M', '32500', '2025-11-18', 'Pedido ID: 148', 6),
+(39, 1, 'Ingreso por venta de vendedor', '49500', '2025-11-21', 'Pedido ID: 146', 7),
+(40, 1, 'Ingreso por venta de vendedor', '13500', '2025-11-22', 'Pedido ID: 147', 8),
+(41, 1, 'Ingreso por venta de J&M', '56000', '2025-11-26', 'Pedido ID: 151', 6),
+(42, 1, 'Ingreso por venta de vendedor', '23500', '2025-12-02', 'Pedido ID: 149', 7),
+(43, 1, 'Ingreso por venta de vendedor', '63000', '2025-12-02', 'Pedido ID: 150', 7),
+(44, 1, 'Ingreso por venta de vendedor', '17000', '2025-12-02', 'Pedido ID: 152', 7),
+(45, 1, 'Ingreso por venta de vendedor', '11000', '2025-12-02', 'Pedido ID: 153', 7),
+(46, 1, 'Ingreso por venta de vendedor', '15000', '2025-12-02', 'Pedido ID: 154', 7),
+(47, 1, 'Ingreso por venta de vendedor', '24500', '2025-12-02', 'Pedido ID: 155', 7),
+(48, 1, 'Ingreso por venta de vendedor', '16000', '2025-12-05', 'Pedido ID: 156', 9),
+(49, 1, 'Ingreso por venta de vendedor', '37500', '2025-12-05', 'Pedido ID: 157', 9),
+(50, 1, 'Ingreso por venta de vendedor', '24000', '2025-12-05', 'Pedido ID: 158', 9),
+(51, 1, 'Ingreso por venta de vendedor', '2500', '2025-12-05', 'Pedido ID: 159', 9),
+(52, 1, 'Ingreso por venta de vendedor', '14500', '2025-12-05', 'Pedido ID: 160', 9),
+(53, 1, 'Ingreso por venta de vendedor', '4000', '2025-12-05', 'Pedido ID: 162', 9),
+(54, 2, 'Pago cuota mes de diciembre\n', '123500', '2025-12-16', 'Pago cuota ', 6),
+(55, 1, 'Ingreso por venta de vendedor', '30000', '2025-12-19', 'Pedido ID: 161', 7),
+(56, 1, 'Ingreso por venta de vendedor', '62500', '2025-12-19', 'Pedido ID: 165', 7),
+(57, 1, 'Ingreso por venta de vendedor', '19000', '2025-12-19', 'Pedido ID: 166', 7),
+(58, 1, 'Ingreso por venta de vendedor', '6000', '2025-12-19', 'Pedido ID: 167', 7),
+(59, 1, 'Ingreso por venta de J&M', '15500', '2025-12-19', 'Pedido ID: 168', 6),
+(60, 1, 'Ingreso por venta de J&M', '40500', '2025-12-19', 'Pedido ID: 169', 6),
+(61, 1, 'Ingreso por venta de vendedor', '34000', '2025-12-19', 'Pedido ID: 170', 6),
+(62, 1, 'Ingreso por venta de vendedor', '17000', '2025-12-19', 'Pedido ID: 171', 6),
+(63, 1, 'Ingreso por venta de vendedor', '4000', '2025-12-21', 'Pedido ID: 164', 8),
+(64, 1, 'Ingreso por venta de vendedor', '34000', '2025-12-21', 'Pedido ID: 163', 8),
+(65, 2, 'Se paga cuota de la tarjeta nu que presentaba mora ', '126325', '2025-12-31', 'Pago tarjeta Nu', 6),
+(66, 1, 'Ingreso por venta de vendedor', '5000', '2026-01-06', 'Pedido ID: 176', 7),
+(67, 1, 'Ingreso por venta de vendedor', '15500', '2026-01-06', 'Pedido ID: 177', 7),
+(68, 1, 'Ingreso por venta de vendedor', '5000', '2026-01-06', 'Pedido ID: 178', 7),
+(69, 1, 'Ingreso por venta de vendedor', '2500', '2026-01-06', 'Pedido ID: 179', 7),
+(70, 1, 'Ingreso por venta de vendedor', '17000', '2026-01-06', 'Pedido ID: 180', 7),
+(71, 1, 'Ingreso por venta de vendedor', '2500', '2026-01-06', 'Pedido ID: 181', 7),
+(72, 1, 'Ingreso por venta de vendedor', '17000', '2026-01-06', 'Pedido ID: 182', 7),
+(73, 1, 'Ingreso por venta de vendedor', '17000', '2026-01-15', 'Pedido ID: 190', 9),
+(74, 1, 'Ingreso por venta de vendedor', '24500', '2026-01-15', 'Pedido ID: 189', 9),
+(75, 1, 'Ingreso por venta de vendedor', '24500', '2026-01-15', 'Pedido ID: 188', 9),
+(76, 1, 'Ingreso por venta de vendedor', '19500', '2026-01-15', 'Pedido ID: 187', 9),
+(77, 1, 'Ingreso por venta de vendedor', '17000', '2026-01-16', 'Pedido ID: 196', 6),
+(78, 1, 'Ingreso por venta de vendedor', '47000', '2026-01-17', 'Pedido ID: 195', 8),
+(79, 1, 'Ingreso por venta de vendedor', '5000', '2026-01-22', 'Pedido ID: 198', 8),
+(80, 1, 'Ingreso por venta de vendedor', '17000', '2026-01-22', 'Pedido ID: 197', 8),
+(81, 1, 'Ingreso por venta de vendedor', '62000', '2026-01-23', 'Pedido ID: 183', 7),
+(82, 1, 'Ingreso por venta de vendedor', '14500', '2026-01-23', 'Pedido ID: 184', 7),
+(83, 1, 'Ingreso por venta de vendedor', '4000', '2026-01-23', 'Pedido ID: 185', 7),
+(84, 1, 'Ingreso por venta de vendedor', '6000', '2026-01-23', 'Pedido ID: 186', 7),
+(85, 1, 'Ingreso por venta de vendedor', '12500', '2026-01-23', 'Pedido ID: 191', 7),
+(86, 1, 'Ingreso por venta de vendedor', '16000', '2026-01-23', 'Pedido ID: 192', 7),
+(87, 1, 'Ingreso por venta de vendedor', '65000', '2026-01-23', 'Pedido ID: 193', 7),
+(88, 1, 'Ingreso por venta de vendedor', '15500', '2026-01-23', 'Pedido ID: 194', 7),
+(89, 1, 'Ingreso por venta de vendedor', '6500', '2026-01-31', 'Pedido ID: 208', 9),
+(90, 1, 'Ingreso por venta de vendedor', '12500', '2026-01-31', 'Pedido ID: 207', 9),
+(91, 1, 'Ingreso por venta de vendedor', '29000', '2026-01-31', 'Pedido ID: 206', 9),
+(92, 1, 'Ingreso por venta de vendedor', '63500', '2026-02-01', 'Pedido ID: 175', 8),
+(93, 1, 'Ingreso por venta de vendedor', '3500', '2026-02-02', 'Pedido ID: 199', 7),
+(94, 1, 'Ingreso por venta de vendedor', '6000', '2026-02-02', 'Pedido ID: 200', 7),
+(95, 1, 'Ingreso por venta de vendedor', '4000', '2026-02-02', 'Pedido ID: 201', 7),
+(96, 1, 'Ingreso por venta de vendedor', '17000', '2026-02-02', 'Pedido ID: 202', 7),
+(97, 1, 'Ingreso por venta de vendedor', '17000', '2026-02-02', 'Pedido ID: 203', 7),
+(98, 1, 'Ingreso por venta de vendedor', '4500', '2026-02-02', 'Pedido ID: 204', 7),
+(99, 1, 'Ingreso por venta de vendedor', '39000', '2026-02-02', 'Pedido ID: 205', 7),
+(100, 1, 'Ingreso por venta de vendedor', '4500', '2026-02-02', 'Pedido ID: 209', 7),
+(101, 1, 'Ingreso por venta de vendedor', '32500', '2026-02-02', 'Pedido ID: 210', 7),
+(102, 1, 'Ingreso por venta de vendedor', '13000', '2026-02-02', 'Pedido ID: 173', 6),
+(103, 2, 'Pago del pendón a Jhovan para la casa de la  abuela de Maron', '60000', '2026-02-02', 'Compra pendon', 6),
+(104, 2, 'Nuevo pedido de productos', '981200', '2026-02-13', 'Pedido', 6),
+(105, 1, 'Ingreso por venta de vendedor', '7500', '2026-02-13', 'Pedido ID: 211', 7),
+(106, 1, 'Ingreso por venta de vendedor', '28000', '2026-02-13', 'Pedido ID: 212', 7),
+(107, 1, 'Ingreso por venta de vendedor', '13000', '2026-02-13', 'Pedido ID: 214', 7),
+(108, 1, 'Ingreso por venta de vendedor', '24500', '2026-02-13', 'Pedido ID: 215', 7),
+(109, 1, 'Ingreso por venta de vendedor', '6000', '2026-02-13', 'Pedido ID: 217', 7);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pedidos`
+--
+
+CREATE TABLE `pedidos` (
+  `id_pedidos` int(11) NOT NULL,
+  `id_usuario` int(11) DEFAULT NULL,
+  `id_cliente` int(11) DEFAULT NULL,
+  `id_estado` int(11) DEFAULT NULL,
+  `fecha_pedido` date DEFAULT NULL,
+  `fecha_entrega_pedido` date DEFAULT NULL,
+  `costo_total_pedido` int(11) DEFAULT NULL,
+  `valor_total_pedido` int(11) DEFAULT NULL,
+  `ganancia_total_pedido` int(11) DEFAULT NULL,
+  `estado` tinyint(4) DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `pedidos`
+--
+
+INSERT INTO `pedidos` (`id_pedidos`, `id_usuario`, `id_cliente`, `id_estado`, `fecha_pedido`, `fecha_entrega_pedido`, `costo_total_pedido`, `valor_total_pedido`, `ganancia_total_pedido`, `estado`) VALUES
+(19, 8, 14, 6, '2025-08-24', NULL, 49500, 72000, 12000, 1),
+(20, 8, 15, 6, '2025-08-24', NULL, 33650, 49500, 8500, 1),
+(21, 8, 16, 6, '2025-08-24', NULL, 9100, 13500, 2500, 1),
+(22, 8, 17, 6, '2025-08-24', NULL, 10150, 15000, 2500, 1),
+(23, 8, 18, 6, '2025-08-24', NULL, 6850, 10500, 2000, 1),
+(24, 8, 19, 6, '2025-08-24', NULL, 13100, 19500, 3500, 1),
+(25, 8, 21, 6, '2025-08-24', NULL, 41250, 60000, 10000, 1),
+(26, 7, 20, 6, '2025-08-24', NULL, 13050, 20000, 3500, 1),
+(27, 7, 41, 6, '2025-08-24', NULL, 3400, 5000, 1000, 1),
+(28, 7, 42, 6, '2025-08-24', NULL, 18450, 27000, 4500, 1),
+(29, 7, 45, 6, '2025-08-24', NULL, 26200, 37500, 6000, 1),
+(30, 7, 46, 6, '2025-08-24', NULL, 23150, 33500, 5500, 1),
+(31, 7, 52, 6, '2025-08-24', NULL, 10800, 15500, 2500, 1),
+(32, 7, 47, 6, '2025-08-24', NULL, 14400, 21000, 3500, 1),
+(33, 7, 48, 6, '2025-08-24', NULL, 2800, 4000, 500, 1),
+(34, 7, 50, 6, '2025-08-24', NULL, 2000, 3000, 500, 1),
+(35, 7, 50, 6, '2025-08-24', NULL, 8200, 12000, 2000, 1),
+(36, 7, 53, 6, '2025-08-24', NULL, 14000, 20000, 3000, 1),
+(37, 7, 52, 6, '2025-08-24', NULL, 4450, 6500, 1000, 1),
+(38, 6, 13, 6, '2025-08-24', NULL, 32950, 49000, 8500, 1),
+(39, 6, 54, 6, '2025-08-24', NULL, 22700, 33000, 5500, 1),
+(40, 8, 12, 6, '2025-08-24', NULL, 32400, 47000, 7500, 1),
+(41, 9, 58, 6, '2025-08-26', NULL, 3600, 5500, 1000, 1),
+(42, 9, 58, 6, '2025-08-26', NULL, 19700, 28500, 4500, 1),
+(43, 9, 57, 6, '2025-08-26', NULL, 18450, 27000, 4500, 1),
+(44, 9, 62, 6, '2025-08-26', NULL, 14000, 20500, 3500, 1),
+(45, 9, 60, 6, '2025-08-26', NULL, 14000, 20500, 3500, 1),
+(46, 9, 60, 5, '2025-08-26', NULL, 0, 0, 0, 1),
+(47, 9, 63, 6, '2025-08-26', NULL, 4900, 7000, 1000, 1),
+(48, 9, 60, 6, '2025-08-26', NULL, 10800, 15500, 2500, 1),
+(49, 9, 64, 6, '2025-08-26', NULL, 3600, 5500, 1000, 1),
+(50, 9, 59, 6, '2025-08-26', NULL, 31900, 46500, 7500, 1),
+(51, 7, 66, 6, '2025-08-28', NULL, 14000, 20500, 3500, 1),
+(52, 7, 50, 6, '2025-08-28', NULL, 23500, 33500, 5500, 1),
+(53, 7, 48, 6, '2025-08-28', NULL, 3400, 5000, 1000, 1),
+(54, 7, 67, 6, '2025-08-30', NULL, 14000, 20000, 3000, 1),
+(55, 9, 58, 6, '2025-08-31', NULL, 17600, 25500, 4000, 1),
+(56, 7, 68, 6, '2025-08-31', NULL, 7200, 11000, 2000, 1),
+(57, 7, 69, 6, '2025-08-31', NULL, 27000, 39000, 6500, 1),
+(58, 8, 70, 6, '2025-08-31', NULL, 17900, 26000, 4500, 1),
+(59, 8, 71, 6, '2025-08-31', NULL, 23800, 34000, 5500, 1),
+(60, 10, 72, 6, '2025-09-02', NULL, 29900, 44500, 8000, 1),
+(61, 10, 72, 6, '2025-09-02', NULL, 7800, 12000, 2000, 1),
+(62, 10, 73, 6, '2025-09-02', NULL, 7900, 12000, 2000, 1),
+(63, 7, 74, 6, '2025-09-02', NULL, 21400, 32000, 5500, 1),
+(64, 6, 13, 6, '2025-09-03', NULL, 14000, 20000, 3000, 1),
+(65, 7, 50, 6, '2025-09-03', NULL, 5700, 8500, 1500, 1),
+(66, 8, 19, 6, '2025-09-03', NULL, 19700, 29000, 5000, 1),
+(67, 8, 75, 6, '2025-09-03', NULL, 12900, 18500, 3000, 1),
+(68, 8, 44, 6, '2025-09-03', NULL, 32400, 47500, 8000, 1),
+(69, 7, 76, 6, '2025-09-06', NULL, 6800, 10000, 1500, 1),
+(70, 7, 77, 6, '2025-09-06', NULL, 3400, 5000, 1000, 1),
+(71, 6, 13, 6, '2025-09-06', NULL, 28600, 42000, 7000, 1),
+(72, 8, 78, 6, '2025-09-06', NULL, 64150, 94000, 15500, 1),
+(73, 8, 79, 6, '2025-09-06', NULL, 7400, 11000, 2000, 1),
+(74, 9, 60, 6, '2025-09-06', NULL, 14000, 20000, 3000, 1),
+(75, 9, 63, 6, '2025-09-06', NULL, 12000, 17500, 3000, 1),
+(76, 9, 80, 6, '2025-09-06', NULL, 20000, 29000, 4500, 1),
+(77, 8, 81, 6, '2025-09-07', NULL, 31000, 45500, 7500, 1),
+(78, 9, 59, 6, '2025-09-07', NULL, 3600, 5500, 1000, 1),
+(79, 7, 82, 6, '2025-09-08', NULL, 14000, 20000, 3000, 1),
+(80, 6, 83, 6, '2025-09-13', NULL, 13900, 20000, 3500, 1),
+(81, 9, 57, 6, '2025-09-15', NULL, 16000, 23000, 3500, 1),
+(82, 7, 82, 6, '2025-09-16', NULL, 14000, 20000, 3000, 1),
+(83, 7, 46, 6, '2025-09-16', NULL, 27000, 39000, 6500, 1),
+(84, 7, 84, 6, '2025-09-16', NULL, 12000, 17500, 3000, 1),
+(85, 9, 59, 6, '2025-09-16', NULL, 4000, 6000, 1000, 1),
+(86, 9, 59, 6, '2025-09-17', NULL, 3400, 5000, 1000, 1),
+(87, 9, 85, 6, '2025-09-19', NULL, 3400, 5000, 1000, 1),
+(88, 7, 86, 6, '2025-09-19', NULL, 10800, 15500, 2500, 1),
+(89, 8, 81, 6, '2025-09-20', NULL, 57850, 84500, 14000, 1),
+(90, 7, 45, 6, '2025-09-21', NULL, 6450, 9500, 1500, 1),
+(91, 7, 50, 6, '2025-09-23', NULL, 2400, 3500, 500, 1),
+(92, 6, 12, 6, '2025-09-24', NULL, 54700, 78500, 12500, 1),
+(93, 9, 85, 6, '2025-09-28', NULL, 11000, 16500, 3000, 1),
+(94, 9, 58, 6, '2025-09-28', NULL, 3600, 5500, 1000, 1),
+(95, 7, 82, 6, '2025-09-28', NULL, 30450, 44500, 7500, 1),
+(96, 7, 84, 6, '2025-09-29', NULL, 3600, 5500, 1000, 1),
+(97, 7, 48, 6, '2025-09-29', NULL, 6000, 9000, 1500, 1),
+(98, 6, 54, 6, '2025-10-01', NULL, 8200, 12000, 2000, 1),
+(99, 7, 19, 6, '2025-10-02', NULL, 5700, 8500, 1500, 1),
+(100, 7, 67, 6, '2025-10-02', NULL, 13000, 18500, 3000, 1),
+(101, 7, 87, 6, '2025-10-03', NULL, 22800, 33000, 5500, 1),
+(102, 7, 87, 6, '2025-10-03', NULL, 2500, 3500, 500, 1),
+(103, 7, 50, 6, '2025-10-05', NULL, 4000, 6000, 1000, 1),
+(104, 8, 70, 6, '2025-10-05', NULL, 17800, 26000, 4500, 1),
+(105, 8, 75, 6, '2025-10-05', NULL, 6000, 9000, 1500, 1),
+(106, 8, 78, 6, '2025-10-05', NULL, 28000, 41000, 7000, 1),
+(107, 8, 88, 6, '2025-10-05', NULL, 16400, 24000, 4000, 1),
+(108, 8, 70, 6, '2025-10-05', NULL, 10500, 15000, 2500, 1),
+(109, 8, 44, 6, '2025-10-05', NULL, 5900, 9000, 1500, 1),
+(110, 9, 85, 6, '2025-10-08', NULL, 3400, 5000, 1000, 1),
+(111, 9, 89, 6, '2025-10-08', NULL, 3400, 5000, 1000, 1),
+(112, 9, 59, 6, '2025-10-08', NULL, 4000, 6000, 1000, 1),
+(113, 9, 45, 6, '2025-10-08', NULL, 6000, 9000, 1500, 1),
+(114, 7, 45, 6, '2025-10-08', NULL, 17700, 26000, 4500, 1),
+(115, 7, 82, 6, '2025-10-08', NULL, 14000, 20000, 3000, 1),
+(116, 9, 59, 6, '2025-10-11', NULL, 27300, 40500, 7000, 1),
+(117, 9, 85, 6, '2025-10-11', NULL, 2000, 3000, 500, 1),
+(118, 7, 50, 6, '2025-10-13', NULL, 4000, 6000, 1000, 1),
+(119, 7, 95, 6, '2025-10-13', NULL, 22350, 32500, 5500, 1),
+(120, 7, 45, 6, '2025-10-16', NULL, 18000, 26500, 4500, 1),
+(121, 7, 19, 6, '2025-10-16', NULL, 11700, 17500, 3000, 1),
+(122, 8, 18, 6, '2025-10-16', NULL, 15600, 22500, 3500, 1),
+(123, 8, 44, 6, '2025-10-16', NULL, 3900, 6000, 1000, 1),
+(124, 7, 96, 6, '2025-10-22', NULL, 25400, 37500, 6500, 1),
+(125, 7, 98, 6, '2025-10-22', NULL, 10500, 15000, 2500, 1),
+(126, 7, 42, 6, '2025-10-25', NULL, 41800, 60500, 10000, 1),
+(127, 7, 76, 6, '2025-10-29', NULL, 18800, 27500, 4500, 1),
+(128, 6, 13, 6, '2025-10-30', NULL, 20500, 30500, 5000, 1),
+(129, 7, 101, 6, '2025-10-31', NULL, 17400, 25500, 4500, 1),
+(130, 7, 82, 6, '2025-10-31', NULL, 27000, 39000, 6500, 1),
+(131, 7, 82, 6, '2025-11-02', NULL, 5700, 8500, 1500, 1),
+(132, 9, 85, 6, '2025-11-02', NULL, 10200, 15000, 2500, 1),
+(133, 9, 102, 6, '2025-11-02', NULL, 23600, 35000, 6000, 1),
+(134, 9, 80, 6, '2025-11-02', NULL, 10800, 15500, 2500, 1),
+(135, 7, 101, 6, '2025-11-02', NULL, 5700, 8500, 1500, 1),
+(136, 7, 76, 6, '2025-11-03', NULL, 21500, 32000, 5500, 1),
+(137, 7, 45, 6, '2025-11-04', NULL, 12000, 18000, 3000, 1),
+(138, 9, 103, 6, '2025-11-08', NULL, 42850, 63000, 10500, 1),
+(139, 8, 78, 6, '2025-11-08', NULL, 36800, 54000, 9000, 1),
+(140, 7, 104, 6, '2025-11-11', NULL, 16600, 25000, 4500, 1),
+(141, 7, 50, 6, '2025-11-11', NULL, 23500, 33500, 5500, 1),
+(142, 7, 82, 6, '2025-11-11', NULL, 4000, 6000, 1000, 1),
+(143, 7, 67, 6, '2025-11-11', NULL, 12000, 17500, 3000, 1),
+(144, 8, 105, 6, '2025-11-12', NULL, 4000, 6000, 1000, 1),
+(145, 6, 13, 6, '2025-11-12', NULL, 14000, 20000, 3000, 1),
+(146, 7, 46, 6, '2025-11-12', NULL, 41000, 59500, 10000, 1),
+(147, 8, 19, 6, '2025-11-15', NULL, 10800, 16000, 2500, 1),
+(148, 6, 54, 6, '2025-11-18', NULL, 22200, 32500, 5500, 1),
+(149, 7, 109, 6, '2025-11-21', NULL, 19300, 28000, 4500, 1),
+(150, 7, 95, 6, '2025-11-21', NULL, 51500, 75500, 12500, 1),
+(151, 6, 110, 6, '2025-11-26', NULL, 38800, 56000, 9000, 1),
+(152, 7, 82, 6, '2025-11-28', NULL, 14000, 20500, 3500, 1),
+(153, 7, 76, 6, '2025-11-28', NULL, 8900, 13000, 2000, 1),
+(154, 7, 45, 6, '2025-11-28', NULL, 12000, 18000, 3000, 1),
+(155, 7, 67, 6, '2025-11-28', NULL, 20000, 29000, 4500, 1),
+(156, 9, 85, 6, '2025-12-01', NULL, 13000, 19000, 3000, 1),
+(157, 9, 59, 6, '2025-12-01', NULL, 30300, 45000, 7500, 1),
+(158, 9, 57, 6, '2025-12-01', NULL, 19700, 29000, 5000, 1),
+(159, 9, 111, 6, '2025-12-01', NULL, 2000, 3000, 500, 1),
+(160, 9, 63, 6, '2025-12-01', NULL, 12000, 17500, 3000, 1),
+(161, 7, 114, 6, '2025-12-04', NULL, 24700, 36000, 6000, 1),
+(162, 9, 63, 6, '2025-12-05', NULL, 3400, 5000, 1000, 1),
+(163, 8, 78, 6, '2025-12-12', NULL, 28000, 40500, 6500, 1),
+(164, 8, 44, 6, '2025-12-13', NULL, 3400, 5000, 1000, 1),
+(165, 7, 82, 6, '2025-12-17', NULL, 51800, 75000, 12500, 1),
+(166, 7, 45, 6, '2025-12-17', NULL, 15300, 23000, 4000, 1),
+(167, 7, 116, 6, '2025-12-18', NULL, 4800, 7000, 1000, 1),
+(168, 6, 13, 6, '2025-12-19', NULL, 10450, 15500, 2500, 1),
+(169, 6, 12, 6, '2025-12-19', NULL, 28250, 40500, 6500, 1),
+(170, 6, 12, 6, '2025-12-19', NULL, 28000, 40500, 6500, 1),
+(171, 6, 118, 6, '2025-12-19', NULL, 14100, 20500, 3500, 1),
+(172, 6, 119, 4, '2025-12-19', NULL, 85100, 123500, 20500, 1),
+(173, 6, 12, 6, '2025-12-19', NULL, 10800, 15500, 2500, 1),
+(174, 6, 120, 2, '2025-12-19', NULL, 10800, 15500, 2500, 1),
+(175, 8, 44, 6, '2025-12-21', NULL, 51600, 76000, 12500, 1),
+(176, 7, 50, 6, '2025-12-26', NULL, 4000, 6000, 1000, 1),
+(177, 7, 46, 6, '2025-12-28', NULL, 13000, 18500, 3000, 1),
+(178, 7, 20, 6, '2025-12-31', NULL, 3900, 6000, 1000, 1),
+(179, 7, 50, 6, '2025-12-31', NULL, 2000, 3000, 500, 1),
+(180, 7, 103, 6, '2026-01-04', NULL, 14000, 20000, 3000, 1),
+(181, 7, 50, 6, '2026-01-05', NULL, 2000, 3000, 500, 1),
+(182, 7, 45, 6, '2026-01-06', NULL, 14000, 20000, 3000, 1),
+(183, 7, 82, 6, '2026-01-11', NULL, 51500, 74000, 12000, 1),
+(184, 7, 84, 6, '2026-01-11', NULL, 12000, 17500, 3000, 1),
+(185, 7, 77, 6, '2026-01-11', NULL, 3400, 5000, 1000, 1),
+(186, 7, 76, 6, '2026-01-11', NULL, 4800, 7000, 1000, 1),
+(187, 9, 85, 6, '2026-01-13', NULL, 16200, 24000, 4500, 1),
+(188, 9, 59, 6, '2026-01-13', NULL, 20000, 29500, 5000, 1),
+(189, 9, 102, 6, '2026-01-13', NULL, 20000, 29500, 5000, 1),
+(190, 9, 80, 6, '2026-01-13', NULL, 14000, 20000, 3000, 1),
+(191, 7, 101, 6, '2026-01-14', NULL, 10500, 15000, 2500, 1),
+(192, 7, 19, 6, '2026-01-14', NULL, 12700, 19000, 3000, 1),
+(193, 7, 114, 6, '2026-01-14', NULL, 54000, 77000, 12000, 1),
+(194, 7, 67, 6, '2026-01-14', NULL, 13000, 18500, 3000, 1),
+(195, 8, 78, 6, '2026-01-16', NULL, 39000, 56500, 9500, 1),
+(196, 6, 13, 6, '2026-01-16', NULL, 14000, 20000, 3000, 1),
+(197, 8, 15, 6, '2026-01-20', NULL, 14000, 20500, 3500, 1),
+(198, 8, 15, 6, '2026-01-20', NULL, 4000, 6000, 1000, 1),
+(199, 7, 126, 6, '2026-01-26', NULL, 2800, 4000, 500, 1),
+(200, 7, 116, 6, '2026-01-26', NULL, 4800, 7000, 1000, 1),
+(201, 7, 96, 6, '2026-01-26', NULL, 3400, 5000, 1000, 1),
+(202, 7, 82, 6, '2026-01-30', NULL, 14000, 20500, 3500, 1),
+(203, 7, 128, 6, '2026-01-30', NULL, 14000, 20500, 3500, 1),
+(204, 7, 42, 6, '2026-01-31', NULL, 3450, 5500, 1000, 1),
+(205, 7, 46, 6, '2026-01-31', NULL, 32450, 46500, 7500, 1),
+(206, 9, 129, 6, '2026-01-31', NULL, 23400, 34500, 5500, 1),
+(207, 9, 57, 6, '2026-01-31', NULL, 10500, 15000, 2500, 1),
+(208, 9, 130, 6, '2026-01-31', NULL, 5400, 8000, 1500, 1),
+(209, 7, 132, 6, '2026-02-01', NULL, 3600, 5500, 1000, 1),
+(210, 7, 133, 6, '2026-02-01', NULL, 27000, 38500, 6000, 1),
+(211, 7, 135, 6, '2026-02-02', NULL, 5900, 9000, 1500, 1),
+(212, 7, 50, 6, '2026-02-02', NULL, 23500, 33500, 5500, 1),
+(213, 6, 12, 4, '2026-02-02', NULL, 14950, 21500, 3500, 1),
+(214, 7, 86, 6, '2026-02-06', NULL, 10800, 15500, 2500, 1),
+(215, 7, 82, 6, '2026-02-10', NULL, 20000, 29500, 5000, 1),
+(216, 6, 13, 1, '2026-02-13', NULL, 25600, 37500, 6500, 1),
+(217, 7, 19, 6, '2026-02-13', NULL, 4800, 7000, 1000, 1),
+(218, 8, 18, 1, '2026-02-14', NULL, 15300, 22000, 3500, 1),
+(219, 8, 21, 1, '2026-02-14', NULL, 14000, 20500, 3500, 1),
+(220, 7, 136, 4, '2026-02-15', NULL, 3300, 5000, 1000, 1),
+(221, 7, 137, 4, '2026-02-15', NULL, 7750, 11500, 2000, 1),
+(222, 7, 87, 4, '2026-02-16', NULL, 3450, 5500, 1000, 1),
+(223, 7, 139, 4, '2026-02-17', NULL, 18000, 26500, 4500, 1),
+(224, 7, 140, 4, '2026-02-17', NULL, 4450, 6500, 1000, 1),
+(225, 7, 50, 4, '2026-02-17', NULL, 2400, 3500, 500, 1),
+(226, 9, 59, 4, '2026-02-18', NULL, 29000, 42000, 7000, 1),
+(227, 9, 80, 4, '2026-02-18', NULL, 14000, 20000, 3000, 1),
+(228, 9, 141, 4, '2026-02-18', NULL, 20000, 29000, 4500, 1),
+(229, 9, 142, 4, '2026-02-18', NULL, 14200, 20500, 3500, 1),
+(230, 9, 85, 4, '2026-02-18', NULL, 3400, 5000, 1000, 1),
+(231, 9, 59, 4, '2026-02-18', NULL, 4800, 7000, 1000, 1),
+(232, 7, 143, 4, '2026-02-21', NULL, 9300, 14000, 2500, 1),
+(233, 7, 50, 4, '2026-02-21', NULL, 4000, 6000, 1000, 1),
+(234, 7, 82, 4, '2026-02-21', NULL, 27000, 39000, 6500, 1);
+
+--
+-- Disparadores `pedidos`
+--
+DELIMITER $$
+CREATE TRIGGER `registro_movimiento_financiero` AFTER UPDATE ON `pedidos` FOR EACH ROW IF  (NEW.id_estado = 6) THEN
+	
+		INSERT INTO movimientos_financieros (
+	    categoria_financiera,
+	    descripcion_movimiento_financiero,
+	    monto_movimiento_financiero,
+	    fecha_registro_movimiento_financiero,
+	    referencia_movimiento_financiero,
+	    id_usuario
+		)
+		SELECT
+		    1,
+		    CASE WHEN NEW.id_usuario != 1
+		         THEN 'Ingreso por venta de vendedor'
+		         ELSE 'Ingreso por venta de J&M'	    
+		    END,
+		    CASE WHEN NEW.id_usuario != 1
+		         THEN (NEW.valor_total_pedido - NEW.ganancia_total_pedido)
+		         ELSE NEW.valor_total_pedido
+		    END,
+		    NOW(),
+		    CONCAT('Pedido ID: ', NEW.id_pedidos),
+		    OLD.id_usuario
+		FROM DUAL
+		WHERE NEW.id_estado = 6 AND OLD.id_estado != 6;
+	ELSEIF (NEW.id_estado = 5) THEN
+		UPDATE detalle_pedido SET estado = 0 WHERE id_pedidos = NEW.id_pedidos;
+	END IF
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `presentacion_producto`
+--
+
+CREATE TABLE `presentacion_producto` (
+  `id_presentacion` int(11) NOT NULL,
+  `id_producto` int(11) DEFAULT NULL,
+  `tamano_presentacion` varchar(256) DEFAULT NULL,
+  `precio_compra_presentacion` int(11) DEFAULT NULL,
+  `precio_venta_jm_presentacion` int(11) DEFAULT NULL,
+  `precio_venta_cliente_presentacion` int(11) DEFAULT NULL,
+  `stock_disponible_presentacion` int(11) DEFAULT NULL,
+  `estado` tinyint(4) DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `presentacion_producto`
+--
+
+INSERT INTO `presentacion_producto` (`id_presentacion`, `id_producto`, `tamano_presentacion`, `precio_compra_presentacion`, `precio_venta_jm_presentacion`, `precio_venta_cliente_presentacion`, `stock_disponible_presentacion`, `estado`) VALUES
+(1, 1, '500 ML Repuesto', 2500, 3000, 3500, 14, 1),
+(2, 1, '500 ML Atomizador', 3600, 4500, 5500, 11, 1),
+(3, 1, '1L Repuesto', 3450, 4500, 5500, 14, 1),
+(4, 1, '1L Atomizador', 4450, 5500, 6500, 13, 1),
+(5, 1, 'Galon 3.8L ', 12000, 14500, 17500, 14, 1),
+(6, 2, '500 ML Repuesto', 2800, 3500, 4000, 11, 1),
+(7, 2, '1L Repuesto', 4800, 6000, 7000, 10, 1),
+(8, 2, '1L Valvula', 5700, 7000, 8500, 10, 1),
+(9, 2, 'Galon 3.8L ', 14000, 17000, 20000, 15, 1),
+(10, 3, '1L Atomizador', 3300, 4000, 5000, 8, 1),
+(11, 4, '500 ML', 2000, 2500, 3000, 7, 1),
+(12, 4, '1L', 3400, 4000, 5000, 11, 1),
+(13, 4, 'Galon 3.8L ', 10800, 13000, 15500, 22, 1),
+(14, 5, '500 ML', 2000, 2500, 3000, 6, 1),
+(15, 5, '1L', 3400, 4000, 5000, 6, 1),
+(16, 5, 'Galon 3.8L ', 10800, 13000, 15500, 15, 1),
+(17, 6, '500 ML', 2000, 2500, 3000, 10, 1),
+(18, 6, '1L', 3400, 4000, 5000, 12, 1),
+(19, 6, 'Galon 3.8L ', 10800, 13000, 15500, 12, 1),
+(20, 7, '2L', 10500, 12500, 15000, 11, 1),
+(21, 7, 'Galon 3.8L ', 14000, 17000, 20500, 5, 1),
+(22, 8, '1L', 3900, 5000, 6000, 7, 1),
+(23, 8, 'Galon 3.8L ', 13000, 15500, 18500, 12, 1),
+(24, 9, '1L', 4000, 5000, 6000, 7, 1),
+(25, 9, 'Galon 3.8L ', 14000, 17000, 20500, 8, 1),
+(26, 10, '1L', 2000, 2500, 3000, 11, 1),
+(27, 10, 'Galon 3.8L ', 6000, 7500, 9000, 0, 1),
+(28, 11, '500 ML', 2400, 3000, 3500, 16, 1),
+(29, 11, '1L', 4000, 5000, 6000, 16, 1),
+(30, 12, '500 ML', 2400, 3000, 3500, 9, 1),
+(31, 12, '1L', 4000, 5000, 6000, 7, 1),
+(32, 13, '250 G', 4500, 5500, 6500, NULL, 1),
+(33, 14, '4 Pastillas', 2000, 2500, 3000, NULL, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `productos`
+--
+
+CREATE TABLE `productos` (
+  `id_producto` int(11) NOT NULL,
+  `nombre_produto` varchar(150) DEFAULT NULL,
+  `descripcion_producto` varchar(256) DEFAULT NULL,
+  `stock_producto` int(11) DEFAULT NULL,
+  `id_categoria` int(11) NOT NULL,
+  `img` varchar(256) NOT NULL,
+  `estado` tinyint(4) DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `productos`
+--
+
+INSERT INTO `productos` (`id_producto`, `nombre_produto`, `descripcion_producto`, `stock_producto`, `id_categoria`, `img`, `estado`) VALUES
+(1, 'DESENGRASANTE', 'Desengrasante multi usos', 37, 1, 'assets/img/productos/desengrasante.png', 1),
+(2, 'LAVALOZA', 'Lavaloza', 24, 1, 'assets/img/productos/lavaloza.png', 1),
+(3, 'LIMPIA VIDRIOS', 'Limpia vidrios', 9, 2, 'assets/img/productos/limpiaVidrios.png', 1),
+(4, 'LIMPIADOR DE PISOS (CANELA)', 'Limpia pisos', 38, 2, 'assets/img/productos/canela.png', 1),
+(5, 'LIMPIADOR DE PISOS (FLORAL)', 'Limpia pisos', 25, 2, 'assets/img/productos/florar.png', 1),
+(6, 'LIMPIADOR DE PISOS (PINO)', 'Limpia pisos', 36, 2, 'assets/img/productos/pino.png', 1),
+(7, 'DETERGENTE LIQUIDO ROPA', 'Detergente ropa', 16, 3, 'assets/img/productos/detergemteLiquido.png', 1),
+(8, 'JABON BARRA LIQ MULTIUSOS (REY)', 'Jabon rey', 4, 2, 'assets/img/productos/reyLiquido.png', 1),
+(9, 'SUAVIZANTE DE ROPA', 'Suavisante', -4, 3, 'assets/img/productos/suavisante.png', 1),
+(10, 'BLANQUEADOR', 'Blanqueador', -3, 3, 'assets/img/productos/blanqueador.png', 1),
+(11, 'JABON DE MANOS (DURAZNO)', 'Jabon de manos', 44, 2, 'assets/img/productos/frutosRojos.png', 1),
+(12, 'JABON DE MANOS (FRUTOS ROJOS)', 'Jabon de manos', 33, 2, 'assets/img/productos/frutosRojos.png', 1),
+(13, 'OXIGENO ACTIVO', 'Oxigeno activo', NULL, 2, 'assets/img/productos/oxigenoActivo.png', 1),
+(14, 'PASTILLAS DE CLORO', 'Pastillas de cloro', NULL, 2, 'assets/img/productos/pastillasCloro.png', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `rol_usuario`
+--
+
+CREATE TABLE `rol_usuario` (
+  `id_rol` int(11) NOT NULL,
+  `nombre_rol` varchar(255) DEFAULT NULL,
+  `estado` tinyint(4) DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `rol_usuario`
+--
+
+INSERT INTO `rol_usuario` (`id_rol`, `nombre_rol`, `estado`) VALUES
+(1, 'Administrador', 1),
+(2, 'Vendedor', 1),
+(3, 'Cliente', 1),
+(4, 'Repartidor', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `sedes`
+--
+
+CREATE TABLE `sedes` (
+  `id_sede` int(11) NOT NULL,
+  `nombre_sede` varchar(100) DEFAULT NULL,
+  `direccion_sede` varchar(100) DEFAULT NULL,
+  `estado` char(1) DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `sedes`
+--
+
+INSERT INTO `sedes` (`id_sede`, `nombre_sede`, `direccion_sede`, `estado`) VALUES
+(1, 'Neiva', 'Calle 25 a sur # 23a-47', '1'),
+(2, 'Arada', 'Centro pobla la Arada', '1');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `stock_sede_presentacion`
+--
+
+CREATE TABLE `stock_sede_presentacion` (
+  `id_stock_sedes_presentacion` int(11) NOT NULL,
+  `id_presentacion` int(11) DEFAULT NULL,
+  `id_sede` int(11) DEFAULT NULL,
+  `cantidad_stock_presentacion_sede` int(11) DEFAULT NULL,
+  `stock_minimo_stock_presentacion_sede` int(11) DEFAULT NULL,
+  `estado` char(1) DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `stock_sede_presentacion`
+--
+
+INSERT INTO `stock_sede_presentacion` (`id_stock_sedes_presentacion`, `id_presentacion`, `id_sede`, `cantidad_stock_presentacion_sede`, `stock_minimo_stock_presentacion_sede`, `estado`) VALUES
+(1, 1, 1, 13, 4, '1'),
+(2, 2, 1, 9, 4, '1'),
+(3, 3, 1, 10, 4, '1'),
+(4, 4, 1, 6, 4, '1'),
+(5, 5, 1, 9, 4, '1'),
+(6, 6, 1, 8, 4, '1'),
+(7, 7, 1, 0, 4, '1'),
+(8, 8, 1, 8, 4, '1'),
+(9, 9, 1, 1, 4, '1'),
+(10, 10, 1, 2, 4, '1'),
+(11, 11, 1, 6, 4, '1'),
+(12, 12, 1, 7, 4, '1'),
+(13, 13, 1, 21, 4, '1'),
+(14, 14, 1, 6, 4, '1'),
+(15, 15, 1, -2, 4, '1'),
+(16, 16, 1, 14, 4, '1'),
+(17, 17, 1, 4, 4, '1'),
+(18, 18, 1, 8, 4, '1'),
+(19, 19, 1, 13, 4, '1'),
+(20, 20, 1, 0, 4, '1'),
+(21, 21, 1, -4, 4, '1'),
+(22, 22, 1, 1, 4, '1'),
+(23, 23, 1, -1, 4, '1'),
+(24, 24, 1, 1, 4, '1'),
+(25, 25, 1, 2, 4, '1'),
+(26, 26, 1, 0, 4, '1'),
+(27, 27, 1, -3, 4, '1'),
+(28, 28, 1, 7, 4, '1'),
+(29, 29, 1, 7, 4, '1'),
+(30, 30, 1, 16, 4, '1'),
+(31, 31, 1, 7, 4, '1'),
+(32, 1, 2, 3, 4, '1'),
+(33, 2, 2, 4, 4, '1'),
+(34, 3, 2, 3, 4, '1'),
+(35, 4, 2, -1, 4, '1'),
+(36, 5, 2, 2, 4, '1'),
+(37, 6, 2, 3, 4, '1'),
+(38, 7, 2, -2, 4, '1'),
+(39, 8, 2, 3, 4, '1'),
+(40, 9, 2, -7, 4, '1'),
+(41, 10, 2, 1, 4, '1'),
+(42, 11, 2, 2, 4, '1'),
+(43, 12, 2, 2, 4, '1'),
+(44, 13, 2, 4, 4, '1'),
+(45, 14, 2, 4, 4, '1'),
+(46, 15, 2, -1, 4, '1'),
+(47, 16, 2, 5, 4, '1'),
+(48, 17, 2, 0, 4, '1'),
+(49, 18, 2, 4, 4, '1'),
+(50, 19, 2, 0, 4, '1'),
+(51, 20, 2, -5, 4, '1'),
+(52, 21, 2, -4, 4, '1'),
+(53, 22, 2, -1, 4, '1'),
+(54, 23, 2, -7, 4, '1'),
+(55, 24, 2, 1, 4, '1'),
+(56, 25, 2, -1, 4, '1'),
+(57, 26, 2, -3, 4, '1'),
+(58, 27, 2, 1, 4, '1'),
+(59, 28, 2, 4, 4, '1'),
+(60, 29, 2, 4, 4, '1'),
+(61, 30, 2, 5, 4, '1'),
+(62, 31, 2, 0, 4, '1');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuarios`
+--
+
+CREATE TABLE `usuarios` (
+  `id_usuario` int(11) NOT NULL,
+  `nombre_usuario` varchar(255) DEFAULT NULL,
+  `user_usuario` varchar(255) DEFAULT NULL,
+  `telefono_usuario` varchar(255) DEFAULT NULL,
+  `direccion_usuario` varchar(255) DEFAULT NULL,
+  `id_rol` int(11) DEFAULT NULL,
+  `password_usuario` varchar(255) DEFAULT NULL,
+  `estado` tinyint(4) DEFAULT 1,
+  `id_sede` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`id_usuario`, `nombre_usuario`, `user_usuario`, `telefono_usuario`, `direccion_usuario`, `id_rol`, `password_usuario`, `estado`, `id_sede`) VALUES
+(6, 'Johan Montero', 'jmontero', '3177116506', '', 1, '$2y$10$Kynok1LFHAOvNSmY5r8GVOdmIkljAxI.xSG7QD9YPxlcCdW3ULlv6', 1, 1),
+(7, 'Diana Manrique', 'dianita', '3144932569', 'calle 25 a sur # 23a - 47', 2, '$2y$10$gvwrqT3AiHenSNH3ajHDS./H89aOCFYFGPslfNIc2cUmkOXdL6.K2', 1, 1),
+(8, 'Lilina Manrique', 'lili', '3154428222', '', 2, '$2y$10$MEL145SwJtbGvq7kVIFZ6eCU8bQsBhScP9c02Lau35sZbVsIayWSO', 1, 1),
+(9, 'Yolima Manrique', 'yolys', '3177156330', '', 2, '$2y$10$qV63.hBTIZ9uh1XRNV5mrek3f5c/TheMgYZw4ZoYp8vkm9XmPZG/y', 1, 2),
+(10, 'Juan Rendon', 'juanRendon', '3124115489', NULL, 4, '$2y$10$ABgSrwJldp0yPOYPeOk7JuUa5aIFVCZ5GhIzvys1OISMVNi0RS0U.', 1, NULL),
+(11, 'Maron Paque', 'maron', '3156557351', NULL, 1, '$2y$10$MltCeAaXP3Run33H7kxX1.3nMA0eCoSyJskI6ASrBtopf.CxtlLHS', 1, NULL),
+(12, 'Elizabeth Rojas (abuela maron)', NULL, '3134333739', 'Calle 40 # 17-18 Gualanday primer piso', 3, NULL, 1, NULL),
+(13, 'Sebastian Muñoz', NULL, '30173722819', 'calle ', 3, NULL, 1, NULL),
+(14, 'Liliana manrique polanco', NULL, '3202575379', 'timanco2', 3, NULL, 1, NULL),
+(15, 'Katherine Gutierrez', NULL, '8646892240', 'El vergel', 3, NULL, 1, NULL),
+(16, 'Leidy Karol Dayana', NULL, '3247743776', 'Calle 28 sur # 24-06 San Jorge', 3, NULL, 1, NULL),
+(17, 'Cindy Camacho', NULL, '3184928526', 'Conjunto Aquaviva apto 507', 3, NULL, 1, NULL),
+(18, 'Irma Morea', NULL, '3122380712', 'Canaima', 3, NULL, 1, NULL),
+(19, 'Zulma Avila', NULL, '3187435401', 'Canaima', 3, NULL, 1, NULL),
+(20, 'Doña Diana ', NULL, 'Na', 'Canaima ', 3, NULL, 1, NULL),
+(21, 'Roque Gutierrez', NULL, '3152412874', 'Gigante', 3, NULL, 1, NULL),
+(33, 'Johan Montero', NULL, '1075278686', 'calle 38 # 24b-224', 3, NULL, 1, NULL),
+(41, 'Don Alirio', NULL, '1', 'Canaima', 3, NULL, 1, NULL),
+(42, 'Jhonatan Peña', NULL, '322 7028744', 'Camilo Torres ', 3, NULL, 1, NULL),
+(44, 'Liliana Manrique ', NULL, '3154428222444', 'San Telmo', 3, NULL, 1, NULL),
+(45, 'Mayerly González', NULL, '312 2463903', 'Timanco', 3, NULL, 1, NULL),
+(46, 'Alfonso Hoyos', NULL, '321 9760151', 'Conjunto Caminos de la Primavera ', 3, NULL, 1, NULL),
+(47, 'Lenis Caviedes', NULL, '320 4057418', 'Móvil OMS', 3, NULL, 1, NULL),
+(48, 'Linda', NULL, '312 3266756', 'Ing Bote', 3, NULL, 1, NULL),
+(50, 'Diana Yineth Manrique Zamora ', NULL, '31449325690', 'Calle 25asur # 23a - 47 Canaima ', 3, NULL, 1, NULL),
+(52, 'Doña Yolanda', NULL, '2', 'Amiga Gabriela ', 3, NULL, 1, NULL),
+(53, 'Don Pedro', NULL, '3', 'Amigo Gabriela ', 3, NULL, 1, NULL),
+(54, 'Hermana sebastian', NULL, '33333', 'Puertas del sol', 3, NULL, 1, NULL),
+(56, 'Doña Elizabeth (Abuela Maron)', NULL, '31343337391', 'Calle 40 # 17-18', 3, NULL, 1, NULL),
+(57, 'Isabel', NULL, ' 313 2282790', 'La Arada ', 3, NULL, 1, NULL),
+(58, 'Lucely', NULL, '314 3976372', 'La Arada ', 3, NULL, 1, NULL),
+(59, 'Juan Pablo ', NULL, '3209789452', 'La Arada ', 3, NULL, 1, NULL),
+(60, 'Yenny', NULL, '317 2207756', 'La Arada ', 3, NULL, 1, NULL),
+(62, 'Aurora', NULL, '310', 'La Arada ', 3, NULL, 1, NULL),
+(63, 'Lorena', NULL, '318 3551887', 'La Arada ', 3, NULL, 1, NULL),
+(64, 'Erica', NULL, '123', 'La Arada ', 3, NULL, 1, NULL),
+(66, 'Angela ', NULL, '4', 'Bote', 3, NULL, 1, NULL),
+(67, 'Blanquita Inés ', NULL, '5', 'Timanco ', 3, NULL, 1, NULL),
+(68, 'Paola Nañez', NULL, '3123508699', 'Los Rosales', 3, NULL, 1, NULL),
+(69, 'Doña Graciela ', NULL, '3124810290', 'Conjunto Monte Madero', 3, NULL, 1, NULL),
+(70, 'Lina Luciana', NULL, '3105815777', 'San Telmo E 102', 3, NULL, 1, NULL),
+(71, 'Lina Macias', NULL, '3153975272', 'Almacén Más que Novias', 3, NULL, 1, NULL),
+(72, 'Marcela Esquivel ', NULL, '3204809881', '38, 17-23', 3, NULL, 1, NULL),
+(73, 'CEMPAC SA', NULL, '3007099875', 'Cll 5 #5a 07', 3, NULL, 1, NULL),
+(74, 'Diana Macías ', NULL, '8768533', 'Álamos Norte ', 3, NULL, 1, NULL),
+(75, 'Luz Ángela Malagon', NULL, '3133532916', 'Timanco', 3, NULL, 1, NULL),
+(76, 'Yesica Arias ', NULL, '316 8951081', 'Balcones de Ayuelos', 3, NULL, 1, NULL),
+(77, 'Ramiro Manrique ', NULL, '3117959066', 'Canaima ', 3, NULL, 1, NULL),
+(78, 'Olga Liliana Gutiérrez ', NULL, '3153082002', 'Conjunto Ceiba Real', 3, NULL, 1, NULL),
+(79, 'Blanca Aguirre', NULL, '3103168810', 'Canaima', 3, NULL, 1, NULL),
+(80, 'Lida', NULL, '313 4743977', 'La Arada', 3, NULL, 1, NULL),
+(81, 'Norma Avila', NULL, '3162369050', 'Canaima', 3, NULL, 1, NULL),
+(82, 'Vecina Yolima ', NULL, '6', 'Canaima', 3, NULL, 1, NULL),
+(83, 'Jovhan Lugo', NULL, '314 5602354', 'Conjunto', 3, NULL, 1, NULL),
+(84, 'Xiomara Medina ', NULL, '7', 'Bote', 3, NULL, 1, NULL),
+(85, 'Yineth', NULL, '3124121255', 'La Arada', 3, NULL, 1, NULL),
+(86, 'Cecilia Perdomo ', NULL, '8', 'Manzanares ', 3, NULL, 1, NULL),
+(87, 'Sergio Cuenca ', NULL, '3025757179', 'Canaima ', 3, NULL, 1, NULL),
+(88, 'Alexander Bernal', NULL, '3165090933', 'Trabajo Javier', 3, NULL, 1, NULL),
+(89, 'LUZ MARINA ', NULL, '322 4468771', 'La Arada', 3, NULL, 1, NULL),
+(95, 'Mónica Icopo', NULL, '9', 'Canaima ', 3, NULL, 1, NULL),
+(96, 'Doña Gladys ', NULL, '0', 'Canaima', 3, NULL, 1, NULL),
+(98, 'Hermana Mónica ', NULL, '11', 'Canaima ', 3, NULL, 1, NULL),
+(101, 'Marlen Vigilante ', NULL, '12', 'Bote', 3, NULL, 1, NULL),
+(102, 'Yesid Alarcon', NULL, '3246135843', 'La Arada', 3, NULL, 1, NULL),
+(103, 'Elizabeth Rendón ', NULL, '3173404038', 'Neiva', 3, NULL, 1, NULL),
+(104, 'Hermana menor Mónica ', NULL, '13', 'Canaima ', 3, NULL, 1, NULL),
+(105, 'William Llanos', NULL, '14', 'Canaima ', 3, NULL, 1, NULL),
+(106, 'William Llanos', NULL, '000', 'Canaima ', 3, NULL, 1, NULL),
+(109, 'Nelly Amiga de Gabriela ', NULL, '15', 'San Jorge ', 3, NULL, 1, NULL),
+(110, 'Dora Vecina Maron', NULL, '11111', 'Gualandai', 3, NULL, 1, NULL),
+(111, 'DOÑA BLANCA', NULL, '3188855533', 'La Arada', 3, NULL, 1, NULL),
+(114, 'Rosita Amezquita ', NULL, '16', 'Timanco', 3, NULL, 1, NULL),
+(116, 'María José ', NULL, '17', 'Canaima ', 3, NULL, 1, NULL),
+(118, 'Sonia (Inquilina Abuela Maron)', NULL, '33', '1', 3, NULL, 1, NULL),
+(119, 'Fran (Tio Maron)', NULL, '111', 'Manisales', 3, NULL, 1, NULL),
+(120, 'Sandra (Mama de Maron)', NULL, '31058442725', 'Margarita 1', 3, NULL, 1, NULL),
+(126, 'Vecina Adriana - comidas rápidas ', NULL, '18', 'Canaima', 3, NULL, 1, NULL),
+(128, 'Yeison OMS ', NULL, '19', 'OMS ', 3, NULL, 1, NULL),
+(129, 'DALIDA', NULL, '3125920841', 'La Arada', 3, NULL, 1, NULL),
+(130, 'Hector ', NULL, '00', 'La Arada', 3, NULL, 1, NULL),
+(132, 'Norma OMS', NULL, '20', 'Bote', 3, NULL, 1, NULL),
+(133, 'Doña Dora vecina Rosita ', NULL, '21', 'Timanco ', 3, NULL, 1, NULL),
+(135, 'Yesica vecina ', NULL, '22', 'Canaima', 3, NULL, 1, NULL),
+(136, 'Carolina Rojas ', NULL, '23', 'OMS', 3, NULL, 1, NULL),
+(137, 'Cesar Peña ', NULL, '24', 'OMS', 3, NULL, 1, NULL),
+(139, 'Ing Palomeque ', NULL, '25', 'OMS', 3, NULL, 1, NULL),
+(140, 'Johan Pérez ', NULL, '26', 'OMS', 3, NULL, 1, NULL),
+(141, 'Marisol', NULL, '314 3822123', 'La Arada', 3, NULL, 1, NULL),
+(142, 'Maria', NULL, '321 7900778', 'Baraya ', 3, NULL, 1, NULL),
+(143, 'Vecina Alicia ', NULL, '27', 'Canaima ', 3, NULL, 1, NULL);
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `categorias_financieras`
+--
+ALTER TABLE `categorias_financieras`
+  ADD PRIMARY KEY (`id_categoria_financiera`);
+
+--
+-- Indices de la tabla `categoria_productos`
+--
+ALTER TABLE `categoria_productos`
+  ADD PRIMARY KEY (`id_categoria`);
+
+--
+-- Indices de la tabla `detalle_pedido`
+--
+ALTER TABLE `detalle_pedido`
+  ADD PRIMARY KEY (`id_detalle_pedido`),
+  ADD KEY `detalle_pedido_presentacion_producto_FK` (`id_presentacion`),
+  ADD KEY `detalle_pedido_pedido` (`id_pedidos`);
+
+--
+-- Indices de la tabla `estados_pedido`
+--
+ALTER TABLE `estados_pedido`
+  ADD PRIMARY KEY (`id_estado_pedido`);
+
+--
+-- Indices de la tabla `movimientos_financieros`
+--
+ALTER TABLE `movimientos_financieros`
+  ADD PRIMARY KEY (`id_movimiento_financiero`);
+
+--
+-- Indices de la tabla `pedidos`
+--
+ALTER TABLE `pedidos`
+  ADD PRIMARY KEY (`id_pedidos`),
+  ADD KEY `pedidos_usuarios_FK` (`id_usuario`),
+  ADD KEY `pedidos_usuarios_FK_1` (`id_cliente`),
+  ADD KEY `pedidos_estados_pedido_FK` (`id_estado`);
+
+--
+-- Indices de la tabla `presentacion_producto`
+--
+ALTER TABLE `presentacion_producto`
+  ADD PRIMARY KEY (`id_presentacion`),
+  ADD KEY `presentacion_producto_Productos_FK` (`id_producto`);
+
+--
+-- Indices de la tabla `productos`
+--
+ALTER TABLE `productos`
+  ADD PRIMARY KEY (`id_producto`),
+  ADD KEY `categoria_prodcutos` (`id_categoria`);
+
+--
+-- Indices de la tabla `rol_usuario`
+--
+ALTER TABLE `rol_usuario`
+  ADD PRIMARY KEY (`id_rol`);
+
+--
+-- Indices de la tabla `sedes`
+--
+ALTER TABLE `sedes`
+  ADD PRIMARY KEY (`id_sede`);
+
+--
+-- Indices de la tabla `stock_sede_presentacion`
+--
+ALTER TABLE `stock_sede_presentacion`
+  ADD PRIMARY KEY (`id_stock_sedes_presentacion`),
+  ADD KEY `stock_sede_presentaciones_presentacion_producto_FK` (`id_presentacion`),
+  ADD KEY `stock_sede_presentaciones_sedes_FK` (`id_sede`);
+
+--
+-- Indices de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`id_usuario`),
+  ADD UNIQUE KEY `user_usuario` (`user_usuario`),
+  ADD UNIQUE KEY `telefono_usuario` (`telefono_usuario`),
+  ADD KEY `usuarios_rol_usuario_FK` (`id_rol`),
+  ADD KEY `usuarios_sedes_FK` (`id_sede`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `categorias_financieras`
+--
+ALTER TABLE `categorias_financieras`
+  MODIFY `id_categoria_financiera` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `categoria_productos`
+--
+ALTER TABLE `categoria_productos`
+  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `detalle_pedido`
+--
+ALTER TABLE `detalle_pedido`
+  MODIFY `id_detalle_pedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=452;
+
+--
+-- AUTO_INCREMENT de la tabla `estados_pedido`
+--
+ALTER TABLE `estados_pedido`
+  MODIFY `id_estado_pedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `movimientos_financieros`
+--
+ALTER TABLE `movimientos_financieros`
+  MODIFY `id_movimiento_financiero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
+
+--
+-- AUTO_INCREMENT de la tabla `pedidos`
+--
+ALTER TABLE `pedidos`
+  MODIFY `id_pedidos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=235;
+
+--
+-- AUTO_INCREMENT de la tabla `presentacion_producto`
+--
+ALTER TABLE `presentacion_producto`
+  MODIFY `id_presentacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+
+--
+-- AUTO_INCREMENT de la tabla `productos`
+--
+ALTER TABLE `productos`
+  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT de la tabla `rol_usuario`
+--
+ALTER TABLE `rol_usuario`
+  MODIFY `id_rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `sedes`
+--
+ALTER TABLE `sedes`
+  MODIFY `id_sede` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `stock_sede_presentacion`
+--
+ALTER TABLE `stock_sede_presentacion`
+  MODIFY `id_stock_sedes_presentacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+
+--
+-- AUTO_INCREMENT de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=144;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `detalle_pedido`
+--
+ALTER TABLE `detalle_pedido`
+  ADD CONSTRAINT `detalle_pedido_pedido` FOREIGN KEY (`id_pedidos`) REFERENCES `pedidos` (`id_pedidos`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `detalle_pedido_presentacion_producto_FK` FOREIGN KEY (`id_presentacion`) REFERENCES `presentacion_producto` (`id_presentacion`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `pedidos`
+--
+ALTER TABLE `pedidos`
+  ADD CONSTRAINT `pedidos_estados_pedido_FK` FOREIGN KEY (`id_estado`) REFERENCES `estados_pedido` (`id_estado_pedido`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `pedidos_usuarios_FK` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `pedidos_usuarios_FK_1` FOREIGN KEY (`id_cliente`) REFERENCES `usuarios` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `presentacion_producto`
+--
+ALTER TABLE `presentacion_producto`
+  ADD CONSTRAINT `presentacion_producto_Productos_FK` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id_producto`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `productos`
+--
+ALTER TABLE `productos`
+  ADD CONSTRAINT `categoria_prodcutos` FOREIGN KEY (`id_categoria`) REFERENCES `categoria_productos` (`id_categoria`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `stock_sede_presentacion`
+--
+ALTER TABLE `stock_sede_presentacion`
+  ADD CONSTRAINT `stock_sede_presentaciones_presentacion_producto_FK` FOREIGN KEY (`id_presentacion`) REFERENCES `presentacion_producto` (`id_presentacion`),
+  ADD CONSTRAINT `stock_sede_presentaciones_sedes_FK` FOREIGN KEY (`id_sede`) REFERENCES `sedes` (`id_sede`);
+
+--
+-- Filtros para la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD CONSTRAINT `usuarios_rol_usuario_FK` FOREIGN KEY (`id_rol`) REFERENCES `rol_usuario` (`id_rol`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `usuarios_sedes_FK` FOREIGN KEY (`id_sede`) REFERENCES `sedes` (`id_sede`);
 COMMIT;
 
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

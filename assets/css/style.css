@@ -305,5 +305,16 @@ p {
         font-size: 1.3rem;
     }
 
+    .content-ganancias{
+        padding: .5rem;
+        margin-bottom: 2rem;
+        margin-right: 0px;
+    }
+
+    .content-ganancias span{
+        font-size: 1.3rem;
+        font-weight: 700;
+    }
+
 }
 
