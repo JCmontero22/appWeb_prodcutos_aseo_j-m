@@ -21,7 +21,7 @@
             break;
         case 'listadoVentas':
             $listadoPedidos = new listadoVentasController();
-            echo json_encode($listadoPedidos->listarVentas($_GET['admin']));
+            echo json_encode($listadoPedidos->listarVentas($_GET['admin'], $_GET['filtro'])); // Agrega el filtro como argumento
             break;
         
         case 'detallePedido':

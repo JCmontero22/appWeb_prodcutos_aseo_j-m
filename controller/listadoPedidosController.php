@@ -6,12 +6,12 @@
 
     class listadoVentasController extends ListadoVentasModel
     {
-        public function listarVentas($admin){
+        public function listarVentas($admin, $filtro){
             $respuesta = [];
 
             try {
 
-                $resultadoPedidos = $this->get_listadoVentas($_SESSION['id'], $_SESSION['rol'], $admin);
+                $resultadoPedidos = $this->get_listadoVentas($_SESSION['id'], $_SESSION['rol'], $admin, $filtro);
 
                 if (empty($resultadoPedidos)) {
                     return [

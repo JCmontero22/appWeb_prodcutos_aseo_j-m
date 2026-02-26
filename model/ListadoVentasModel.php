@@ -5,12 +5,14 @@
     class ListadoVentasModel 
     {
 
-        public function get_listadoVentas($idUsuario, $idRol, $admin){
+        public function get_listadoVentas($idUsuario, $idRol, $admin, $filtro){
             
             try {
                 $db = new Conexion();
             
-                $where = ($idRol == 2 || $admin == 1) ? "AND p.id_usuario = :idUsuario" : "";
+                $where = "";
+                $where .= ($idRol == 2 || $admin == 1) ? "AND p.id_usuario = :idUsuario" : "";
+                /* $where .= ($filtro == 1) ? "AND p.fecha_pedido <= '2025-08-22'" : "AND p.fecha_pedido >= '2025-08-22'"; */
                 
                 $query = "SELECT 
                                 p.id_pedidos AS idPedido, 

@@ -11,7 +11,9 @@ function initListadoVentas() {
 
 function listadoVentas(admin = 2, historial = 0) {
 
+    let tabla = '#tabla_pedidos';
     if (historial == 1) {
+        tabla = '#tabla_historial';
         $("#historialModal").modal("show");
     }
 
@@ -20,85 +22,84 @@ function listadoVentas(admin = 2, historial = 0) {
         type: 'GET',
         data: {
             accion: 'listadoVentas',
-            admin: admin
+            admin: admin,
+            filtro: historial
         },
         success: function(response) {
             response = JSON.parse(response);
             if (admin == 1) {
                 cargarTablaVentasAdmin(response.data);
             }else{
-                cargarTable(response.data, rol);
+                cargarTable(response.data, rol, tabla);
             }
         }
     });
 }
 
-function cargarTable(data, rol) {
-    
-    const tabla = $("#tabla_pedidos").DataTable({
-        destroy: true,
+function cargarTable(data, rol, idTabla) {
+    // 1. Construimos las columnas base (las que siempre se muestran)
+    let columnas = [
+        {data: "idPedido"},
+        {data: "cliente"},
+        {data: "telefono"},
+        {data: "direccion"},
+        {
+            data: "totalVenta",
+            className: "text-center",
+            render: function(data) { return '$' + separarMiles(data); }
+        },
+        {
+            data: "totalGanancia",
+            className: "text-center",
+            render: function(data) { return '$' + separarMiles(data); }
+        },
+        {data: "fechaPedido"}
+    ];
+
+    // 2. Agregamos la columna 'vendedor' SOLO si el rol es 1 (Coincide con tu PHP)
+    if (rol == 1) {
+        columnas.push({data: "vendedor"});
+    }
+
+    // 3. Agregamos el Estado y las Acciones al final
+    columnas.push(
+        {
+            data: "estado", 
+            className: "text-center", 
+            render: function(data) {
+                // Optimizamos los if/else con un objeto
+                const clasesEstado = {
+                    'Creado': 'bg-secondary text-white',
+                    'Confirmado': 'bg-info',
+                    'Alistado': 'bg-warning',
+                    'Entregado': 'bg-success text-white',
+                    'Cancelado': 'bg-danger',
+                    'Finalizado': 'bg-dark text-white'
+                };
+                let clase = clasesEstado[data] || 'bg-light text-dark';
+                return `<span class="${clase} p-2 estados">${data}</span>`;
+            }
+        },
+        {
+            data: "estado",
+            className: "text-center",
+            render: function(data, type, row){
+                let botones = `<button class="btn btn-primary btn-sm btnAccionListadoPedidos" onclick="detallePedido(${row.idPedido})"> <i class="fa-solid fa-magnifying-glass"></i> </button>`;
+                
+                if (data != 'Finalizado' && data != 'Cancelado') {
+                    botones += ` <button class="btn btn-success btn-sm btnAccionListadoPedidos" onclick="modalEditarEstado(${row.idPedido}, ${row.idEstado})"> <i class="fa-solid fa-pencil"></i> </button>`;
+                }
+                return botones;
+            }
+        }
+    );
+
+    // 4. Inicializamos el DataTable apuntando al idTabla recibido
+    $(idTabla).DataTable({
+        destroy: true, // Esto es clave para poder recargar tablas sobre el mismo elemento
         responsive: true,
         data: data,
-        columns: [
-            {data: "idPedido"},
-            {data: "cliente"},
-            {data: "telefono"},
-            {data: "direccion"},
-            {data: "totalVenta",
-                className: "text-center",
-                render: function(data, type, row) {
-                    return '$' + separarMiles(data);
-                }
-            },
-            {data: "totalGanancia",
-                className: "text-center",
-                render: function(data, type, row) {
-                    return '$' + separarMiles(data);
-                }
-            },
-            {data: "fechaPedido"},
-            {data: "vendedor"},
-
-          
-            /* {data: "fechaEntrega", render: function(data, type, row) {
-                if (!data || data === '') {
-                    return '<span>No Entregado</span>';
-                }
-                return data;
-            }}, */
-            {data: "estado", className: "text-center", render: function(data, type, row) {
-                if (data === 'Creado') {
-                    return '<span class="bg-secondary text-white p-2 estados">Creado</span>';
-                } else if (data === 'Confirmado') {
-                    return '<span class="bg-info p-2 estados">Confirmado</span>';
-                } else if (data === 'Alistado') {
-                    return '<span class="bg-warning p-2 estados">Alistado</span>';
-                } else if (data === 'Entregado') {
-                    return '<span class="bg-success text-white p-2 estados">Entregado</span>';
-                } else if (data === 'Cancelado') {
-                    return '<span class="bg-danger p-2 estados">Cancelado</span>';
-                } else if (data === 'Finalizado') {
-                    return '<span class="bg-dark text-white p-2 estados">Finalizado</span>';
-                }
-                
-            }},
-            {
-                data: "estado",
-                className: "text-center",
-                render: function(data, type, row){
-                    if ( data != 'Finalizado' && data !='Cancelado') {/* data != 'Entregado' && */
-                        return `
-                            <button class="btn btn-primary btn-sm btnAccionListadoPedidos" onclick="detallePedido(${row.idPedido})"> <i class="fa-solid fa-magnifying-glass"></i> </button>
-                            <button class="btn btn-success btn-sm btnAccionListadoPedidos" onclick="modalEditarEstado(${row.idPedido}, ${row.idEstado})"> <i class="fa-solid fa-pencil"></i> </button>
-                        `;
-                    } else {
-                        return `
-                            <button class="btn btn-primary btn-sm btnAccionListadoPedidos" onclick="detallePedido(${row.idPedido})"> <i class="fa-solid fa-magnifying-glass"></i> </button>
-                        `;
-                    }
-                }
-            }
-        ],
+        columns: columnas,
         order: [[0, "desc"]],
         language: {
             "processing": "Procesando...",
@@ -114,18 +115,9 @@ function cargarTable(data, rol) {
                 "last": "Último",
                 "next": "Siguiente",
                 "previous": "Anterior"
-            },
-            "loadingRecords": "Cargando...",
-            "aria": {
-                "sortAscending": ": Activar para ordenar la columna de manera ascendente",
-                "sortDescending": ": Activar para ordenar la columna de manera descendente"
             }
         }
     });
-
-    if (rol != 1) {
-        tabla.column(7).visible(false); // columna 7 = vendedor
-    }
 }
 
 function cargarTablaVentasAdmin(data) {
