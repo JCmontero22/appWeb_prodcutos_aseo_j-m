@@ -9,7 +9,7 @@
                 $bd = new Conexion();
 
                 $filtro = "";
-                $filtro = " and fecha_registro_movimiento_financiero > '2026-03-03'  ";    
+                $filtro = " AND fecha_registro_movimiento_financiero > '2026-03-03'  ";    
                 
 
                 $query = "SELECT 
