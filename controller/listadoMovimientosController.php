@@ -19,6 +19,7 @@
                         'monto' => number_format($resultadoMovimientos[$i]['monto'], 0, ',', '.'),
                         'refencia' => $resultadoMovimientos[$i]['refencia'],
                         'usuario' => $resultadoMovimientos[$i]['usuario'],
+                        'sede' => $resultadoMovimientos[$i]['sede']
                     ];
                 }
 

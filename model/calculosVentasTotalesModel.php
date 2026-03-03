@@ -9,7 +9,7 @@
 
                 $filtro = "";
 
-                /* $tipoConsulta == 1 ? $filtro = " WHERE p.fecha_pedido <= '2025-08-22' " : $filtro = " WHERE p.fecha_pedido > '2025-08-22' "; */
+                $tipoConsulta == 1 ? $filtro = " WHERE p.fecha_pedido <= '2026-03-03' " : $filtro = " WHERE p.fecha_pedido > '2026-03-03' ";
 
                 $db = new Conexion();
                 $query = "SELECT

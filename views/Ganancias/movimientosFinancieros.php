@@ -66,6 +66,7 @@ session_start();
                                 <th>Descripción</th>
                                 <th>Referencia</th>
                                 <th>Realizado por</th>
+                                <th>Sede</th>
                             </tr>
                         </thead>
                         <tbody id="tablaMovimientos" class="text-center">

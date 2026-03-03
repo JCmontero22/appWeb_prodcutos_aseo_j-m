@@ -40,6 +40,7 @@ function cargarTable(data) {
             {data: "descripcion"},
             {data: "refencia"},
             {data: "usuario"},
+            {data: "sede"}
             
         ],
         order: [[0, "desc"]],
