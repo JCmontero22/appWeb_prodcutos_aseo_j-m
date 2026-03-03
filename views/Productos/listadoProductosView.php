@@ -18,6 +18,29 @@
             </div>
         </div>
 
+        <!-- <div class="row">
+            <div class="col-md-12 d-flex justify-content-end"> -->
+                <?php if ($_SESSION['rol'] == 1) : ?>
+                    <div class="row mt-3">
+                        <div class="col-md-12 d-flex justify-content-end">
+                            <div class="">
+                                <select name="sedes" id="sedes" class="form-select">
+
+                                </select>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-12 d-flex justify-content-end">
+                            <span id="valorTotalStock"></span>
+                        </div>
+                    </div>
+                <?php endif; ?>
+            <!-- </div>
+        </div> -->
+
         <div class="row">
             <div class="col-md-12 table-responsive">
                 <table class="table mt-5 table-bordered table-hover tablaProductos" id="tablaProductos">
@@ -28,6 +51,9 @@
                             <th>Presentacion</th>
                             <th>Cantidad</th>
                             <th>Precio</th>
+                            <?php if ($_SESSION['rol'] == 1) { 
+                                echo '<th>Valor Stock</th>';
+                            } ?>
                         </tr>
                     </thead>
                     <tbody>

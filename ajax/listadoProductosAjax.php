@@ -5,6 +5,7 @@
     
     $listadoProductos = new listadoProductosController();
 
-    $resultado = $listadoProductos->listadoProductos();
+    $redId = isset($_GET['sedeId']) ? $_GET['sedeId'] : 0;
+    $resultado = $listadoProductos->listadoProductos($redId);
 
     echo json_encode($resultado);

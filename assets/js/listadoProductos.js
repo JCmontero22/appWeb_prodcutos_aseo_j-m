@@ -1,14 +1,22 @@
 function initProductos() {
     listadoProductos();
+    listadoSedes();
+    document.getElementById('sedes').addEventListener('change', function() {
+        let sedeId = this.value;
+        listadoProductos(sedeId);
+    });
 }
 
 
-function listadoProductos() {
+function listadoProductos(sedeId = 0) {
     $.ajax({
         url: 'ajax/listadoProductosAjax.php',
         type: 'GET',
+        data: { sedeId: sedeId },
         success: function(response) {
             response = JSON.parse(response);
+            console.log(response);
+            $("#valorTotalStock").text(`Valor total del stock: $${separarMiles(response.valorTotalStock)}`);
             cargarTable(response.data);
         }
     });
@@ -42,6 +50,12 @@ function cargarTable(data) {
                     className: "text-center",
                     render: function(data, type, row) {
                         return `<span class="badge bg-success">$${separarMiles(data)}</span>`;
+                    }
+                },
+                {data: "valorStock",
+                    className: "text-center",
+                    render: function(data, type, row) {
+                        return `<span class="">$${separarMiles(data)}</span>`;
                     }
                 },
                /*  {data: null,
@@ -84,6 +98,22 @@ function cargarTable(data) {
 function separarMiles(numero) {
     numero = Number(numero);
     return numero.toLocaleString("es-CO"); // formato Colombia
+}
+
+function listadoSedes() {
+    $.ajax({
+        url: 'ajax/pedidosAjax.php',
+        type: 'POST',
+        data: { accion: 'listadoSedes' },
+        success: function(response) {
+            response = JSON.parse(response);
+            $("#sedes").empty().append('<option value="0">Seleccione sede</option>');
+            response.data.forEach(sede => {
+                $("#sedes").append(`<option value="${sede.id_sede}">${sede.nombre_sede}</option>`);
+            });
+            
+        }
+    })
 }
 
 initProductos();

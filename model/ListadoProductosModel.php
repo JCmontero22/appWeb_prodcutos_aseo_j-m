@@ -4,7 +4,7 @@
     class ListadoProductosModel
     {
         
-        protected function get_listadoProdcutos()
+        protected function get_listadoProdcutos($sedId = 0)
         {
             try {
                 $db = new Conexion();
@@ -18,14 +18,15 @@
                             ps.id_presentacion AS idPresentacion,
                             ps.precio_compra_presentacion AS precioCompra,
                             ps.precio_venta_jm_presentacion AS precioVentaJM,
-                            ssp.stock_minimo_stock_presentacion_sede cantidadMinima
+                            ssp.stock_minimo_stock_presentacion_sede cantidadMinima,
+                            (ps.precio_compra_presentacion * ssp.cantidad_stock_presentacion_sede) AS valorStock
 
                         FROM productos pr 
                         INNER JOIN presentacion_producto ps on ps.id_producto  = pr.id_producto
                         INNER JOIN stock_sede_presentacion ssp on ssp.id_presentacion = ps.id_presentacion
-                        WHERE ssp.id_sede = ".$_SESSION['sede']." AND ps.estado = 1
+                        WHERE ".($sedId != 0 ? "ssp.id_sede = $sedId" : "ssp.id_sede = ".$_SESSION['sede'])." AND ps.estado = 1
                         ORDER BY pr.id_producto ASC";
-
+                
                 $respuesta = $db->select($sql);
                 return $respuesta;
             } catch (\Exception $e) {
