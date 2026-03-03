@@ -10,13 +10,13 @@
                 $db = new Conexion();
                 $query = "SELECT
                             -- Ganancias de J&M (usuario 6)
-                            SUM(CASE WHEN p.id_usuario = 6 AND p.id_estado = 6
+                            SUM(CASE WHEN p.id_usuario IN(6, 11) AND p.id_estado = 6
                                     THEN (valor_total_pedido - costo_total_pedido)
                                     ELSE 0 END) AS gananciasPorJM,
 
                             -- Ganancias de ventas (otros usuarios)
-                            SUM(CASE WHEN p.id_usuario != 6 AND p.id_estado = 6
-                                    THEN (valor_total_pedido - costo_total_pedido - p.ganancia_total_pedido)
+                            SUM(CASE WHEN p.id_usuario NOT IN(6, 11) AND p.id_estado = 6
+                                    THEN (valor_total_pedido - costo_total_pedido ) - p.ganancia_total_pedido
                                     ELSE 0 END) AS gananciasDeVentas,
 
                             -- Total vendido (de todos)
@@ -30,8 +30,9 @@
                                     ELSE 0 END) AS totalCostoVendido
 
                             FROM pedidos p
-                            WHERE YEAR(p.fecha_pedido) = YEAR(CURDATE())
-                            AND MONTH(p.fecha_pedido) = MONTH(CURDATE())";
+                            WHERE p.fecha_pedido >= DATE_FORMAT(CURDATE(), '%Y-%m-01')
+                            AND p.fecha_pedido < DATE_ADD(DATE_FORMAT(CURDATE(), '%Y-%m-01'), INTERVAL 1 MONTH)";
+                            
                 
                 $respuesta = $db->select($query);
                 
