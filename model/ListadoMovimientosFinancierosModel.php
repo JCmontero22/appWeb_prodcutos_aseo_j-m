@@ -10,7 +10,7 @@
                 $db = new Conexion();
                 
                 $filtro = "";
-                $data == 1 ? $filtro = " WHERE mf.fecha_registro_movimiento_financiero <= '2026-03-03'  " : $filtro = " WHERE mf.fecha_registro_movimiento_financiero > '2026-03-03'  ";
+                $data == 1 ? $filtro = " WHERE mf.fecha_registro_movimiento_financiero <= '2026-03-02'  " : $filtro = " WHERE mf.fecha_registro_movimiento_financiero > '2026-03-02'  ";
 
                 $sql = "SELECT 
                             mf.id_movimiento_financiero AS id,
@@ -27,7 +27,6 @@
                         INNER JOIN sedes s ON s.id_sede = u.id_sede
                         $filtro
                         ORDER BY mf.id_movimiento_financiero ASC";
-                
                 $respuesta = $db->select($sql);
                 return $respuesta;
             } catch (\Exception $e) {

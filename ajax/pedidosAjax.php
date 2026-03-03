@@ -10,7 +10,7 @@
     require_once('../controller/finalizarPedidosController.php');
     require_once('../controller/AgregarPoductoAlPedidoController.php');
     require_once('../controller/calcularGananciasTotalesController.php');
-
+    require_once('../controller/listadoSedesController.php');
     $accion = isset($_GET['accion']) ? $_GET['accion'] :  $_POST['accion'];
     
     switch ($accion) {
@@ -21,7 +21,7 @@
             break;
         case 'listadoVentas':
             $listadoPedidos = new listadoVentasController();
-            echo json_encode($listadoPedidos->listarVentas($_GET['admin'], $_GET['filtro'])); // Agrega el filtro como argumento
+            echo json_encode($listadoPedidos->listarVentas($_GET['admin'], $_GET['filtro'], $_GET['sedeId'])); // Agrega el filtro como argumento
             break;
         
         case 'detallePedido':
@@ -74,6 +74,12 @@
         case 'calcularGananciasTotales':
             $calcularGananciasTotales = new calcularGananciasTotalesController();
             $respuesta = $calcularGananciasTotales->calcularGanancias();
+            echo json_encode($respuesta);
+            break;
+
+        case 'listadoSedes':
+            $listadoSedes = new listadoSedesController();
+            $respuesta = $listadoSedes->listarSedes();
             echo json_encode($respuesta);
             break;
         

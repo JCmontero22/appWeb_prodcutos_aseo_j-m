@@ -4,6 +4,7 @@ var carrito = [];
 function initPedidos() {
     listadoProductos();
     listadoClientes();
+    
 }
 
 function listadoProductos(historial = 0) {
@@ -243,4 +244,6 @@ function registrarUsuario() {
     })
     
 }
+
+
 initPedidos();

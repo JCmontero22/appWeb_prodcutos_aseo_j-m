@@ -34,6 +34,19 @@ session_start();
             </div>
         </div>
 
+        
+        <?php if ($_SESSION['rol'] == 1) : ?>
+            <div class="row mt-3">
+                <div class="col-md-12 d-flex justify-content-end">
+                    <div class="">
+                        <select name="sedes" id="sedes" class="form-select">
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
+
         <!--*************** tabs ***************-->
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">

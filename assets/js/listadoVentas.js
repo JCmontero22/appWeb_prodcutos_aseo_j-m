@@ -7,9 +7,15 @@ var idPedidoSeleccionado = 0;
 function initListadoVentas() {
     listadoVentas();
     calcularGananciasTotales();
+    listadoSedes();
+
+    document.getElementById('sedes').addEventListener('change', function() {
+        let sedeId = this.value;
+        listadoVentas(2,0, sedeId);
+    });
 }
 
-function listadoVentas(admin = 2, historial = 0) {
+function listadoVentas(admin = 2, historial = 0, sedeId = 0) {
 
     let tabla = '#tabla_pedidos';
     if (historial == 1) {
@@ -23,7 +29,8 @@ function listadoVentas(admin = 2, historial = 0) {
         data: {
             accion: 'listadoVentas',
             admin: admin,
-            filtro: historial
+            filtro: historial,
+            sedeId: sedeId
         },
         success: function(response) {
             response = JSON.parse(response);
@@ -586,6 +593,22 @@ function calcularGananciasTotales() {
             $("#totalGanancias").text(separarMiles(response.data[0].ganancia_total_global));
         }
     });
+}
+
+function listadoSedes() {
+    $.ajax({
+        url: 'ajax/pedidosAjax.php',
+        type: 'POST',
+        data: { accion: 'listadoSedes' },
+        success: function(response) {
+            response = JSON.parse(response);
+            $("#sedes").empty().append('<option value="0">Todas las sedes</option>');
+            response.data.forEach(sede => {
+                $("#sedes").append(`<option value="${sede.id_sede}">${sede.nombre_sede}</option>`);
+            });
+            
+        }
+    })
 }
 
 initListadoVentas();
