@@ -9,10 +9,14 @@ function initListadoVentas() {
     calcularGananciasTotales();
     listadoSedes();
 
-    document.getElementById('sedes').addEventListener('change', function() {
-        let sedeId = this.value;
-        listadoVentas(2,0, sedeId);
-    });
+    const sedes = document.getElementById('sedes');
+
+    if (sedes) {
+        sedes.addEventListener('change', function() {
+            let sedeId = this.value;
+            listadoVentas(2, 0, sedeId);
+        });
+    }
 }
 
 function listadoVentas(admin = 2, historial = 0, sedeId = 0) {
