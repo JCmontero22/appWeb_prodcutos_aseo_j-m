@@ -1,6 +1,8 @@
 <?php
 
+    session_start();
     require_once('../core/conexion.php');
+
 
     class ListadoVentasModel 
     {
@@ -11,9 +13,9 @@
                 $db = new Conexion();
             
                 $where = "";
-                $where .= ($idRol == 2 || $admin == 1) ? "AND p.id_usuario = :idUsuario" : "";
-                $where .= ($filtro == 1) ? "AND p.fecha_pedido <= '2026-03-02'" : "AND p.fecha_pedido >= '2026-03-02'";
-                $where .= ($sedeId != 0) ? " AND s.id_sede IN ($sedeId) " : "";
+                $where .= ($idRol == 2 || $admin == 1) ? " AND p.id_usuario = :idUsuario" : "";
+                $where .= ($filtro == 1) ? " AND p.fecha_pedido <= '2026-03-02'" : " AND p.fecha_pedido >= '2026-03-02'";
+                $where .= ($sedeId != 0) ? " AND s.id_sede IN ($sedeId) " : " AND s.id_sede IN (".$_SESSION['sede'].") ";
                 
                 $query = "SELECT 
                                 p.id_pedidos AS idPedido,
@@ -38,6 +40,7 @@
                             $where
                             ORDER BY p.id_pedidos DESC;";
 
+                
                 
                 if ($idRol == 2 || $admin == 1) {
                     $params = [':idUsuario' => $idUsuario];
