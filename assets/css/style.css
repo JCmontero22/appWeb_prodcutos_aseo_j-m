@@ -111,7 +111,7 @@ p {
 .content-login{
     width: 35%;
     box-shadow: var(--box-shadow);
-    height: 40vh;
+    height: 50vh;
     padding: 5rem;
 }
 
