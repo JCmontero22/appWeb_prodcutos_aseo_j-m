@@ -14,7 +14,7 @@
             
                 $where = "";
                 $where .= ($idRol == 2 || $admin == 1) ? " AND p.id_usuario = :idUsuario" : "";
-                $where .= ($filtro == 1) ? " AND p.fecha_pedido <= '2026-03-06'" : " AND p.fecha_pedido >= '2026-03-06'";
+                $where .= ($filtro == 1) ? " AND p.fecha_pedido < '2026-03-06'" : " AND p.fecha_pedido >= '2026-03-06'";
                 $where .= ($sedeId != 0) ? " AND s.id_sede IN ($sedeId) " : " AND s.id_sede IN (".$_SESSION['sede'].") ";
                 
                 $query = "SELECT 
