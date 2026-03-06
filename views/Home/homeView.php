@@ -22,12 +22,12 @@
 
         <div class="content-option">
             <div class="card-option bg-primary" onclick="redireccionar('listadoProductos')">
-                <h2>Stock Productos</h2>
+                <h2>Stock</h2>
                 <i class="fa-solid fa-cart-flatbed card-option-icon"></i>
             </div>
 
             <div class="card-option bg-secondary" onclick="redireccionar('pedidos')">
-                <h2>Realizar Pedido</h2>
+                <h2>Pedido</h2>
                 <i class="fa-solid fa-cart-plus card-option-icon"></i>
             </div>
 
