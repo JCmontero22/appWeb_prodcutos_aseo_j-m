@@ -144,7 +144,7 @@ session_start();
             </div>
             <div class="modal-footer">
                 <button id="btnAgregarProducto" type="button" class="btn btn-primary" style="margin-right: 1rem;" onclick="agregarProducto()">Agregar Producto</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
 
             </div>
         </div>

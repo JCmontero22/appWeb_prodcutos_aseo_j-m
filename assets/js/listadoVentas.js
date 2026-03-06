@@ -89,6 +89,7 @@ function cargarTable(data, rol, idTabla) {
                 };
                 let clase = clasesEstado[data] || 'bg-light text-dark';
                 return `<span class="${clase} p-2 estados">${data}</span>`;
+                
             }
         },
         {
@@ -245,9 +246,9 @@ function mostrarDetallesPedido(data, idPedido) {
         const cantidadId = `td-cantidad-${item.idPresentacion}`;
         let botones = '';
 
-        if (item.estado != 1) {
+        /*if (item.estado != 1) {
             $("#btnAgregarProducto").hide();
-        }
+        }*/
 
         // Si item.estado != 6, mostrar botones
         if (item.estado != 6) {
