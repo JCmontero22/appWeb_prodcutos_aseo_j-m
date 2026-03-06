@@ -10,7 +10,7 @@
                 $db = new Conexion();
                 
                 $filtro = "";
-                $data == 1 ? $filtro = " WHERE mf.fecha_registro_movimiento_financiero <= '2026-03-06'  " : $filtro = " WHERE mf.fecha_registro_movimiento_financiero > '2026-03-06'  ";
+                $data == 1 ? $filtro = " WHERE mf.fecha_registro_movimiento_financiero < '2026-03-06'  " : $filtro = " WHERE mf.fecha_registro_movimiento_financiero >= '2026-03-06'  ";
 
                 $sql = "SELECT 
                             mf.id_movimiento_financiero AS id,
