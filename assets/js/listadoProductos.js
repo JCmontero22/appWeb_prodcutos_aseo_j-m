@@ -52,12 +52,15 @@ function cargarTable(data) {
                         return `<span class="badge bg-success">$${separarMiles(data)}</span>`;
                     }
                 },
-                {data: "valorStock",
+                
+                ...(idRol === 1 ? [{
+                    data: "valorStock",
                     className: "text-center",
                     render: function(data, type, row) {
                         return `<span class="">$${separarMiles(data)}</span>`;
                     }
-                },
+                }] : []),
+                
                /*  {data: null,
                     className: "text-center",
                     render: function(data, type, row) {
