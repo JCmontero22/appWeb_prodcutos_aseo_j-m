@@ -82,6 +82,8 @@
 
 <script>
     let idRol = <?php echo $_SESSION['rol']; ?>;
+    console.log(idRol);
+    
 </script>
 
 <script src="assets/js/listadoProductos.js"></script>
