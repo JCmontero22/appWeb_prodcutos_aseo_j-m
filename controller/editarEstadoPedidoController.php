@@ -6,16 +6,18 @@
     {
         private $idPedido;
         private $idEstado;
+        private $medioPago;
 
-        public function __construct($idPedido, $idEstado) {
+        public function __construct($idPedido, $idEstado, $medioPago) {
             $this->idPedido = $idPedido;
             $this->idEstado = $idEstado;
+            $this->medioPago = $medioPago;
         }
 
         public function actualizarEstadoPedido(){
 
             try {
-                $respuestaActualizar = $this->set_actualizarEstadoPedido($this->idEstado, $this->idPedido);
+                $respuestaActualizar = $this->set_actualizarEstadoPedido($this->idEstado, $this->idPedido, $this->medioPago);
 
                 return $respuesta = [
                     'status' => 'success',

@@ -9,7 +9,7 @@
             try {
                 $db = new Conexion();
 
-                $query = "UPDATE pedidos SET id_estado = 6 WHERE id_usuario = :idUsuario AND id_estado = 4";
+                $query = "UPDATE pedidos SET id_estado = 6 WHERE id_usuario = :idUsuario AND id_estado = 7";
 
                 $respuesta = $db->execute($query, [':idUsuario' => $idUsuario]);
 

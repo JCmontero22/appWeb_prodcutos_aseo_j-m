@@ -74,6 +74,7 @@ session_start();
                                         <th>Vendedor</th>
                                     <?php endif; ?>
                                     <th>Estado</th>
+                                    <th>Medio Pago</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
@@ -98,6 +99,7 @@ session_start();
                                     <th>Ganancia</th>
                                     <th>Fecha Pedido</th>
                                     <th>Estado</th>
+                                    <th>Medio Pago</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
@@ -160,22 +162,39 @@ session_start();
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <select name="estado" id="estado" class="form-select">
-                    <option value="">Seleccione Estado</option>
-                    <?php
-                    if ($_SESSION['rol'] == '1' || $_SESSION['rol'] == '2') {
-                        echo    '<option id="estado-2" value="2">Confirmado</option>
-                                    <option id="estado-3" value="3">Alistado</option>
-                                    <option id="estado-5" value="5">Cancelado</option>
-                                    <option id="estado-4" value="4">Entregado</option>
-                                    <option id="estado-6" value="6">Finalizado</option>';
-                    } elseif ($_SESSION['rol'] == '4') {
-                        echo '<option value="4">Entregado</option> ';
-                    }
+                <div class="row">
+                    <div class="col-md-12">
+                        <select name="estado" id="estado" class="form-select">
+                            <option value="">Seleccione Estado</option>
+                            <?php
+                            if ($_SESSION['rol'] == '1' || $_SESSION['rol'] == '2') {
+                                echo    '<option id="estado-2" value="2">Confirmado</option>
+                                            <option id="estado-3" value="3">Alistado</option>
+                                            <option id="estado-5" value="5">Cancelado</option>
+                                            <option id="estado-4" value="4">Entregado</option>
+                                            <option id="estado-7" value="7">Pagado</option>
+                                            <option id="estado-6" value="6">Finalizado</option>
+                                            ';
+                                            
+                            } elseif ($_SESSION['rol'] == '4') {
+                                echo '<option value="4">Entregado</option> ';
+                            }
 
-                    ?>
+                            ?>
 
-                </select>
+                        </select>
+                    </div>
+                </div>
+                <div class="row" id="medioDePago">
+                    <div class="col-md-12">
+                        <select name="medio_pago" id="medio_pago" class="form-select mt-3">
+                            <option value="">Seleccione Medio de Pago</option>
+                            <option value="1">Efectivo</option>
+                            <option value="2">Nequi</option>
+                            <option value="3">Davi Plata</option>
+                        </select>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -245,8 +264,8 @@ session_start();
                     </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Understood</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">Entendido</button>
             </div>
         </div>
     </div>

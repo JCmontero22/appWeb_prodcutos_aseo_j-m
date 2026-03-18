@@ -15,7 +15,7 @@
                             FROM  
                                 pedidos p 
                             WHERE 
-                                p.id_usuario = :idUsuario AND p.id_estado = 4   ORDER BY p.id_pedidos  desc";
+                                p.id_usuario = :idUsuario AND p.id_estado = 7   ORDER BY p.id_pedidos  desc";
 
                 $resultado = $db->select($query, [':idUsuario' => $idUsuario]);    
                 return $resultado;

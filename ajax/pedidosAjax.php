@@ -32,7 +32,7 @@
 
 
         case 'actualizarEstado':
-            $actualizarEstadoPedido = new editarEstadoPedidoController($_POST['idPedido'], $_POST['estado']);
+            $actualizarEstadoPedido = new editarEstadoPedidoController($_POST['idPedido'], $_POST['estado'], $_POST['medioPago']);
             $respuestaDetalle = $actualizarEstadoPedido->actualizarEstadoPedido();
             echo json_encode($respuestaDetalle);
             break;

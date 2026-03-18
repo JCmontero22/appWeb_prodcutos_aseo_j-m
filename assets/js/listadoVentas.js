@@ -72,6 +72,8 @@ function cargarTable(data, rol, idTabla) {
         columnas.push({data: "vendedor"});
     }
 
+    
+
     // 3. Agregamos el Estado y las Acciones al final
     columnas.push(
         {
@@ -85,12 +87,17 @@ function cargarTable(data, rol, idTabla) {
                     'Alistado': 'bg-warning',
                     'Entregado': 'bg-success text-white',
                     'Cancelado': 'bg-danger',
-                    'Finalizado': 'bg-dark text-white'
+                    'Finalizado': 'bg-dark text-white',
+                    'Pagado': 'bg-primary text-white',
                 };
                 let clase = clasesEstado[data] || 'bg-light text-dark';
                 return `<span class="${clase} p-2 estados">${data}</span>`;
                 
             }
+        },
+        {
+            data: "medioPago",
+            className: "text-center fw-bold",
         },
         {
             data: "estado",
@@ -105,6 +112,8 @@ function cargarTable(data, rol, idTabla) {
             }
         }
     );
+
+    
 
     // 4. Inicializamos el DataTable apuntando al idTabla recibido
     $(idTabla).DataTable({
@@ -170,9 +179,15 @@ function cargarTablaVentasAdmin(data) {
                     return '<span class="bg-danger p-2 estados">Cancelado</span>';
                 } else if (data === 'Finalizado') {
                     return '<span class="bg-dark text-white p-2 estados">Finalizado</span>';
+                }else if (data === 'Pagado') {
+                    return '<span class="bg-primary text-white p-2 estados">Pagado</span>';
                 }
                 
             }},
+            {
+                data: "medioPago",
+                className: "text-center fw-bold",
+            },
             {
                 data: "estado",
                 className: "text-center",
@@ -188,7 +203,7 @@ function cargarTablaVentasAdmin(data) {
                         `;
                     }
                 }
-            }
+            },
         ],
         order: [[0, "desc"]],
         language: {
@@ -330,13 +345,25 @@ function modalEditarEstado(idPedido, idEstado) {
         $("#estado-3").hide();
         $("#estado-5").hide();
         $("#estado-4").hide();
+        $("#estado-6").hide();
+        $("#estado-7").show();
+        $("#medioDePago").show();
+    } else if (idEstado === 7) {
+        $("#estado-2").hide();
+        $("#estado-3").hide();
+        $("#estado-5").hide();
+        $("#estado-4").hide();
         $("#estado-6").show();
+        $("#estado-7").hide();
+        $("#medioDePago").hide();            
     } else {
         $("#estado-2").show();
         $("#estado-3").show();
         $("#estado-5").show();
         $("#estado-4").show();
         $("#estado-6").hide();
+        $("#estado-7").hide();
+        $("#medioDePago").hide(); 
     }
 
     $("#modalEditarEstado").modal('show');
@@ -359,7 +386,8 @@ function actualizarEstado() {
         data: {
             accion: 'actualizarEstado',
             idPedido: idEditarEstado,
-            estado: $("#estado").val()
+            estado: $("#estado").val(),
+            medioPago: $("#medio_pago").val() // Enviar el medio de pago seleccionado
         },
         success: function(response) {
             response = JSON.parse(response);
@@ -370,6 +398,8 @@ function actualizarEstado() {
                     title: 'Actualizado',
                     text: 'El estado del pedido ha sido actualizado.'
                 });
+                $("#estado").val('');
+                $("#medio_pago").val('');
                 $("#modalEditarEstado").modal('hide');
                 listadoVentas();
             } else {

@@ -34,7 +34,9 @@
                         'estado' => $resultadoPedidos[$i]['estado'],
                         'idEstado' => $resultadoPedidos[$i]['idEstado'],
                         'gananciaAdmin' => $resultadoPedidos[$i]['gananciaAdmin'],
-                        'vendedor' => $resultadoPedidos[$i]['vendedor']
+                        'vendedor' => $resultadoPedidos[$i]['vendedor'],
+                        'sede' => $resultadoPedidos[$i]['sede'],
+                        'medioPago' => $resultadoPedidos[$i]['medioPago']
                     ];
                 }
 
