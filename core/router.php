@@ -27,6 +27,7 @@
         'gananciasDelMes' => 'Ganancias/gananciasDelMes.php',
         'ganaciasTotales' => 'Ganancias/ganaciasTotales.php',
         'movimientosFinancieros' => 'Ganancias/movimientosFinancieros.php',
+        'compras' => 'Compras/compras.php'
         
     ];
 

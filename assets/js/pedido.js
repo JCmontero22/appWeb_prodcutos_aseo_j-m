@@ -121,8 +121,9 @@ function mostrarCarrito() {
             </tr>
         `;
         tableBody.append(row);
-        calcularTotal();
     });
+
+    calcularTotal();
 }
 
 function eliminarProducto(presentacion) {
