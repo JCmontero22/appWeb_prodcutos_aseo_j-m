@@ -28,7 +28,6 @@
                         $filtro
                         ORDER BY mf.id_movimiento_financiero ASC";
 
-                var_dump($sql);die();
                 $respuesta = $db->select($sql);
                 return $respuesta;
             } catch (\Exception $e) {
