@@ -38,7 +38,7 @@
                                 <option value="">Seleccione un producto</option>
                             </select>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4">  
                             <label for="cantidad">Cantidad:</label>
                             <input type="number" id="cantidad" name="cantidad" class="form-control" required>
                         </div>

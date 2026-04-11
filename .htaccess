@@ -1,8 +1,10 @@
 # Activar motor de reescritura
 RewriteEngine On
 
-# Definir la base del proyecto en producción
-RewriteBase /
+# Definir la base del proyecto (ajusta según tu carpeta)
+#Ruta torre: RewriteBase /PROYECTO_JM-ML/PRODUCTOS_ASEO_J&M/
+#Ruta pc: RewriteBase /PROYECTOS-JM/appWeb_prodcutos_aseo_j-m/
+RewriteBase /PROYECTO_JM-ML/PRODUCTOS_ASEO_J&M/
 
 # Si no se indica nada en la URL, cargar index.php
 DirectoryIndex public/index.php

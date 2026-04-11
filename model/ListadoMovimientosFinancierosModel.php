@@ -27,6 +27,8 @@
                         INNER JOIN sedes s ON s.id_sede = u.id_sede
                         $filtro
                         ORDER BY mf.id_movimiento_financiero ASC";
+
+                var_dump($sql);die();
                 $respuesta = $db->select($sql);
                 return $respuesta;
             } catch (\Exception $e) {

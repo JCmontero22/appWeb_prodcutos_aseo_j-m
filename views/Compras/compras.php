@@ -33,7 +33,7 @@ session_start();
             <div class="row">
                 <div class="col-md-12 table-responsive mt-4">
                     <table class="table table-striped table-bordered table-hover" id="tabla_compras">
-                        <thead>
+                        <thead class="table-dark">
                             <tr>
                                 <th>ID</th>
                                 <th>Proveedor</th>
@@ -67,8 +67,9 @@ session_start();
             </div>
             <div class="modal-body">
                 <div class="form">
-                    <div class="row">
+                    <div class="row g-3">
                         <h4 class="mb-3">Compra</h4>
+
                         <div class="col-md-3">
                             <input class="form-control" type="text" name="proveedor" id="proveedor" placeholder="* Proveedor" required>
                         </div>
@@ -90,43 +91,46 @@ session_start();
                         </div>
                     </div>
 
-                    <div class="row mt-5">
+                    <div class="row mt-5 g-4">
                         <h4 class="mb-3">Detalle Compra</h4>
                         <div class="col-md-5"> 
                             <select name="idProducto" id="idProducto" class="form-select"></select>
                         </div>
 
                         <div class="col-md-3"> 
-                            <input type="number" class="form-control" name="precio" id="precio" placeholder="* Precio" required>
+                            <input type="number" class="form-control" name="cantidad" id="cantidad" placeholder="* Cantidad" required>
                         </div>
 
                         <div class="col-md-3"> 
-                            <input type="number" class="form-control" name="cantidad" id="cantidad" placeholder="* Cantidad" required>
+                            <input type="number" class="form-control" name="precio" id="precio" placeholder="* Precio" required>
                         </div>
-                        <div class="col-md-1"> 
-                            <button class="btn btn-warning" onclick="agregarDetalleCompra()"><i class="fa-solid fa-square-plus"></i></button>
+                        
+                        <div class="col-md-1 d-flex justify-content-end"> 
+                            <button class="btn btn-warning" onclick="agregarDetalleCompra()"><i class="fa-solid fa-square-plus icon2"></i></button>
                         </div>
                     </div>
                 </div>
 
                 <div class="row mt-5">
                     <div class="col-md-12">
-                        <table class="table table-bordered" id="detalleCompraTable">
-                            <thead class="table-dark">
-                                <tr class="text-center">
-                                    <th>Producto</th>
-                                    <th>Precio</th>
-                                    <th>Cantidad</th>
-                                    <th>Subtotal</th>
-                                    <th>Valor JM</th>
-                                    <th>Valor Cliente</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody id="detalleCompraBody">
-                                <!-- Aquí se agregarán los detalles de la compra -->
-                            </tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered" id="detalleCompraTable">
+                                <thead class="table-dark">
+                                    <tr class="">
+                                        <th>Producto</th>
+                                        <th>Precio</th>
+                                        <th>Cantidad</th>
+                                        <th>Subtotal</th>
+                                        <th>Valor JM</th>
+                                        <th>Valor Cliente</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="detalleCompraBody">
+                                    <!-- Aquí se agregarán los detalles de la compra -->
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
 
@@ -155,7 +159,7 @@ session_start();
       </div>
       <div class="modal-body">
         <div class="table-responsive">
-            <table class="table table-bordered" id="detalleCompraTable">
+            <table class="table table-striped table-bordered" id="detalleCompraTable">
                 <thead class="table-dark">
                     <tr>
                         <th>Producto</th>
