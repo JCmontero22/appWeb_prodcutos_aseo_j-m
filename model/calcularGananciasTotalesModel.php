@@ -11,7 +11,7 @@
             $query = "SELECT 
                         SUM(
                             CASE 
-                                WHEN id_usuario = IN (6, 11) THEN (valor_total_pedido - costo_total_pedido)
+                                WHEN id_usuario IN (6, 11) THEN (valor_total_pedido - costo_total_pedido)
                                 ELSE ganancia_total_pedido 
                             END
                         ) AS ganancia_total_global
@@ -23,4 +23,3 @@
             
         }
     }
-    
