@@ -14,12 +14,12 @@
                 $db = new Conexion();
                 $query = "SELECT
                             -- Ganancias de J&M (usuario 1)
-                            SUM(CASE WHEN p.id_usuario = 1 AND p.id_estado = 6
+                            SUM(CASE WHEN p.id_usuario IN (6, 165, 149,11) AND p.id_estado = 6
                                     THEN (valor_total_pedido - costo_total_pedido)
                                     ELSE 0 END) AS gananciasPorJM,
 
                             -- Ganancias de ventas (otros usuarios)
-                            SUM(CASE WHEN p.id_usuario != 1 AND p.id_estado = 6
+                            SUM(CASE WHEN p.id_usuario NOT IN (6, 165, 149,11) AND p.id_estado = 6
                                     THEN (valor_total_pedido - costo_total_pedido - p.ganancia_total_pedido)
                                     ELSE 0 END) AS gananciasDeVentas,
 
@@ -35,9 +35,9 @@
 
                             -- Total dinero en cuenta.
                             SUM(CASE
-                                    WHEN p.id_usuario != 1 AND p.id_estado = 6
+                                    WHEN p.id_usuario NOT IN (6, 165, 149,11) AND p.id_estado = 6
                                         THEN (valor_total_pedido - p.ganancia_total_pedido)
-                                    WHEN p.id_usuario = 1 AND p.id_estado = 6
+                                    WHEN p.id_usuario IN (6, 165, 149,11) AND p.id_estado = 6
                                         THEN (valor_total_pedido)
                                     ELSE 0
                                 END
