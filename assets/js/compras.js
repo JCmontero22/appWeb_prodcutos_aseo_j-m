@@ -23,7 +23,7 @@ function listadoCompras() {
 }
 
 function cargarTablaCompras(data) {
-    
+
     $("#tabla_compras").DataTable({
         destroy: true,
         responsive: true,
@@ -43,12 +43,13 @@ function cargarTablaCompras(data) {
                 render: function(data, type, row){
                     if ( data != '1') {/* data != 'Entregado' && */
                         return `
-                            <button class="btn btn-primary btn-sm btnAccionListadoPedidos" data-bs-toggle="modal" data-bs-target="#modalDetalle" onclick="detalleCompra(${row.id})"> <i class="fa-solid fa-magnifying-glass"></i> </button>
+                            <button class="btn btn-primary btn-sm btnAccionListadoPedidos" data-bs-toggle="modal" data-bs-target="#modalDetalle" onclick="detalleCompraVer(${row.id})"> <i class="fa-solid fa-magnifying-glass"></i> </button>
                             <button class="btn btn-success btn-sm btnAccionListadoPedidos" onclick="modalEditarEstado(${row.id}, ${row.idEstado})"> <i class="fa-solid fa-pencil"></i> </button>
                         `;
                     } else {
                         return `
-                            <button class="btn btn-primary btn-sm btnAccionListadoPedidos" data-bs-toggle="modal" data-bs-target="#modalDetalle" onclick="detalleCompra(${row.id})"> <i class="fa-solid fa-magnifying-glass"></i> </button>
+                            <button class="btn btn-primary btn-sm btnAccionListadoPedidos" data-bs-toggle="modal" data-bs-target="#modalDetalle" onclick="detalleCompraVer(${row.id})"> <i class="fa-solid fa-magnifying-glass"></i> </button>
+                            <button class="btn btn-warning btn-sm btnAccionListadoPedidos" data-bs-toggle="modal" data-bs-target="#formCompra" onclick="cargarFormEditar(${row.id})"> <i class="fa-solid fa-pencil"></i> </button>
                         `;
                     }
                 }
@@ -79,14 +80,12 @@ function cargarTablaCompras(data) {
     });
 }
 
-function detalleCompra(idCompra) {
+function detalleCompraVer(idCompra) {
     $.ajax({
         url: 'ajax/comprasAjax.php',
         type: 'GET',
         data: { accion: 'detalleCompra', idCompra: idCompra },
         success: function(response) {
-            console.log(response);
-            
             response = JSON.parse(response);
             let detalles = '';
             response.data.forEach(detalle => {
@@ -100,8 +99,7 @@ function detalleCompra(idCompra) {
                     </tr>
                 `;
             });
-            $('#detalleCompraTable tbody').html(detalles);
-            
+            $('#detalleCompraModalBody').html(detalles);
         }
     });
 }
@@ -215,10 +213,10 @@ function agregarDetalleCompra() {
 }
 
 function cargarDetalleCompraTable() {
-    let tableBody = $('#detalleCompraTable tbody');
+    let tableBody = $('#detalleCompraBody');
     tableBody.empty();
     console.log(carrito);
-    
+
     carrito.forEach(item => {
         let row = `
             <tr>
@@ -303,10 +301,10 @@ function registrarCompra() {
                     title: response.mensaje,
                     showConfirmButton: false,
                     timer: 1500
-                });          
-                limpiarFormularioCompra(); 
+                });
+                limpiarFormularioCompra();
                 listadoCompras();
-                $('#cerrarModalRegistro').click();    
+                $('#cerrarModalRegistro').click();
             }else{
               Swal.fire({
                     icon: "error",
@@ -347,6 +345,186 @@ function limpiarFormularioCompra() {
     // Vaciar el carrito y recargar la tabla del carrito
     carrito = [];
     cargarDetalleCompraTable();
+
+    // Mostrar botón registrar, ocultar guardar cambios
+    $('#btnRegistrarCompra').show();
+    $('#btnGuardarCambios').hide();
 }
+
+function mostrarBotonesEditar() {
+    $('#btnRegistrarCompra').hide();
+    $('#btnGuardarCambios').show();
+}
+
+function guardarCambiosCompra() {
+    let detalles = [];
+    let totalCompra = 0;
+
+    $('#detalleCompraTable tbody tr').each(function() {
+        let fila = $(this);
+        let id = fila.data('id');
+
+        if (!id) return;
+
+        let precio = parseFloat(fila.find('.inputPrecio').val()) || 0;
+        let cantidad = parseFloat(fila.find('.inputCantidad').val()) || 0;
+        let subtotal = precio * cantidad;
+
+        console.log('Fila:', { id, precio, cantidad, subtotal });
+
+        totalCompra += subtotal;
+
+        detalles.push({
+            id_detalle_compra: id,
+            precio_costo_unitario: precio,
+            cantidad: cantidad,
+            subtotal: subtotal
+        });
+    });
+
+    console.log('Total Compra:', totalCompra);
+    console.log('Detalles:', detalles);
+
+    if (detalles.length === 0) {
+        Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: 'No hay detalles para guardar.',
+        });
+        return;
+    }
+
+    // Recopilar datos de la compra
+    let dataCompra = {
+        idCompra: $('#formCompra').data('idCompra'),
+        proveedor: $('#proveedor').val(),
+        numFactura: $('#numFactura').val(),
+        idSede: $('#idSede').val(),
+        tipoPago: $('#tipoPago').val(),
+        descripcion: $('#descripcion').val(),
+        total: totalCompra,
+        detalles: detalles
+    };
+
+    $.ajax({
+        url: 'ajax/comprasAjax.php',
+        type: 'POST',
+        data: {
+            accion: 'actualizarDetallesCompra',
+            dataCompra: JSON.stringify(dataCompra)
+        },
+        success: function(response) {
+            response = JSON.parse(response);
+            if (response.status === "success") {
+                if (response.detalles) {
+                    response.detalles.forEach(detalle => {
+                        let fila = $('#detalleCompraBody').find('tr[data-id="' + detalle.id_detalle_compra + '"]');
+                        if (fila.length) {
+                            fila.find('.spanValorJM').text('$' + separarMiles(detalle.precio_venta_jm));
+                            fila.find('.spanValorCliente').text('$' + separarMiles(detalle.precio_venta_cliente));
+                        }
+                    });
+                }
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: response.mensaje,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                listadoCompras();
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: response.mensaje,
+                });
+            }
+        },
+        error: function(error) {
+            console.error('Error:', error);
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: 'Error al guardar los cambios.',
+            });
+        }
+    });
+}
+
+function cargarFormEditar(idCompra) {
+    cargarDatos();
+    mostrarBotonesEditar();
+    $('#formCompra').data('idCompra', idCompra);
+
+    setTimeout(() => {
+        $.ajax({
+            url: 'ajax/comprasAjax.php',
+            type: 'GET',
+            data: { accion: 'obtenerCompra', idCompra: idCompra },
+            success: function(response) {
+                response = JSON.parse(response);
+                console.log(response.data);
+                
+                if (response.status === "success") {
+                    const compra = response.data[0];
+                    $('#proveedor').val(compra.proveedor);
+                    $('#numFactura').val(compra.numero_factura);
+                    $('#idSede').val(compra.id_sede).trigger('change');
+                    $('#tipoPago').val(compra.id_tipo_de_pago).trigger('change');
+                    $('#descripcion').val(compra.observacion);
+
+                    // Limpiar tabla antes de llenarla
+                    $('#detalleCompraBody').empty();
+
+                    // Llenar tabla de detalles con los datos que ya tenemos
+                    let detalles = '';
+                    response.data.forEach(detalle => {
+                        detalles += `
+                            <tr data-id="${detalle.id_detalle_compra}">
+                                <td>${detalle.nombre_produto} - ${detalle.tamano_presentacion}</td>
+                                <td><input type="number" class="form-control form-control-sm inputPrecio" value="${detalle.precio_costo_unitario}"></td>
+                                <td><input type="number" class="form-control form-control-sm inputCantidad" value="${detalle.cantidad}"></td>
+                                <td class="text-center"><span class="spanSubtotal">$${separarMiles(detalle.subtotal)}</span></td>
+                                <td class="text-center"><span class="spanValorJM">$${separarMiles(detalle.precio_venta_jm_presentacion)}</span></td>
+                                <td class="text-center"><span class="spanValorCliente">$${separarMiles(detalle.precio_venta_cliente_presentacion)}</span></td>
+                                <td class="text-center"><button class="btn btn-danger btn-sm" onclick="eliminarDetalleCompra(${detalle.id_presentacion})">X</button></td>
+                            </tr>
+                        `;
+                    });
+                    $('#detalleCompraBody').html(detalles);
+
+                    // Agregar event listeners para recalcular
+                    $('#detalleCompraBody').on('change', '.inputPrecio, .inputCantidad', function() {
+                        let fila = $(this).closest('tr');
+                        let precio = parseFloat(fila.find('.inputPrecio').val()) || 0;
+                        let cantidad = parseFloat(fila.find('.inputCantidad').val()) || 0;
+                        let subtotal = precio * cantidad;
+
+                        fila.find('.spanSubtotal').text('$' + separarMiles(subtotal));
+
+                        let valorVentaJM = calcularYRedondear(precio, 20);
+                        let valorCliente = calcularYRedondear(valorVentaJM, 20);
+
+                        fila.find('.spanValorJM').text('$' + separarMiles(valorVentaJM));
+                        fila.find('.spanValorCliente').text('$' + separarMiles(valorCliente));
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: response.mensaje,
+                    });
+                }
+            },
+            error: function(error) {
+                console.error('Error en la solicitud AJAX:', error);
+                alert('Error al comunicarse con el servidor. Por favor, inténtelo de nuevo.');
+            }
+        });
+    }, 1000);
+}
+
+
 
 init();

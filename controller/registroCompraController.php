@@ -63,7 +63,7 @@
                         'subtotal' => $this->detalles[$i]['subtotal']
                     ];                  
 
-                    $respuesta = $this->set_registro_detalle_orden($data);
+                    $respuesta = $this->set_registro_detalle_compra($data);
                     if (!$respuesta) {
                         return false;
                     }

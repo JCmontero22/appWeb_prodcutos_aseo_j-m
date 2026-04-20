@@ -20,16 +20,32 @@
         }
 
         public function execute($query, $params = []){
-            $sql = $this->db->prepare($query);
-            $sql->execute($params);
+            try {
+                $sql = $this->db->prepare($query);
+                if (!$sql) {
+                    $errors = $this->db->errorInfo();
+                    file_put_contents('/tmp/debug_compra.txt', "Error en prepare: " . json_encode($errors) . "\n", FILE_APPEND);
+                    throw new Exception("Error en prepare: " . $errors[2]);
+                }
 
-            // Si es un INSERT, devuelve el último ID
-            if (stripos($query, 'insert') === 0) {
-                return $this->db->lastInsertId();
+                $resultado = $sql->execute($params);
+                if (!$resultado) {
+                    $errors = $sql->errorInfo();
+                    file_put_contents('/tmp/debug_compra.txt', "Error en execute: " . json_encode($errors) . "\n", FILE_APPEND);
+                    throw new Exception("Error en execute: " . $errors[2]);
+                }
+
+                // Si es un INSERT, devuelve el último ID
+                if (stripos($query, 'insert') === 0) {
+                    return $this->db->lastInsertId();
+                }
+
+                // Para UPDATE o DELETE devuelve filas afectadas
+                return $sql->rowCount();
+            } catch (\Exception $e) {
+                file_put_contents('/tmp/debug_compra.txt', "Excepción en execute: " . $e->getMessage() . "\n", FILE_APPEND);
+                throw $e;
             }
-
-            // Para UPDATE o DELETE devuelve filas afectadas
-            return $sql->rowCount();
         }
 
         public function select($query, $params = []){

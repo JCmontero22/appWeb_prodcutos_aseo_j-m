@@ -39,7 +39,7 @@
             }
         }
 
-        public function set_registro_detalle_orden($data) {
+        public function set_registro_detalle_compra($data) {
             try {
                 $db = new Conexion();
 

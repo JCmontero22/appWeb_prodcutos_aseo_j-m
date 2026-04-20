@@ -62,5 +62,23 @@
                 throw $e;
             }
         }
+
+        public function get_detalleCompraActualizado($idCompra) {
+            try {
+                $db = new Conexion();
+
+                $query = "SELECT dc.*, p.nombre_produto, c.tamano_presentacion
+                         FROM detalle_compra AS dc
+                         INNER JOIN presentacion_producto AS c ON dc.id_presentacion = c.id_presentacion
+                         INNER JOIN productos AS p ON c.id_producto = p.id_producto
+                         WHERE dc.id_compra = :id_compra";
+
+                $params = ['id_compra' => $idCompra];
+                return $db->select($query, $params);
+            } catch (\Exception $e) {
+                error_log('Error en get_detalleCompraActualizado: ' . $e->getMessage());
+                throw $e;
+            }
+        }
     }
     

@@ -58,5 +58,23 @@
                 ];
             }
         }
+
+        public function obtenerCompra($idCompra) {
+            try {
+               $resultadoCompra = $this->get_obtenerCompra($idCompra);
+               return $respuesta = [
+                    'status' => 'success',
+                    'mensaje' => 'Compra obtenida correctamente',
+                    'data' => $resultadoCompra
+               ];
+            } catch (\Exception $e) {
+                return [
+                    'status' => 'error',
+                    'mensaje' => $e->getMessage()
+                ];
+            }
+        }
+
+
     }
      

@@ -142,7 +142,8 @@ session_start();
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="limpiarFormularioCompra()">Cancelar</button>
-                <button type="button" class="btn btn-primary" onclick="registrarCompra()">Registrar</button>
+                <button type="button" class="btn btn-primary" id="btnRegistrarCompra" onclick="registrarCompra()">Registrar</button>
+                <button type="button" class="btn btn-warning" id="btnGuardarCambios" onclick="guardarCambiosCompra()" style="display: none;">Guardar Cambios</button>
             </div>
         </div>
     </div>
