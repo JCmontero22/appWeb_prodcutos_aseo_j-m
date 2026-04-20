@@ -239,13 +239,16 @@ function cargarFormEditar(idCompra) {
 
                     carrito = [];
                     response.data.forEach(detalle => {
+                        let precio = parseFloat(detalle.precio_costo_unitario) || 0;
+                        let cantidad = parseFloat(detalle.cantidad) || 0;
+                        let subtotal = precio * cantidad;
                         carrito.push({
                             idDetalleCompra: detalle.id_detalle_compra || null, // <-- importante
                             idProducto: detalle.id_presentacion,
                             nombre: detalle.nombre_produto + ' - ' + detalle.tamano_presentacion,
-                            precio: detalle.precio_costo_unitario,
-                            cantidad: detalle.cantidad,
-                            subtotal: detalle.subtotal,
+                            precio: precio,
+                            cantidad: cantidad,
+                            subtotal: subtotal,
                             valorVentaJM: detalle.precio_venta_jm_presentacion,
                             valorCliente: detalle.precio_venta_cliente_presentacion
                         });
@@ -323,9 +326,14 @@ function cargarDetalleCompraTable() {
 }
 
 function calcularTotal() {
-    let total = carrito.reduce((totalAcumulado, item) => totalAcumulado + item.subtotal, 0);
-    totalFinal = (total != '') ? total : 0;
-    $('#totalCompra').text(`Total: ${separarMiles(totalFinal)}`);
+    // Suma solo subtotales numéricos válidos
+    let total = carrito.reduce((totalAcumulado, item) => {
+        let subtotal = parseFloat(item.subtotal);
+        if (isNaN(subtotal) || !isFinite(subtotal)) subtotal = 0;
+        return totalAcumulado + subtotal;
+    }, 0);
+    total = Math.round(total * 100) / 100; // Redondeo a 2 decimales
+    $('#totalCompra').text(`Total: $${separarMiles(total)}`);
     return total;
 }
 
@@ -431,6 +439,7 @@ function limpiarFormularioCompra() {
     cargarDetalleCompraTable();
     $('#btnRegistrarCompra').show();
     $('#btnGuardarCambios').hide();
+    $("#cerrarModalRegistro").click();
     modoEdicionCompra = false;
 }
 
