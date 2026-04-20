@@ -40,20 +40,33 @@
 
                 if (isset($dataCompra['detalles']) && is_array($dataCompra['detalles'])) {
                     foreach ($dataCompra['detalles'] as $detalle) {
-                        $query = "UPDATE detalle_compra SET
-                                    precio_costo_unitario = :precioCosto,
-                                    cantidad = :cantidad,
-                                    subtotal = :subtotal
-                                    WHERE id_detalle_compra = :idDetalle";
-
-                        $params = [
-                            ':precioCosto' => $detalle['precio_costo_unitario'],
-                            ':cantidad' => $detalle['cantidad'],
-                            ':subtotal' => $detalle['subtotal'],
-                            ':idDetalle' => $detalle['id_detalle_compra']
-                        ];
-
-                        $db->execute($query, $params);
+                        if (!empty($detalle['id_detalle_compra'])) {
+                            // Si existe, actualiza
+                            $query = "UPDATE detalle_compra SET
+                                        precio_costo_unitario = :precioCosto,
+                                        cantidad = :cantidad,
+                                        subtotal = :subtotal
+                                        WHERE id_detalle_compra = :idDetalle";
+                            $params = [
+                                ':precioCosto' => $detalle['precio_costo_unitario'],
+                                ':cantidad' => $detalle['cantidad'],
+                                ':subtotal' => $detalle['subtotal'],
+                                ':idDetalle' => $detalle['id_detalle_compra']
+                            ];
+                            $db->execute($query, $params);
+                        } else {
+                            // Si no existe, inserta
+                            $query = "INSERT INTO detalle_compra (id_compra, id_presentacion, precio_costo_unitario, cantidad, subtotal)
+                                  VALUES (:idCompra, :idPresentacion, :precioCosto, :cantidad, :subtotal)";
+                            $params = [
+                                ':idCompra' => $dataCompra['idCompra'],
+                                ':idPresentacion' => $detalle['id_presentacion'],
+                                ':precioCosto' => $detalle['precio_costo_unitario'],
+                                ':cantidad' => $detalle['cantidad'],
+                                ':subtotal' => $detalle['subtotal']
+                            ];
+                            $db->execute($query, $params);
+                        }
                     }
                 }
                 return true;
@@ -62,23 +75,4 @@
                 throw $e;
             }
         }
-
-        public function get_detalleCompraActualizado($idCompra) {
-            try {
-                $db = new Conexion();
-
-                $query = "SELECT dc.*, p.nombre_produto, c.tamano_presentacion
-                         FROM detalle_compra AS dc
-                         INNER JOIN presentacion_producto AS c ON dc.id_presentacion = c.id_presentacion
-                         INNER JOIN productos AS p ON c.id_producto = p.id_producto
-                         WHERE dc.id_compra = :id_compra";
-
-                $params = ['id_compra' => $idCompra];
-                return $db->select($query, $params);
-            } catch (\Exception $e) {
-                error_log('Error en get_detalleCompraActualizado: ' . $e->getMessage());
-                throw $e;
-            }
-        }
     }
-    

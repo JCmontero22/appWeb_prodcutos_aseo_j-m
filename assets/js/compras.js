@@ -212,26 +212,114 @@ function agregarDetalleCompra() {
     }
 }
 
+// Variable para saber si estamos editando
+let modoEdicionCompra = false;
+
+function cargarFormEditar(idCompra) {
+    limpiarFormularioCompra();
+    mostrarBotonesEditar();
+    $('#formCompra').data('idCompra', idCompra);
+    modoEdicionCompra = true;
+    cargarDatos();
+
+    setTimeout(() => {
+        $.ajax({
+            url: 'ajax/comprasAjax.php',
+            type: 'GET',
+            data: { accion: 'obtenerCompra', idCompra: idCompra },
+            success: function(response) {
+                response = JSON.parse(response);
+                if (response.status === "success") {
+                    const compra = response.data[0];
+                    $('#proveedor').val(compra.proveedor);
+                    $('#numFactura').val(compra.numero_factura);
+                    $('#idSede').val(compra.id_sede).trigger('change');
+                    $('#tipoPago').val(compra.id_tipo_de_pago).trigger('change');
+                    $('#descripcion').val(compra.observacion);
+
+                    carrito = [];
+                    response.data.forEach(detalle => {
+                        carrito.push({
+                            idDetalleCompra: detalle.id_detalle_compra || null, // <-- importante
+                            idProducto: detalle.id_presentacion,
+                            nombre: detalle.nombre_produto + ' - ' + detalle.tamano_presentacion,
+                            precio: detalle.precio_costo_unitario,
+                            cantidad: detalle.cantidad,
+                            subtotal: detalle.subtotal,
+                            valorVentaJM: detalle.precio_venta_jm_presentacion,
+                            valorCliente: detalle.precio_venta_cliente_presentacion
+                        });
+                    });
+                    cargarDetalleCompraTable();
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: response.mensaje,
+                    });
+                }
+            },
+            error: function(error) {
+                console.error('Error en la solicitud AJAX:', error);
+                alert('Error al comunicarse con el servidor. Por favor, inténtelo de nuevo.');
+            }
+        });
+    }, 1000);
+}
+
 function cargarDetalleCompraTable() {
     let tableBody = $('#detalleCompraBody');
     tableBody.empty();
-    console.log(carrito);
-
-    carrito.forEach(item => {
-        let row = `
-            <tr>
-                <td>${item.nombre}</td>
-                <td>$${separarMiles(item.precio)}</td>
-                <td>$${separarMiles(item.cantidad)}</td>
-                <td>$${separarMiles(item.subtotal)}</td>
-                <td>$${separarMiles(item.valorVentaJM)}</td>
-                <td>$${separarMiles(item.valorCliente)}</td>
-                <td class="text-center"><button class="btn btn-danger" onclick="eliminarDetalleCompra('${item.idProducto}')">X</button></td>
-            </tr>
-        `;
+    carrito.forEach((item, idx) => {
+        let row = '';
+        if (modoEdicionCompra) {
+            row = `
+                <tr>
+                    <td>${item.nombre}</td>
+                    <td><input type="number" class="form-control form-control-sm inputPrecio" value="${item.precio}" data-idx="${idx}" min="0"></td>
+                    <td><input type="number" class="form-control form-control-sm inputCantidad" value="${item.cantidad}" data-idx="${idx}" min="1"></td>
+                    <td class="text-center"><span class="spanSubtotal">$${separarMiles(item.precio * item.cantidad)}</span></td>
+                    <td class="text-center"><span class="spanValorJM">$${separarMiles(calcularYRedondear(item.precio, 20))}</span></td>
+                    <td class="text-center"><span class="spanValorCliente">$${separarMiles(calcularYRedondear(calcularYRedondear(item.precio, 20), 20))}</span></td>
+                    <td class="text-center"><button class="btn btn-danger btn-sm" onclick="eliminarDetalleCompra('${item.idProducto}')">X</button></td>
+                </tr>
+            `;
+        } else {
+            row = `
+                <tr>
+                    <td>${item.nombre}</td>
+                    <td>$${separarMiles(item.precio)}</td>
+                    <td>${item.cantidad}</td>
+                    <td>$${separarMiles(item.subtotal)}</td>
+                    <td>$${separarMiles(item.valorVentaJM)}</td>
+                    <td>$${separarMiles(item.valorCliente)}</td>
+                    <td class="text-center"><button class="btn btn-danger" onclick="eliminarDetalleCompra('${item.idProducto}')">X</button></td>
+                </tr>
+            `;
+        }
         tableBody.append(row);
     });
     calcularTotal();
+
+    // Solo en modo edición: listeners para inputs
+    if (modoEdicionCompra) {
+        tableBody.find('.inputPrecio, .inputCantidad').on('input', function() {
+            const idx = $(this).data('idx');
+            const precio = parseFloat(tableBody.find(`.inputPrecio[data-idx="${idx}"]`).val()) || 0;
+            const cantidad = parseFloat(tableBody.find(`.inputCantidad[data-idx="${idx}"]`).val()) || 1;
+            carrito[idx].precio = precio;
+            carrito[idx].cantidad = cantidad;
+            carrito[idx].subtotal = precio * cantidad;
+            carrito[idx].valorVentaJM = calcularYRedondear(precio, 20);
+            carrito[idx].valorCliente = calcularYRedondear(carrito[idx].valorVentaJM, 20);
+            // Actualizar celdas
+            const fila = $(this).closest('tr');
+            fila.find('.spanSubtotal').text('$' + separarMiles(carrito[idx].subtotal));
+            fila.find('.spanValorJM').text('$' + separarMiles(carrito[idx].valorVentaJM));
+            fila.find('.spanValorCliente').text('$' + separarMiles(carrito[idx].valorCliente));
+            calcularTotal();
+        });
+    }
 }
 
 function calcularTotal() {
@@ -336,19 +424,14 @@ function limpiarFormularioCompra() {
     $('#idSede').val('').trigger('change');
     $('#tipoPago').val('').trigger('change');
     $('#descripcion').val('');
-
-    // Limpiar también los inputs del buscador de productos
     $('#idProducto').val('').trigger('change');
     $('#cantidad').val('');
     $('#precio').val('');
-
-    // Vaciar el carrito y recargar la tabla del carrito
     carrito = [];
     cargarDetalleCompraTable();
-
-    // Mostrar botón registrar, ocultar guardar cambios
     $('#btnRegistrarCompra').show();
     $('#btnGuardarCambios').hide();
+    modoEdicionCompra = false;
 }
 
 function mostrarBotonesEditar() {
@@ -359,32 +442,20 @@ function mostrarBotonesEditar() {
 function guardarCambiosCompra() {
     let detalles = [];
     let totalCompra = 0;
-
-    $('#detalleCompraTable tbody tr').each(function() {
-        let fila = $(this);
-        let id = fila.data('id');
-
-        if (!id) return;
-
-        let precio = parseFloat(fila.find('.inputPrecio').val()) || 0;
-        let cantidad = parseFloat(fila.find('.inputCantidad').val()) || 0;
+    // Tomar los productos del carrito
+    carrito.forEach(item => {
+        let precio = parseFloat(item.precio) || 0;
+        let cantidad = parseFloat(item.cantidad) || 0;
         let subtotal = precio * cantidad;
-
-        console.log('Fila:', { id, precio, cantidad, subtotal });
-
         totalCompra += subtotal;
-
         detalles.push({
-            id_detalle_compra: id,
+            id_detalle_compra: item.idDetalleCompra || null, // <-- importante
+            id_presentacion: item.idProducto,
             precio_costo_unitario: precio,
             cantidad: cantidad,
             subtotal: subtotal
         });
     });
-
-    console.log('Total Compra:', totalCompra);
-    console.log('Detalles:', detalles);
-
     if (detalles.length === 0) {
         Swal.fire({
             icon: "error",
@@ -393,8 +464,6 @@ function guardarCambiosCompra() {
         });
         return;
     }
-
-    // Recopilar datos de la compra
     let dataCompra = {
         idCompra: $('#formCompra').data('idCompra'),
         proveedor: $('#proveedor').val(),
@@ -405,7 +474,6 @@ function guardarCambiosCompra() {
         total: totalCompra,
         detalles: detalles
     };
-
     $.ajax({
         url: 'ajax/comprasAjax.php',
         type: 'POST',
@@ -416,15 +484,6 @@ function guardarCambiosCompra() {
         success: function(response) {
             response = JSON.parse(response);
             if (response.status === "success") {
-                if (response.detalles) {
-                    response.detalles.forEach(detalle => {
-                        let fila = $('#detalleCompraBody').find('tr[data-id="' + detalle.id_detalle_compra + '"]');
-                        if (fila.length) {
-                            fila.find('.spanValorJM').text('$' + separarMiles(detalle.precio_venta_jm));
-                            fila.find('.spanValorCliente').text('$' + separarMiles(detalle.precio_venta_cliente));
-                        }
-                    });
-                }
                 Swal.fire({
                     position: "top-end",
                     icon: "success",
@@ -432,6 +491,7 @@ function guardarCambiosCompra() {
                     showConfirmButton: false,
                     timer: 1500
                 });
+                limpiarFormularioCompra();
                 listadoCompras();
             } else {
                 Swal.fire({
@@ -451,80 +511,5 @@ function guardarCambiosCompra() {
         }
     });
 }
-
-function cargarFormEditar(idCompra) {
-    cargarDatos();
-    mostrarBotonesEditar();
-    $('#formCompra').data('idCompra', idCompra);
-
-    setTimeout(() => {
-        $.ajax({
-            url: 'ajax/comprasAjax.php',
-            type: 'GET',
-            data: { accion: 'obtenerCompra', idCompra: idCompra },
-            success: function(response) {
-                response = JSON.parse(response);
-                console.log(response.data);
-                
-                if (response.status === "success") {
-                    const compra = response.data[0];
-                    $('#proveedor').val(compra.proveedor);
-                    $('#numFactura').val(compra.numero_factura);
-                    $('#idSede').val(compra.id_sede).trigger('change');
-                    $('#tipoPago').val(compra.id_tipo_de_pago).trigger('change');
-                    $('#descripcion').val(compra.observacion);
-
-                    // Limpiar tabla antes de llenarla
-                    $('#detalleCompraBody').empty();
-
-                    // Llenar tabla de detalles con los datos que ya tenemos
-                    let detalles = '';
-                    response.data.forEach(detalle => {
-                        detalles += `
-                            <tr data-id="${detalle.id_detalle_compra}">
-                                <td>${detalle.nombre_produto} - ${detalle.tamano_presentacion}</td>
-                                <td><input type="number" class="form-control form-control-sm inputPrecio" value="${detalle.precio_costo_unitario}"></td>
-                                <td><input type="number" class="form-control form-control-sm inputCantidad" value="${detalle.cantidad}"></td>
-                                <td class="text-center"><span class="spanSubtotal">$${separarMiles(detalle.subtotal)}</span></td>
-                                <td class="text-center"><span class="spanValorJM">$${separarMiles(detalle.precio_venta_jm_presentacion)}</span></td>
-                                <td class="text-center"><span class="spanValorCliente">$${separarMiles(detalle.precio_venta_cliente_presentacion)}</span></td>
-                                <td class="text-center"><button class="btn btn-danger btn-sm" onclick="eliminarDetalleCompra(${detalle.id_presentacion})">X</button></td>
-                            </tr>
-                        `;
-                    });
-                    $('#detalleCompraBody').html(detalles);
-
-                    // Agregar event listeners para recalcular
-                    $('#detalleCompraBody').on('change', '.inputPrecio, .inputCantidad', function() {
-                        let fila = $(this).closest('tr');
-                        let precio = parseFloat(fila.find('.inputPrecio').val()) || 0;
-                        let cantidad = parseFloat(fila.find('.inputCantidad').val()) || 0;
-                        let subtotal = precio * cantidad;
-
-                        fila.find('.spanSubtotal').text('$' + separarMiles(subtotal));
-
-                        let valorVentaJM = calcularYRedondear(precio, 20);
-                        let valorCliente = calcularYRedondear(valorVentaJM, 20);
-
-                        fila.find('.spanValorJM').text('$' + separarMiles(valorVentaJM));
-                        fila.find('.spanValorCliente').text('$' + separarMiles(valorCliente));
-                    });
-                } else {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Error",
-                        text: response.mensaje,
-                    });
-                }
-            },
-            error: function(error) {
-                console.error('Error en la solicitud AJAX:', error);
-                alert('Error al comunicarse con el servidor. Por favor, inténtelo de nuevo.');
-            }
-        });
-    }, 1000);
-}
-
-
 
 init();
