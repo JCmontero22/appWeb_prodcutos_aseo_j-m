@@ -161,10 +161,10 @@ p {
 }
 
 .select2-container {
-  z-index: 20000 !important;
+    z-index: auto !important;
 }
 .select2-dropdown {
-  z-index: 20001 !important;
+    z-index: 1060 !important;
 }
 
 /*************** HOME ***************/
