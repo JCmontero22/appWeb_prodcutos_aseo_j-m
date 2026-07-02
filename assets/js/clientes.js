@@ -90,7 +90,7 @@ function actualizarCliente() {
     let telefono = $('#telefono').val();
     let direccion = $('#direccion').val();
 
-    if (nombre === '' || telefono === '' || direccion === '') {
+    if (nombre === '') {
         Swal.fire({
                 icon: 'warning',
                 title: 'Campos incompletos',

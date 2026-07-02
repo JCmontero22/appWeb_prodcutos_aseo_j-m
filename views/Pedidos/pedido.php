@@ -97,11 +97,11 @@
                     </div>
                     <div class="mb-3">
                         <label for="telefono" class="form-label">Teléfono:</label>
-                        <input type="text" class="form-control" id="telefono" name="telefono" required>
+                        <input type="text" class="form-control" id="telefono" name="telefono">
                     </div>
                     <div class="mb-3">
                         <label for="direccion" class="form-label">Dirección:</label>
-                        <input type="text" class="form-control" id="direccion" name="direccion" required>
+                        <input type="text" class="form-control" id="direccion" name="direccion">
                     </div>
                 </div>
                 <div class="modal-footer">
