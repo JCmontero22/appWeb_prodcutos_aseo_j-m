@@ -1,6 +1,4 @@
 function init() {
-    alert("Bienvenido al sistema de gestión de inventario");
-
     $("#form-login").submit(function(e) {
         e.preventDefault();
         login();
