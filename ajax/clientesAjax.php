@@ -10,4 +10,10 @@ $listadoClientes = new listadoClientesController();
 
 echo "PASO 3<br>";
 
+$resultado = $listadoClientes->listarClientes();
+
+echo "PASO 4<br>";
+
+var_dump($resultado);
+
 exit;
