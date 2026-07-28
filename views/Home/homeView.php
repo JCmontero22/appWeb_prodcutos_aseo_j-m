@@ -19,7 +19,7 @@
     </section>
 
     <section class="content-body">
-
+        
         <div class="content-option">
             <div class="card-option bg-primary" onclick="redireccionar('listadoProductos')">
                 <h2>Stock</h2>
