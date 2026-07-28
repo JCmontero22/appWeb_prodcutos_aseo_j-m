@@ -6,21 +6,18 @@ $listadoClientes = new listadoClientesController();
 
 $resultado = $listadoClientes->listarClientes();
 
-foreach ($resultado as $campo => $valor) {
+foreach ($resultado['data'] as $indice => $cliente) {
 
-    $json = json_encode($valor);
+    if (json_encode($cliente) === false) {
 
-    if ($json === false) {
-
-        echo "Campo con error: $campo<br>";
-        echo "Valor:<br>";
-
-        var_dump($valor);
-
-        echo "<br>";
+        echo "Cliente con error: $indice <br>";
+        echo "ID: ".$cliente['id_usuario']."<br>";
+        echo "Nombre: ".$cliente['nombre_usuario']."<br>";
         echo json_last_error_msg();
 
         exit;
     }
 
 }
+
+echo "Todos los clientes son válidos";
