@@ -10,15 +10,33 @@
             $this->db = $this->conect();
         }
 
-        private function conect(){
+        private function conect()
+        {
             try {
-                $conectar = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASS);
+
+                $conectar = new PDO(
+                    "mysql:host=".DB_HOST.";dbname=".DB_NAME.";charset=utf8mb4",
+                    DB_USER,
+                    DB_PASS,
+                    [
+                        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                        PDO::ATTR_EMULATE_PREPARES => false,
+                    ]
+                );
+
+                $conectar->exec("SET NAMES utf8mb4");
+
                 return $conectar;
-            } catch (\Exception $e) {
-                throw new Exception("Error de conexión a la base de datos: " . $e->getMessage());
+
+            } catch (Exception $e) {
+
+                throw new Exception(
+                    "Error de conexión a la base de datos: ".$e->getMessage()
+                );
+
             }
         }
-
         public function execute($query, $params = []){
             try {
                 $sql = $this->db->prepare($query);
