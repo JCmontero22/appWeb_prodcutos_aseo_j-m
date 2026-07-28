@@ -9,10 +9,14 @@ function listadoClientes() {
         url: 'ajax/clientesAjax.php',
         type: 'GET',
         success: function(response){
-            response = JSON.parse(response);
-            cargarTablaClientes(response.data);
-            
-        }
+        console.log(response);
+        cargarTablaClientes(response.data);
+    },
+    error: function(xhr, status, error){
+        console.log(xhr.responseText);
+        console.log(status);
+        console.log(error);
+    }
     });
 }
 

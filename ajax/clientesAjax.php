@@ -1,19 +1,9 @@
 <?php
 
-echo "PASO 1<br>";
-
 require_once('../controller/listadoClientesController.php');
-
-echo "PASO 2<br>";
 
 $listadoClientes = new listadoClientesController();
 
-echo "PASO 3<br>";
+header('Content-Type: application/json; charset=utf-8');
 
-$resultado = $listadoClientes->listarClientes();
-
-echo "PASO 4<br>";
-
-var_dump($resultado);
-
-exit;
+echo json_encode($listadoClientes->listarClientes());
