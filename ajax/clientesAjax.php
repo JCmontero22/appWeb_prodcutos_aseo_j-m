@@ -1,9 +1,17 @@
 <?php
 
+echo "INICIO";
+
 require_once('../controller/listadoClientesController.php');
+
+echo " - CONTROLLER";
 
 $listadoClientes = new listadoClientesController();
 
-header('Content-Type: application/json; charset=utf-8');
+echo " - OBJETO";
 
-echo json_encode($listadoClientes->listarClientes());
+$resultado = $listadoClientes->listarClientes();
+
+echo " - RESULTADO";
+
+exit;
