@@ -38,19 +38,19 @@
                                 <option value="">Seleccione un producto</option>
                             </select>
                         </div>
-                        <div class="col-md-4">  
+                        <div class="col-md-4">
                             <label for="cantidad">Cantidad:</label>
                             <input type="number" id="cantidad" name="cantidad" class="form-control" required>
                         </div>
 
                         <div class="col-md-4 d-flex align-items-end">
-                            <button type="button" class="btn btn-warning" onclick="agregarProducto()">Agregar</button>
+                            <button type="button" class="btn btn-warning w-100" onclick="agregarProducto()">Agregar</button>
                         </div>
                     </div>
 
-                    <div class="row mt-5">
-                        <div class="col-md-12 d-flex justify-content-end">
-                            <button type="button" class="btn btn-success" onclick="realizarPedido()">Realizar Pedido</button>
+                    <div class="row mt-2 g-2" id="botones-pedido">
+                        <div class="col-6">
+                            <button type="button" class="btn btn-success w-100" onclick="realizarPedido()">Realizar Pedido</button>
                         </div>
                     </div>
                 </form>

@@ -548,6 +548,18 @@ p {
         padding: 0 0.75rem;
     }
 
+    /* Botones lado a lado en tablet */
+    #botones-pedido {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+    }
+
+    #botones-pedido .col-6 {
+        max-width: 100%;
+        flex: 0 0 50%;
+    }
+
     .content-header {
         padding: 1.5rem 1rem;
         margin-bottom: 1.5rem;
@@ -701,18 +713,33 @@ p {
     .table {
         font-size: 0.75rem;
         min-width: 600px;
+        margin-bottom: 0;
     }
 
-    .table thead th,
-    .table tbody td {
-        padding: 0.6rem 0.5rem;
+    .table thead th {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.8rem;
         white-space: nowrap;
+    }
+
+    .table tbody td {
+        padding: 0.75rem 0.5rem;
+        white-space: nowrap;
+        vertical-align: middle;
     }
 
     .table-responsive {
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
-        margin: 1rem 0;
+        margin: 0.75rem 0;
+        border-radius: 6px;
+    }
+
+    /* Botones en tabla */
+    .table .btn {
+        padding: 0.35rem 0.5rem;
+        font-size: 0.7rem;
+        white-space: nowrap;
     }
 
     /* Select y form en móvil */
@@ -800,6 +827,25 @@ p {
     .d-flex.align-items-end .btn {
         width: 100%;
         margin-top: 1.75rem;
+    }
+
+    /* Botones lado a lado en móvil */
+    #botones-pedido {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+        margin-top: 1rem !important;
+        margin-bottom: 1.5rem;
+    }
+
+    #botones-pedido .col-6 {
+        max-width: 100%;
+        flex: 0 0 100%;
+    }
+
+    #botones-pedido .btn {
+        width: 100%;
+        margin: 0;
     }
 
     /* Select y input mejor styled en móvil */
