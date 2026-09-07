@@ -104,8 +104,9 @@ function cargarTable(data, rol, idTabla) {
             className: "text-center",
             render: function(data, type, row){
                 let botones = `<button class="btn btn-primary btn-sm btnAccionListadoPedidos" onclick="detallePedido(${row.idPedido})"> <i class="fa-solid fa-magnifying-glass"></i> </button>`;
-                
-                if (data != 'Finalizado' && data != 'Cancelado') {
+
+                // Solo se puede editar si NO es Pagado, Finalizado o Cancelado
+                if (data != 'Finalizado' && data != 'Cancelado' && data != 'Pagado') {
                     botones += ` <button class="btn btn-success btn-sm btnAccionListadoPedidos" onclick="modalEditarEstado(${row.idPedido}, ${row.idEstado})"> <i class="fa-solid fa-pencil"></i> </button>`;
                 }
                 return botones;
@@ -192,7 +193,8 @@ function cargarTablaVentasAdmin(data) {
                 data: "estado",
                 className: "text-center",
                 render: function(data, type, row){
-                    if ( data != 'Finalizado') {/* data != 'Entregado' && */
+                    // Solo se puede editar si NO es Pagado, Finalizado o Cancelado
+                    if (data != 'Finalizado' && data != 'Pagado' && data != 'Cancelado') {
                         return `
                             <button class="btn btn-primary btn-sm btnAccionListadoPedidos" onclick="detallePedido(${row.idPedido})"> <i class="fa-solid fa-magnifying-glass"></i> </button>
                             <button class="btn btn-success btn-sm btnAccionListadoPedidos" onclick="modalEditarEstado(${row.idPedido}, ${row.idEstado})"> <i class="fa-solid fa-pencil"></i> </button>
