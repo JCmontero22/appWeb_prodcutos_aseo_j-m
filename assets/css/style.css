@@ -767,8 +767,58 @@ p {
     }
 
     .d-flex.justify-content-end {
-        flex-wrap: wrap;
-        gap: 0.5rem;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    /* Botones full-width en móvil */
+    .d-flex.justify-content-end .btn {
+        width: 100%;
+        margin: 0 !important;
+    }
+
+    /* Forms en móvil */
+    .row .col-md-8,
+    .row .col-md-4 {
+        max-width: 100%;
+        flex: 0 0 100%;
+    }
+
+    .row.mt-2.g-5 {
+        gap: 0 !important;
+    }
+
+    .row.mt-2.g-5 > div {
+        margin-bottom: 1rem;
+    }
+
+    /* Alinear botón agregar */
+    .d-flex.align-items-end {
+        align-items: flex-start !important;
+    }
+
+    .d-flex.align-items-end .btn {
+        width: 100%;
+        margin-top: 1.75rem;
+    }
+
+    /* Select y input mejor styled en móvil */
+    label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        font-size: 0.9rem;
+    }
+
+    /* Spacing mejorado */
+    .row.mt-5 {
+        margin-top: 1.5rem !important;
+    }
+
+    #total {
+        margin: 1.5rem 0 1rem 0;
+        text-align: center;
+        font-size: 1.25rem;
     }
 }
 
