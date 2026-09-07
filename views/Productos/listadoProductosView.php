@@ -22,9 +22,9 @@
             <div class="col-md-12 d-flex justify-content-end"> -->
                 <?php if ($_SESSION['rol'] == 1) : ?>
                     <div class="row mt-3">
-                        <div class="col-md-12">
-                            <div style="max-width: 300px; margin-left: auto;">
-                                <label for="sedes" class="form-label" style="font-weight: 500; margin-bottom: 0.5rem;">Seleccione sede:</label>
+                        <div class="col-md-12" style="display: flex; justify-content: center;">
+                            <div style="width: 100%; max-width: 300px;">
+                                <label for="sedes" class="form-label" style="font-weight: 500; margin-bottom: 0.5rem; display: block; text-align: center;">Seleccione sede:</label>
                                 <select name="sedes" id="sedes" class="form-select">
                                     <option value="">-- Todas las sedes --</option>
                                 </select>
