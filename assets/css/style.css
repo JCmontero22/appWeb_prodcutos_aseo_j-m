@@ -875,23 +875,25 @@ p {
         margin-top: 1.75rem;
     }
 
-    /* Botones lado a lado en móvil */
+    /* Botón Realizar Pedido separado y a la derecha en móvil */
     #botones-pedido {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 0.5rem;
-        margin-top: 1rem !important;
+        display: flex;
+        justify-content: flex-end;
+        gap: 0;
+        margin-top: 2rem !important;
         margin-bottom: 1.5rem;
     }
 
     #botones-pedido .col-6 {
-        max-width: 100%;
-        flex: 0 0 100%;
+        max-width: auto;
+        flex: 0 0 auto;
     }
 
     #botones-pedido .btn {
-        width: 100%;
+        width: auto;
+        min-width: 140px;
         margin: 0;
+        padding: 0.6rem 1.5rem;
     }
 
     /* Select y input mejor styled en móvil */
