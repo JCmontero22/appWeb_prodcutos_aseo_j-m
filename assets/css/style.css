@@ -833,35 +833,34 @@ p {
         margin-bottom: 0;
     }
 
-    /* Producto en móvil ocupa 100% */
+    /* Producto ocupa 100% */
     .row.mt-2.g-5 .col-md-4:nth-child(1) {
         flex: 0 0 100%;
         max-width: 100%;
     }
 
-    /* Cantidad y Agregar lado a lado: 60/40 */
+    /* Cantidad ocupa 100% */
     .row.mt-2.g-5 .col-md-4:nth-child(2) {
-        flex: 0 0 calc(60% - 0.25rem);
-        max-width: calc(60% - 0.25rem);
-        padding-right: 0 !important;
+        flex: 0 0 100%;
+        max-width: 100%;
     }
 
+    /* Agregar debajo pero cerca - gap pequeño */
     .row.mt-2.g-5 .col-md-4:nth-child(3) {
-        flex: 0 0 calc(40% - 0.25rem);
-        max-width: calc(40% - 0.25rem);
-        padding-left: 0 !important;
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin-top: -0.75rem;
     }
 
-    /* Botón agregar alineado abajo y centrado */
+    /* Botón agregar alineado abajo */
     .row.mt-2.g-5 .d-flex.align-items-end {
-        align-items: flex-end !important;
+        align-items: flex-start !important;
         width: 100%;
-        height: 100%;
     }
 
     .row.mt-2.g-5 .d-flex.align-items-end .btn {
         width: 100%;
-        margin-top: 1.65rem;
+        margin-top: 1.3rem;
         padding: 0.6rem 0.4rem;
         font-size: 0.9rem;
     }
