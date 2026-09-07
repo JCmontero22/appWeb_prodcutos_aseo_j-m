@@ -37,6 +37,7 @@
 
             }
         }
+        
         public function execute($query, $params = []){
             try {
                 $sql = $this->db->prepare($query);
