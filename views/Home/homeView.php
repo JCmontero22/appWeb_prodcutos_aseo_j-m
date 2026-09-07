@@ -21,39 +21,39 @@
     <section class="content-body">
         
         <div class="content-option">
-            <div class="card-option bg-primary" onclick="redireccionar('listadoProductos')">
+            <div class="card-option stock" onclick="redireccionar('listadoProductos')">
+                <i class="fa-solid fa-boxes-stacked card-option-icon"></i>
                 <h2>Stock</h2>
-                <i class="fa-solid fa-cart-flatbed card-option-icon"></i>
             </div>
 
-            <div class="card-option bg-secondary" onclick="redireccionar('pedidos')">
-                <h2>Pedido</h2>
+            <div class="card-option pedidos" onclick="redireccionar('pedidos')">
                 <i class="fa-solid fa-cart-plus card-option-icon"></i>
+                <h2>Realizar Pedido</h2>
             </div>
 
-            <div class="card-option bg-info" onclick="redireccionar('misPedidos')">
+            <div class="card-option listaPedidos" onclick="redireccionar('misPedidos')">
+                <i class="fa-solid fa-receipt card-option-icon"></i>
                 <h2>Mis Ventas</h2>
-                <i class="fa-solid fa-clipboard-list card-option-icon"></i>
             </div>
 
-            <div class="card-option bg-warning" onclick="redireccionar('clientes')">
+            <div class="card-option clientes" onclick="redireccionar('clientes')">
+                <i class="fa-solid fa-users card-option-icon"></i>
                 <h2>Clientes</h2>
-                <i class="fa-solid fa-clipboard-list card-option-icon"></i>
             </div>
              <?php if ($_SESSION['rol'] == 1) : ?>
-            <div class="card-option bg-success" onclick="redireccionar('ganancias')">
+            <div class="card-option ganancias" onclick="redireccionar('ganancias')">
+                <i class="fa-solid fa-chart-line card-option-icon"></i>
                 <h2>Ganancias</h2>
-                <i class="fa-solid fa-money-check-dollar card-option-icon"></i>
             </div>
 
-            <div class="card-option bg-danger" onclick="redireccionar('movimientosFinancieros')">
-                <h2>Movimientos Finanacieros</h2>
-                <i class="fa-solid fa-money-bill-transfer card-option-icon"></i>
+            <div class="card-option movimientos" onclick="redireccionar('movimientosFinancieros')">
+                <i class="fa-solid fa-money-bill-wave card-option-icon"></i>
+                <h2>Movimientos</h2>
             </div>
 
-            <div class="card-option bg-dark" onclick="redireccionar('compras')">
+            <div class="card-option pedidos" onclick="redireccionar('compras')">
+                <i class="fa-solid fa-bag-shopping card-option-icon"></i>
                 <h2>Compras</h2>
-                <i class="fa-solid fa-cart-arrow-down card-option-icon"></i>
             </div>
             <?php endif; ?>
             <!-- <div class="card-option bg-success" onclick="redireccionar('ganancias')">

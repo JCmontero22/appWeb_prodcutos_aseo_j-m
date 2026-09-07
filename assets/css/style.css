@@ -191,40 +191,72 @@ p {
 
 .content-option {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
     margin-bottom: 2rem;
+    padding: 1rem 0;
 }
 
 .card-option {
-    padding: 2rem 1.5rem;
-    border-radius: var(--border-radius);
+    padding: 2.5rem 1.75rem;
+    border-radius: 12px;
     color: white;
     text-align: center;
-    box-shadow: var(--box-shadow);
-    transition: var(--transition);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 200px;
+    min-height: 220px;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-option::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.15);
+    transition: left 0.35s ease;
+    z-index: 0;
 }
 
 .card-option:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--box-shadow-lg);
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+.card-option:hover::before {
+    left: 100%;
+}
+
+.card-option > * {
+    position: relative;
+    z-index: 1;
 }
 
 .card-option-icon {
-    font-size: 3rem;
+    font-size: 3.2rem;
     margin-bottom: 1rem;
+    opacity: 0.95;
+}
+
+.card-option h2 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: 0.5px;
 }
 
 .detalle-card {
     font-size: 0.9rem;
     font-weight: 400;
-    opacity: 0.95;
+    opacity: 0.9;
 }
 
 .valor-card {
@@ -233,12 +265,35 @@ p {
     margin-top: 0.5rem;
 }
 
-.stock { background: linear-gradient(135deg, #005F8F, #003E5C); }
-.pedidos { background: linear-gradient(135deg, #DC3545, #C82333); }
-.listaPedidos { background: linear-gradient(135deg, #FFC107, #FF9800); }
-.clientes { background: linear-gradient(135deg, #009EE2, #0077B6); }
-.ganancias { background: linear-gradient(135deg, #28A745, #1E7E34); }
-.movimientos { background: linear-gradient(135deg, #17A2B8, #117A8B); }
+/* Gradientes mejorados y más sutiles */
+.stock {
+    background: linear-gradient(135deg, #1a5490 0%, #0f3a62 100%);
+}
+
+.pedidos {
+    background: linear-gradient(135deg, #d63447 0%, #b0222f 100%);
+}
+
+.listaPedidos {
+    background: linear-gradient(135deg, #f9b233 0%, #e89b1a 100%);
+    color: #fff;
+}
+
+.clientes {
+    background: linear-gradient(135deg, #00a8e8 0%, #0076a3 100%);
+}
+
+.ganancias {
+    background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+}
+
+.movimientos {
+    background: linear-gradient(135deg, #16a085 0%, #0d5f4f 100%);
+}
+
+.pedidos {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+}
 
 /* ============================================
    TABLAS
