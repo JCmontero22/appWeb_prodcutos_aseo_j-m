@@ -15,7 +15,7 @@
         <div class="row">
             <div class="col-md-12 d-flex justify-content-end">
                 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Registrar Usuario</button>
-                <button class="btn btn-danger" onclick="redireccionar('home')">Regresar</button>
+                <button class="btn btn-primary" onclick="redireccionar('home')">Regresar</button>
             </div>
         </div>
 
