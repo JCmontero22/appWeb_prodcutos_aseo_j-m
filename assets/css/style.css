@@ -37,6 +37,14 @@
 html {
     font-size: 16px;
     scroll-behavior: smooth;
+    /* Prevenir zoom en inputs en iOS */
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    /* Viewport fit para notch */
+    viewport-fit: cover;
 }
 
 body {
@@ -711,14 +719,14 @@ p {
 
     /* Tabla responsive en móvil */
     .table {
-        font-size: 0.75rem;
+        font-size: 0.85rem;
         min-width: 600px;
         margin-bottom: 0;
     }
 
     .table thead th {
         padding: 0.75rem 0.5rem;
-        font-size: 0.8rem;
+        font-size: 0.9rem;
         white-space: nowrap;
     }
 
@@ -726,6 +734,7 @@ p {
         padding: 0.75rem 0.5rem;
         white-space: nowrap;
         vertical-align: middle;
+        font-size: 0.85rem;
     }
 
     .table-responsive {
@@ -735,11 +744,13 @@ p {
         border-radius: 6px;
     }
 
-    /* Botones en tabla */
+    /* Botones en tabla - Botón X más pequeño */
     .table .btn {
-        padding: 0.35rem 0.5rem;
-        font-size: 0.7rem;
+        padding: 0.25rem 0.4rem;
+        font-size: 0.65rem;
         white-space: nowrap;
+        min-width: 40px;
+        height: 32px;
     }
 
     /* Select y form en móvil */
@@ -812,11 +823,16 @@ p {
     }
 
     .row.mt-2.g-5 {
-        gap: 0 !important;
+        gap: 0.75rem !important;
     }
 
     .row.mt-2.g-5 > div {
-        margin-bottom: 1rem;
+        margin-bottom: 0;
+    }
+
+    /* Acercar botón agregar a cantidad */
+    .row.mt-2.g-5 .col-md-4:last-child {
+        padding-left: 0 !important;
     }
 
     /* Alinear botón agregar */

@@ -113,3 +113,18 @@
 </div>
 
 <script src="assets/js/pedido.js"></script>
+
+<script>
+// Mover pantalla cuando el teclado aparece para que no se tape el input
+document.addEventListener('DOMContentLoaded', function() {
+    const focusableElements = document.querySelectorAll('input, select, textarea');
+
+    focusableElements.forEach(element => {
+        element.addEventListener('focus', function(e) {
+            setTimeout(() => {
+                this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 300);
+        });
+    });
+});
+</script>
