@@ -156,21 +156,22 @@ p {
 .content-header {
     background: linear-gradient(135deg, var(--color-primario) 0%, var(--color-secundario) 100%);
     color: white;
-    padding: 2rem 1rem;
-    margin-bottom: 2rem;
+    padding: 1.5rem 1rem;
+    margin-bottom: 1.5rem;
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow-lg);
 }
 
 .content-header h1 {
     color: white;
-    margin-bottom: 0.5rem;
-    font-size: 2rem;
+    margin-bottom: 0.25rem;
+    font-size: 1.75rem;
 }
 
 .content-header p {
     color: rgba(255, 255, 255, 0.9);
     margin-bottom: 0;
+    font-size: 0.9rem;
 }
 
 .content-body {
@@ -499,6 +500,22 @@ p {
 }
 
 /* ============================================
+   SELECT DE SEDES MEJORADO
+   ============================================ */
+
+#sedes {
+    max-width: 400px;
+    font-size: 0.95rem;
+    padding: 0.85rem 1rem;
+}
+
+@media (min-width: 769px) {
+    #sedes {
+        max-width: 500px;
+    }
+}
+
+/* ============================================
    CARRITO DE COMPRAS
    ============================================ */
 
@@ -549,17 +566,17 @@ p {
     }
 
     .content-header {
-        padding: 3rem 2rem;
-        margin-bottom: 3rem;
+        padding: 1.75rem 2rem;
+        margin-bottom: 1.5rem;
     }
 
     .content-header h1 {
-        font-size: 2.5rem;
-        margin-bottom: 0.5rem;
+        font-size: 2rem;
+        margin-bottom: 0.25rem;
     }
 
     .content-header p {
-        font-size: 1.1rem;
+        font-size: 0.95rem;
     }
 
     .content-body {
