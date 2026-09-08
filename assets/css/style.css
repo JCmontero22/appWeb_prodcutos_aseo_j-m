@@ -504,16 +504,16 @@ p {
    ============================================ */
 
 #sedes {
-    width: 350px !important;
-    min-width: 350px;
+    width: 280px !important;
+    min-width: 280px;
     font-size: 0.9rem;
     padding: 0.65rem 0.9rem;
 }
 
 @media (min-width: 769px) {
     #sedes {
-        width: 500px !important;
-        min-width: 500px;
+        width: 320px !important;
+        min-width: 320px;
     }
 }
 
@@ -531,15 +531,15 @@ p {
    ALINEACIÓN DEL SELECT DE SEDES POR PANTALLA
    ============================================ */
 
-/* Móvil: centrado */
+/* Derecha en todas las plataformas */
 .row.mt-3 > .col-md-12[style*="justify-content: center"] {
-    justify-content: center !important;
+    justify-content: flex-end !important;
+    padding-right: 1rem;
 }
 
-/* PC/Tablet: derecha */
-@media (min-width: 769px) {
+@media (max-width: 768px) {
     .row.mt-3 > .col-md-12[style*="justify-content: center"] {
-        justify-content: flex-end !important;
+        padding-right: 0.5rem;
     }
 }
 
