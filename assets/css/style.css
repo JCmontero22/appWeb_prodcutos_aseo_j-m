@@ -544,6 +544,75 @@ p {
 }
 
 /* ============================================
+   PANTALLA REALIZAR PEDIDOS - MEJORAS
+   ============================================ */
+
+/* Espaciado entre botones de header */
+.content-body > .row:first-child {
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.content-body > .row:first-child .btn {
+    margin-left: 0.5rem;
+}
+
+.content-body > .row:first-child .btn:first-child {
+    margin-left: 0;
+}
+
+/* Mejora en labels del formulario */
+form label {
+    font-weight: 500;
+    margin-bottom: 0.6rem;
+    display: block;
+    font-size: 0.95rem;
+    color: var(--color-terciario);
+}
+
+/* Selects mejor proporcionados */
+#cliente-select,
+#producto-select {
+    font-size: 0.9rem;
+    padding: 0.7rem 0.9rem;
+}
+
+/* Input de cantidad */
+#cantidad {
+    font-size: 0.9rem;
+    padding: 0.7rem 0.9rem;
+    width: 100%;
+    height: auto;
+}
+
+/* Botón Agregar */
+.row.mt-2.g-5 .btn-warning {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.85rem;
+    width: auto !important;
+    min-width: 110px;
+}
+
+/* Botón Realizar Pedido - derecha */
+#botones-pedido {
+    justify-content: flex-end !important;
+    gap: 0 !important;
+    margin-top: 1.5rem !important;
+}
+
+#botones-pedido .col-6 {
+    max-width: auto !important;
+    flex: 0 0 auto !important;
+}
+
+#botones-pedido .btn {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.85rem;
+    width: auto !important;
+    min-width: 140px;
+}
+
+/* ============================================
    CARRITO DE COMPRAS
    ============================================ */
 
