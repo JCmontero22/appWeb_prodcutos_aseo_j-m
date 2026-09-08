@@ -544,8 +544,8 @@ p {
 
 @media (min-width: 769px) {
     .container {
-        max-width: 1400px;
-        padding: 0 2rem;
+        max-width: 1700px;
+        padding: 0 1.5rem;
     }
 
     .content-header {
