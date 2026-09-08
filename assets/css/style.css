@@ -137,6 +137,18 @@ p {
     box-shadow: 0 0 0 0.2rem rgba(0, 158, 226, 0.25);
 }
 
+.form-select, .form-control {
+    color: var(--color-texto);
+}
+
+.form-select option {
+    color: var(--color-texto);
+}
+
+.form-select option:first-child {
+    color: #999;
+}
+
 /* Mejorar select en móvil */
 .form-select {
     min-height: 44px;
