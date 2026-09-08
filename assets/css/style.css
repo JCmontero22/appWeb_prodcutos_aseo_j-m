@@ -528,6 +528,20 @@ p {
 }
 
 /* ============================================
+   ALINEACIÓN DEL SELECT DE SEDES POR PANTALLA
+   ============================================ */
+
+.row.mt-3 .col-md-12.d-flex.justify-content-end {
+    justify-content: center !important;
+}
+
+@media (min-width: 769px) {
+    .row.mt-3 .col-md-12.d-flex.justify-content-end {
+        justify-content: flex-end !important;
+    }
+}
+
+/* ============================================
    CARRITO DE COMPRAS
    ============================================ */
 
