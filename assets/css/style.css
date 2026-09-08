@@ -1018,6 +1018,82 @@ form label {
         margin-left: 0.5rem;
     }
 
+    /* PANTALLA REALIZAR PEDIDOS - MÓVIL */
+
+    /* Botones de header con más espacio */
+    .content-body > .row:first-child {
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+        flex-direction: column;
+    }
+
+    .content-body > .row:first-child .btn {
+        margin-left: 0 !important;
+        width: 100%;
+        padding: 0.65rem 1rem;
+        font-size: 0.85rem;
+    }
+
+    /* Cliente select - ancho completo */
+    .row .col-md-8 {
+        margin-bottom: 1rem;
+    }
+
+    #cliente-select {
+        width: 100%;
+        font-size: 0.9rem;
+        padding: 0.7rem 0.9rem;
+    }
+
+    /* Fila de producto, cantidad, agregar */
+    .row.mt-2.g-5 {
+        gap: 0.5rem !important;
+        flex-direction: column;
+    }
+
+    .row.mt-2.g-5 .col-md-4 {
+        width: 100% !important;
+        margin-bottom: 0.5rem;
+    }
+
+    #producto-select {
+        width: 100%;
+        font-size: 0.9rem;
+        padding: 0.7rem 0.9rem;
+    }
+
+    #cantidad {
+        width: 100%;
+        font-size: 0.9rem;
+        padding: 0.7rem 0.9rem;
+    }
+
+    /* Botón Agregar - width automático pero con buen tamaño */
+    .row.mt-2.g-5 .d-flex.align-items-end {
+        width: 100% !important;
+        align-items: flex-start !important;
+    }
+
+    .row.mt-2.g-5 .btn-warning {
+        width: 100% !important;
+        padding: 0.7rem 1rem;
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+    }
+
+    /* Botón Realizar Pedido - centrado en móvil */
+    #botones-pedido {
+        justify-content: center !important;
+        margin-top: 1rem !important;
+    }
+
+    #botones-pedido .btn {
+        width: 100% !important;
+        padding: 0.75rem 1.5rem;
+        font-size: 0.9rem;
+        min-width: auto;
+    }
+
     /* Tabla responsive en móvil */
     .table {
         font-size: 0.85rem;
