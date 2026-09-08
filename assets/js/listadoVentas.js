@@ -106,7 +106,7 @@ function cargarTable(data, rol, idTabla) {
                 let botones = `<button class="btn btn-primary btn-sm btnAccionListadoPedidos" onclick="detallePedido(${row.idPedido})"> <i class="fa-solid fa-magnifying-glass"></i> </button>`;
 
                 // Solo se puede editar si NO es Pagado, Finalizado o Cancelado
-                if (data != 'Finalizado' && data != 'Cancelado' && data != 'Pagado') {
+                if (data != 'Finalizado' && data != 'Cancelado') {
                     botones += ` <button class="btn btn-success btn-sm btnAccionListadoPedidos" onclick="modalEditarEstado(${row.idPedido}, ${row.idEstado})"> <i class="fa-solid fa-pencil"></i> </button>`;
                 }
                 return botones;

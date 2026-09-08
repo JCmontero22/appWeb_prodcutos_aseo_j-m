@@ -539,6 +539,192 @@ p {
 }
 
 /* ============================================
+   ESTILOS PARA PC Y TABLETS (>768px)
+   ============================================ */
+
+@media (min-width: 769px) {
+    .container {
+        max-width: 1400px;
+        padding: 0 2rem;
+    }
+
+    .content-header {
+        padding: 3rem 2rem;
+        margin-bottom: 3rem;
+    }
+
+    .content-header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .content-header p {
+        font-size: 1.1rem;
+    }
+
+    .content-body {
+        padding: 2.5rem;
+        margin-bottom: 3rem;
+        border-radius: 12px;
+    }
+
+    /* Tablas mejoradas */
+    .table {
+        font-size: 0.95rem;
+    }
+
+    .table thead th {
+        padding: 1.25rem 1rem;
+        font-size: 0.95rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+    }
+
+    .table tbody td {
+        padding: 1.1rem 1rem;
+        font-size: 0.95rem;
+    }
+
+    .table tbody tr:hover {
+        background-color: rgba(0, 158, 226, 0.05);
+        transition: background-color 0.2s ease;
+    }
+
+    /* Mejora en el total de ganancias */
+    .content-ganancias {
+        padding: 1.5rem 2rem;
+        border-radius: 10px;
+        font-size: 1.2rem;
+        font-weight: 600;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Botones mejorados */
+    .btn {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.95rem;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+    }
+
+    .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Forma superior para modal */
+    .modal-dialog-lg {
+        max-width: 900px;
+    }
+
+    .modal-content {
+        border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Select y forms */
+    .form-select, .form-control {
+        padding: 0.85rem 1rem;
+        font-size: 0.95rem;
+        border-radius: 8px;
+    }
+
+    /* Tabs mejorados */
+    .nav-tabs {
+        border-bottom: 2px solid var(--color-gris);
+        margin-bottom: 2rem;
+    }
+
+    .nav-tabs .nav-link {
+        padding: 1rem 1.5rem;
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: var(--color-texto);
+        border: none;
+        border-bottom: 3px solid transparent;
+        transition: all 0.3s ease;
+    }
+
+    .nav-tabs .nav-link.active {
+        border-bottom-color: var(--color-primario);
+        color: var(--color-primario);
+    }
+
+    .nav-tabs .nav-link:hover {
+        border-bottom-color: var(--color-primario);
+        color: var(--color-primario);
+    }
+
+    /* Header buttons */
+    .header-btn {
+        gap: 1rem;
+    }
+
+    .header-btn a {
+        padding: 0.7rem 1.5rem;
+        font-size: 0.95rem;
+        border-radius: 8px;
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .header-btn a:hover {
+        background-color: rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s ease;
+    }
+
+    /* Spacing mejorado */
+    .row {
+        margin-bottom: 1.5rem;
+    }
+
+    .col-md-12 {
+        margin-bottom: 0.5rem;
+    }
+
+    /* Cards de opciones PC */
+    .content-option {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2.5rem;
+        margin-bottom: 3rem;
+    }
+
+    .card-option {
+        padding: 3rem 2rem;
+        min-height: 250px;
+        border-radius: 14px;
+    }
+
+    .card-option-icon {
+        font-size: 3.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .card-option h2 {
+        font-size: 1.5rem;
+    }
+
+    /* Scrollbar mejor visible en PC */
+    .table-responsive::-webkit-scrollbar {
+        height: 8px;
+    }
+
+    .table-responsive::-webkit-scrollbar-track {
+        background: var(--color-gris-claro);
+        border-radius: 4px;
+    }
+
+    .table-responsive::-webkit-scrollbar-thumb {
+        background: var(--color-gris-oscuro);
+        border-radius: 4px;
+        height: 20px;
+    }
+
+    .table-responsive::-webkit-scrollbar-thumb:hover {
+        background: var(--color-primario);
+    }
+}
+
+/* ============================================
    RESPONSIVE DESIGN - TABLETS (768px)
    ============================================ */
 
