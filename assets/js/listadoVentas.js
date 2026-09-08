@@ -256,19 +256,26 @@ function mostrarDetallesPedido(data, idPedido) {
     cargarProductosListado();
 
     $("#modalDetalle").modal('show');
-    $("#detallePedidoBody").empty(); 
+    $("#detallePedidoBody").empty();
+
+    // Validar estado del pedido (usar el primer item para verificar)
+    let estadoPedido = data.length > 0 ? data[0].estado : null;
+    let puedeEditar = estadoPedido && estadoPedido != 6 && estadoPedido != 7; // 6=Finalizado, 7=Pagado
+
+    // Mostrar/ocultar botón Agregar Producto basado en el estado
+    if (puedeEditar) {
+        $("#btnAgregarProducto").show();
+    } else {
+        $("#btnAgregarProducto").hide();
+    }
 
     data.forEach(item => {
         const rowId = `detalle-row-${item.idPresentacion}`;
         const cantidadId = `td-cantidad-${item.idPresentacion}`;
         let botones = '';
 
-        /*if (item.estado != 1) {
-            $("#btnAgregarProducto").hide();
-        }*/
-
-        // Si item.estado != 6, mostrar botones
-        if (item.estado != 6) {
+        // Si item.estado != 6 (Finalizado) ni 7 (Pagado), mostrar botones de edición
+        if (item.estado != 6 && item.estado != 7) {
             botones = `
                 <button class="btn btn-warning btn-sm btn-editar-cantidad" onclick="editarCantidad(${item.idPresentacion}, ${idPedido}, ${item.cantidad}, ${item.idDetallePedido}, ${item.precioVenta})"> <i class="fa-solid fa-pencil"></i> </button>
                 <button class="btn btn-danger btn-sm btn-eliminar-producto" onclick="eliminarProducto(${item.idDetallePedido} , ${idPedido})" style="margin-top: 5px;"> <i class="fa-solid fa-trash"></i> </button>
