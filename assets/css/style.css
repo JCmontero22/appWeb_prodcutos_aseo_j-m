@@ -83,9 +83,9 @@ p {
    ============================================ */
 
 .btn {
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     font-weight: 500;
-    padding: 0.6rem 1.2rem;
+    padding: 0.5rem 1rem;
     border-radius: var(--border-radius);
     transition: var(--transition);
     border: none;
@@ -504,15 +504,27 @@ p {
    ============================================ */
 
 #sedes {
-    max-width: 400px;
-    font-size: 0.95rem;
-    padding: 0.85rem 1rem;
+    width: 350px !important;
+    min-width: 350px;
+    font-size: 0.9rem;
+    padding: 0.65rem 0.9rem;
 }
 
 @media (min-width: 769px) {
     #sedes {
-        max-width: 500px;
+        width: 500px !important;
+        min-width: 500px;
     }
+}
+
+/* ============================================
+   SECCIÓN DE GANANCIAS REDUCIDA
+   ============================================ */
+
+.content-ganancias {
+    padding: 1rem 1.5rem !important;
+    font-size: 1.05rem !important;
+    margin-bottom: 0.75rem !important;
 }
 
 /* ============================================
@@ -609,19 +621,20 @@ p {
 
     /* Mejora en el total de ganancias */
     .content-ganancias {
-        padding: 1.5rem 2rem;
-        border-radius: 10px;
-        font-size: 1.2rem;
+        padding: 0.9rem 1.5rem;
+        border-radius: 8px;
+        font-size: 1.05rem;
         font-weight: 600;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        margin-bottom: 0.75rem;
     }
 
     /* Botones mejorados */
     .btn {
-        padding: 0.75rem 1.5rem;
-        font-size: 0.95rem;
+        padding: 0.55rem 1.1rem;
+        font-size: 0.85rem;
         font-weight: 600;
-        letter-spacing: 0.3px;
+        letter-spacing: 0.2px;
     }
 
     .btn:hover {
