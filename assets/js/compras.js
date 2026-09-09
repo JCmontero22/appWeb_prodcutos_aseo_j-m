@@ -188,8 +188,8 @@ function agregarDetalleCompra() {
             nombreProducto = iodProducto.nombre + ' - ' + iodProducto.presentacion;
             let subtotal = precio * cantidad;
             let precioCompra = parseFloat(precio);
-            let valorVentaJM = calcularYRedondear(precioCompra, 20)
-            let valorCliente = calcularYRedondear(valorVentaJM, 20);
+            let valorVentaJM = calcularYRedondear(precioCompra, 20);
+            let valorCliente = calcularYRedondear(valorVentaJM, 15);
             carrito.push({
                 idProducto,
                 nombre: nombreProducto,
@@ -283,7 +283,7 @@ function cargarDetalleCompraTable() {
                     <td><input type="number" class="form-control form-control-sm inputCantidad" value="${item.cantidad}" data-idx="${idx}" min="1"></td>
                     <td class="text-center"><span class="spanSubtotal">$${separarMiles(item.precio * item.cantidad)}</span></td>
                     <td class="text-center"><span class="spanValorJM">$${separarMiles(calcularYRedondear(item.precio, 20))}</span></td>
-                    <td class="text-center"><span class="spanValorCliente">$${separarMiles(calcularYRedondear(calcularYRedondear(item.precio, 20), 20))}</span></td>
+                    <td class="text-center"><span class="spanValorCliente">$${separarMiles(calcularYRedondear(calcularYRedondear(item.precio, 20), 15))}</span></td>
                     <td class="text-center"><button class="btn btn-danger btn-sm" title="Eliminar" onclick="eliminarDetalleCompra('${item.idProducto}')"><i class="fa-solid fa-trash"></i></button></td>
                 </tr>
             `;
@@ -314,7 +314,7 @@ function cargarDetalleCompraTable() {
             carrito[idx].cantidad = cantidad;
             carrito[idx].subtotal = precio * cantidad;
             carrito[idx].valorVentaJM = calcularYRedondear(precio, 20);
-            carrito[idx].valorCliente = calcularYRedondear(carrito[idx].valorVentaJM, 20);
+            carrito[idx].valorCliente = calcularYRedondear(carrito[idx].valorVentaJM, 15);
             // Actualizar celdas
             const fila = $(this).closest('tr');
             fila.find('.spanSubtotal').text('$' + separarMiles(carrito[idx].subtotal));
