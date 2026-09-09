@@ -80,42 +80,54 @@ function selectProductos(data) {
         theme: "default",
         templateResult: function(option) {
             if (!option.id) return option.text;
-            return $('<span>' + option.html + '</span>');
+            let $span = $('<span>' + option.html + '</span>');
+            if (option.cantidad === 0) {
+                $span.css('opacity', '0.6');
+            }
+            return $span;
         },
         templateSelection: function(option) {
             if (!option.id) return option.text;
-            return $('<span>' + option.text + '</span>');
+            let text = option.text.replace(/<span[^>]*>.*<\/span>/g, '').trim();
+            return $('<span>' + text + '</span>');
         }
     });
 
-    // Deshabilitar opciones sin stock
-    $('#producto-select').on('select2:opening', function() {
-        $('.select2-results__option').each(function() {
-            let $option = $(this);
-            let optionData = $option.data('data');
-            if (optionData && optionData.disabled) {
-                $option.addClass('select2-option-disabled').css({
-                    'opacity': '0.5',
-                    'cursor': 'not-allowed',
-                    'pointer-events': 'none'
-                });
-            }
-        });
-    });
-
-    // Validar si intenta seleccionar sin stock
-    $('#producto-select').on('select2:select', function(e) {
+    // Validar selección de producto
+    $('#producto-select').on('select2:selecting', function(e) {
         let option = e.params.data;
-        if (option.disabled) {
+
+        // Verificar si tiene stock
+        if (option.cantidad === 0) {
             e.preventDefault();
-            $(this).val(null).trigger('change');
             Swal.fire({
                 icon: 'warning',
-                title: 'Stock no disponible',
-                text: `"${option.text.replace(/<span[^>]*>.*<\/span>/g, '').trim()}" no tiene stock disponible para esta operación.`,
+                title: 'Sin stock disponible',
+                text: `"${option.text.replace(/<span[^>]*>.*<\/span>/g, '').trim()}" no tiene stock disponible. No se permite seleccionar este producto.`,
                 confirmButtonText: 'Entendido'
             });
+            return false;
         }
+    });
+
+    // Estilizar opciones sin stock al abrir el dropdown
+    $('#producto-select').on('select2:open', function() {
+        setTimeout(() => {
+            $('.select2-results__option').each(function() {
+                let $option = $(this);
+                let text = $option.text();
+                if (text.includes('Sin stock')) {
+                    $option.css({
+                        'opacity': '0.5',
+                        'color': '#dc3545',
+                        'cursor': 'not-allowed'
+                    });
+                    $option.on('click', function(e) {
+                        e.stopPropagation();
+                    });
+                }
+            });
+        }, 10);
     });
 }
 
