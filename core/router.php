@@ -27,8 +27,9 @@
         'gananciasDelMes' => 'Ganancias/gananciasDelMes.php',
         'ganaciasTotales' => 'Ganancias/ganaciasTotales.php',
         'movimientosFinancieros' => 'Ganancias/movimientosFinancieros.php',
-        'compras' => 'Compras/compras.php'
-        
+        'compras' => 'Compras/compras.php',
+        'inventarioPorSede' => 'Inventario/inventarioPorSede.php'
+
     ];
 
     $uri = $_SERVER['REQUEST_URI']; 
