@@ -833,6 +833,12 @@ textarea.form-control {
     width: 3.5rem !important;
     height: 3.5rem !important;
     margin: 0.5rem auto !important;
+    overflow: visible !important;
+}
+
+.swal2-icon svg {
+    width: 100% !important;
+    height: 100% !important;
 }
 
 .swal2-icon.swal2-success::after {
@@ -1003,6 +1009,12 @@ textarea.form-control {
         width: 3rem !important;
         height: 3rem !important;
         margin: 0.4rem auto !important;
+        overflow: visible !important;
+    }
+
+    .swal2-icon svg {
+        width: 100% !important;
+        height: 100% !important;
     }
 }
 
@@ -1035,6 +1047,12 @@ textarea.form-control {
         width: 3.2rem !important;
         height: 3.2rem !important;
         margin: 0.35rem auto !important;
+        overflow: visible !important;
+    }
+
+    .swal2-icon svg {
+        width: 100% !important;
+        height: 100% !important;
     }
 
     .swal2-button {
