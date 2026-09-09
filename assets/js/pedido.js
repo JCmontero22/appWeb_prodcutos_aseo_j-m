@@ -96,15 +96,17 @@ function selectProductos(data) {
 
     // Validar selección de producto
     $('#producto-select').on('select2:selecting', function(e) {
-        let option = e.params.data;
+        let optionId = e.params.data.id;
 
-        // Verificar si tiene stock
-        if (option.cantidad === 0) {
+        // Buscar el producto en el array para obtener la cantidad real
+        let producto = productosListados.find(p => p.idPresentacion == optionId);
+
+        if (producto && parseFloat(producto.cantidad) === 0) {
             e.preventDefault();
             Swal.fire({
                 icon: 'warning',
                 title: 'Sin stock disponible',
-                text: `"${option.text.replace(/<span[^>]*>.*<\/span>/g, '').trim()}" no tiene stock disponible. No se permite seleccionar este producto.`,
+                text: `"${e.params.data.text.replace(/<span[^>]*>.*<\/span>/g, '').trim()}" no tiene stock disponible. No se permite seleccionar este producto.`,
                 confirmButtonText: 'Entendido'
             });
             return false;
