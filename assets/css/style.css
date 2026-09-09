@@ -1027,6 +1027,17 @@ textarea.form-control {
         font-size: 16px; /* Evita auto-zoom forzado en inputs */
     }
 
+    /* Inputs y selects quedan encima del teclado en móviles */
+    input:focus,
+    textarea:focus,
+    select:focus,
+    .form-control:focus,
+    .form-select:focus,
+    .select2-container--open .select2-selection {
+        scroll-margin-top: 200px !important;
+        scroll-behavior: smooth !important;
+    }
+
     .swal2-popup {
         width: 92% !important;
         max-width: 320px !important;

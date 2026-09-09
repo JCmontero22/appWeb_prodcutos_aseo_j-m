@@ -3,6 +3,16 @@ function init() {
         e.preventDefault();
         login();
     });
+
+    /* Desplazar inputs/selects encima del teclado en móviles */
+    if (window.innerWidth <= 480) {
+        $(document).on('focus', 'input, textarea, select, .select2-search__field', function() {
+            var $this = $(this);
+            setTimeout(function() {
+                $this.get(0).scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 300);
+        });
+    }
 }
 
 
