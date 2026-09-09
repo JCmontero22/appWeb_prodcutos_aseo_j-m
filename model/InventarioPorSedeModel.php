@@ -22,7 +22,6 @@ class InventarioPorSedeModel {
      */
     public function obtenerInventarioPorSede($idSede) {
         $sql = "SELECT
-                    ssp.id_stock_sedes_presentacion,
                     ssp.id_presentacion,
                     ssp.id_sede,
                     ssp.cantidad_stock_presentacion_sede,
