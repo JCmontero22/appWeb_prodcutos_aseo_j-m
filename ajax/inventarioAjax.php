@@ -1,49 +1,30 @@
 <?php
 session_start();
-require_once '../config/configDB.php';
-require_once '../config/Database.php';
-require_once '../core/Validador.php';
-require_once '../model/InventarioPorSedeModel.php';
+require_once '../controller/inventarioController.php';
 
 $accion = $_REQUEST['accion'] ?? null;
-$inventarioModel = new InventarioPorSedeModel();
+$inventarioCtrl = new inventarioController();
 
 switch ($accion) {
     case 'listadoSedes':
-        $sedes = $inventarioModel->obtenerSedes();
-        echo json_encode(['status' => 'success', 'data' => $sedes]);
+        $respuesta = $inventarioCtrl->listarSedes();
+        echo json_encode($respuesta);
         break;
 
     case 'inventarioPorSede':
-        $idSede = Validador::validarID($_POST['idSede'] ?? 0);
-
-        if (!$idSede) {
-            echo json_encode(['status' => 'error', 'mensaje' => 'Sede inválida']);
-            break;
-        }
-
-        $inventario = $inventarioModel->obtenerInventarioPorSede($idSede);
-        echo json_encode(['status' => 'success', 'data' => $inventario]);
+        $idSede = $_POST['idSede'] ?? 0;
+        $respuesta = $inventarioCtrl->obtenerInventario($idSede);
+        echo json_encode($respuesta);
         break;
 
     case 'actualizarStock':
-        $idSede = Validador::validarID($_POST['idSede'] ?? 0);
-        $idPresentacion = Validador::validarID($_POST['idPresentacion'] ?? 0);
-        $cantidad = Validador::validarCantidad($_POST['cantidad'] ?? 0);
-        $costoUnitario = Validador::validarPrecio($_POST['costoUnitario'] ?? 0);
+        $idSede = $_POST['idSede'] ?? 0;
+        $idPresentacion = $_POST['idPresentacion'] ?? 0;
+        $cantidad = $_POST['cantidad'] ?? 0;
+        $costoUnitario = $_POST['costoUnitario'] ?? 0;
 
-        if (!$idSede || !$idPresentacion || $cantidad === false || $costoUnitario === false) {
-            echo json_encode(['status' => 'error', 'mensaje' => 'Datos inválidos']);
-            break;
-        }
-
-        $result = $inventarioModel->actualizarStock($idSede, $idPresentacion, $cantidad, $costoUnitario);
-
-        if ($result) {
-            echo json_encode(['status' => 'success', 'mensaje' => 'Stock actualizado correctamente']);
-        } else {
-            echo json_encode(['status' => 'error', 'mensaje' => 'Error al actualizar el stock']);
-        }
+        $respuesta = $inventarioCtrl->actualizarStock($idSede, $idPresentacion, $cantidad, $costoUnitario);
+        echo json_encode($respuesta);
         break;
 
     default:
