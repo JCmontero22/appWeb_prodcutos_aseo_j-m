@@ -25,6 +25,7 @@ function cargarTablaClientes(data) {
         destroy: true,
         responsive: true,
         data: data,
+        pageLength: 25,
         columns: [
             {data: "id_usuario"},
             {data: "nombre_usuario"},

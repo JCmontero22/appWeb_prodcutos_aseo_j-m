@@ -72,6 +72,7 @@ function cargarTablaInventario(data) {
         destroy: true,
         responsive: true,
         data: data,
+        pageLength: 25,
         columns: [
             {data: "nombre_produto"},
             {data: "tamano_presentacion"},

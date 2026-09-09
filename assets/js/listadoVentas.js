@@ -122,6 +122,7 @@ function cargarTable(data, rol, idTabla) {
         responsive: true,
         data: data,
         columns: columnas,
+        pageLength: 25,
         order: [[0, "desc"]],
         language: {
             "processing": "Procesando...",
@@ -148,6 +149,7 @@ function cargarTablaVentasAdmin(data) {
         destroy: true,
         responsive: true,
         data: data,
+        pageLength: 25,
         columns: [
             {data: "idPedido"},
             {data: "cliente"},

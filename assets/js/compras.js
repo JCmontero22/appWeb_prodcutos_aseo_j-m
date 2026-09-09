@@ -28,6 +28,7 @@ function cargarTablaCompras(data) {
         destroy: true,
         responsive: true,
         data: data,
+        pageLength: 25,
         columns: [
             {data: "id"},
             {data: "proveedor"},

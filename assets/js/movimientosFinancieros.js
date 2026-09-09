@@ -24,6 +24,7 @@ function cargarTable(data) {
     $("#tablaMovimientosFinancieros").DataTable({
         destroy: true,
         responsive: true,
+        pageLength: 25,
         data: data,
         columns: [
             {data: "fecha"},
@@ -154,6 +155,7 @@ function cargarTableHistorial(data) {
         destroy: true,
         responsive: true,
         data: data,
+        pageLength: 25,
         columns: [
             {data: "fecha"},
             {data: "tipo", render: function(data, type, row) {
