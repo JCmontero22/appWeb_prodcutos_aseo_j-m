@@ -34,7 +34,7 @@ class InventarioPorSedeModel {
                     pp.tamano_presentacion
                 FROM stock_sede_presentacion ssp
                 INNER JOIN presentacion_producto pp ON ssp.id_presentacion = pp.id_presentacion
-                INNER JOIN producto pr ON pp.id_producto = pr.id_producto
+                INNER JOIN productos pr ON pp.id_producto = pr.id_producto
                 WHERE ssp.id_sede = :id_sede AND pp.estado = 1
                 ORDER BY pr.nombre_producto, pp.tamano_presentacion";
 
