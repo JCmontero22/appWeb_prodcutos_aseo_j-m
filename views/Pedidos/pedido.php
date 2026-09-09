@@ -1,5 +1,5 @@
 <?php
-    $sedeId = $_SESSION['sede_id'] ?? 1;
+    $sedeId = $_SESSION['sede'] ?? 1;
 ?>
 
 <main class="container mt-4">

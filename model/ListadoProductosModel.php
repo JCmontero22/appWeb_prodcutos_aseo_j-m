@@ -29,7 +29,7 @@
                         WHERE ssp.id_sede = :sede_id AND ps.estado = 1
                         ORDER BY pr.id_producto ASC";
 
-                $sedeId = ($sedId != 0) ? (int)$sedId : (int)$_SESSION['sede_id'];
+                $sedeId = ($sedId != 0) ? (int)$sedId : (int)$_SESSION['sede'];
 
                 $params = [':sede_id' => $sedeId];
                 $respuesta = $db->select($sql, $params);

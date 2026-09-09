@@ -43,7 +43,7 @@
                     }
                 }
 
-                $sedeId = $_SESSION['sede_id'] ?? 1;
+                $sedeId = $_SESSION['sede'] ?? 1;
 
                 // VALIDACIÓN CRÍTICA: Verificar stock disponible por sede
                 $verificacion = $this->verificarStockDisponible($this->producto, $sedeId);
