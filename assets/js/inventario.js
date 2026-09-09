@@ -38,13 +38,6 @@ function cargarInventarioPorSede() {
     sedeActual = $('#sedes').val();
 
     if (!sedeActual) {
-        // Destruir DataTable si existe
-        if ($.fn.DataTable.isDataTable('#tablaInventario')) {
-            $('#tablaInventario').DataTable().destroy();
-        }
-        // Limpiar la tabla
-        let html = '<tr><td colspan="7" class="text-center text-muted">Seleccione una sede para ver el inventario</td></tr>';
-        $('#tablaInventario tbody').html(html);
         return;
     }
 
@@ -75,49 +68,66 @@ function cargarInventarioPorSede() {
  * Cargar tabla de inventario con DataTable
  */
 function cargarTablaInventario(data) {
-    // Si DataTable ya existe, destruirlo
-    if ($.fn.DataTable.isDataTable('#tablaInventario')) {
-        $('#tablaInventario').DataTable().destroy();
-    }
-
-    let tableData = [];
-
-    if (data.length > 0) {
-        data.forEach(item => {
-            tableData.push([
-                item.nombre_produto,
-                item.tamano_presentacion,
-                item.cantidad_stock_presentacion_sede,
-                '$' + separarMiles(item.precio_compra_presentacion),
-                '$' + separarMiles(item.precio_venta_jm_presentacion),
-                '$' + separarMiles(item.precio_venta_cliente_presentacion),
-                `<button class="btn btn-primary btn-sm" onclick="abrirModalEditar(${item.id_presentacion}, '${item.nombre_produto} - ${item.tamano_presentacion}', ${item.cantidad_stock_presentacion_sede}, ${item.precio_compra_presentacion})">
-                    <i class="fa-solid fa-pencil"></i>
-                </button>`
-            ]);
-        });
-    }
-
-    // Limpiar tbody antes de inicializar
-    $('#tablaInventario tbody').empty();
-
-    // Inicializar DataTable
     $('#tablaInventario').DataTable({
-        data: tableData,
+        destroy: true,
         responsive: true,
-        language: {
-            "url": "//cdn.datatables.net/plug-ins/1.13.8/i18n/es-ES.json"
-        },
-        columnDefs: [
-            { targets: -1, orderable: false, searchable: false }
+        data: data,
+        columns: [
+            {data: "nombre_produto"},
+            {data: "tamano_presentacion"},
+            {
+                data: "cantidad_stock_presentacion_sede",
+                className: "text-center"
+            },
+            {
+                data: "precio_compra_presentacion",
+                className: "text-center",
+                render: function(data) {
+                    return '$' + separarMiles(data);
+                }
+            },
+            {
+                data: "precio_venta_jm_presentacion",
+                className: "text-center",
+                render: function(data) {
+                    return '$' + separarMiles(data);
+                }
+            },
+            {
+                data: "precio_venta_cliente_presentacion",
+                className: "text-center",
+                render: function(data) {
+                    return '$' + separarMiles(data);
+                }
+            },
+            {
+                data: null,
+                className: "text-center",
+                orderable: false,
+                searchable: false,
+                render: function(data, type, row) {
+                    return `<button class="btn btn-primary btn-sm" onclick="abrirModalEditar(${row.id_presentacion}, '${row.nombre_produto} - ${row.tamano_presentacion}', ${row.cantidad_stock_presentacion_sede}, ${row.precio_compra_presentacion})">
+                        <i class="fa-solid fa-pencil"></i>
+                    </button>`;
+                }
+            }
         ],
-        pageLength: 10,
-        order: [[0, 'asc']],
-        layout: {
-            topStart: 'search',
-            topEnd: 'info',
-            bottomStart: 'pageLength',
-            bottomEnd: 'paging'
+        order: [[0, "asc"]],
+        language: {
+            "processing": "Procesando...",
+            "lengthMenu": "Mostrar _MENU_ registros",
+            "zeroRecords": "No se encontraron resultados",
+            "emptyTable": "No hay datos disponibles en la tabla",
+            "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+            "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+            "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "search": "Buscar:",
+            "paginate": {
+                "first": "Primero",
+                "last": "Último",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            }
         }
     });
 }

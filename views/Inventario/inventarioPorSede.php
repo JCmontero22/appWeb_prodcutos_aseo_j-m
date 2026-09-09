@@ -34,8 +34,8 @@ session_start();
 
         <!-- Tabla de Inventario -->
         <div class="row mt-4">
-            <div class="col-md-12">
-                <table class="table table-striped table-bordered table-hover dt-responsive nowrap" id="tablaInventario" width="100%">
+            <div class="col-12 table-responsive">
+                <table class="table table-bordered table-hover" id="tablaInventario">
                     <thead class="table-dark">
                         <tr>
                             <th>Producto</th>
@@ -48,9 +48,6 @@ session_start();
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td colspan="7" class="text-center text-muted">Seleccione una sede para ver el inventario</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
