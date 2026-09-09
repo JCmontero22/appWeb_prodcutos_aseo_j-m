@@ -81,56 +81,13 @@ function selectProductos(data) {
         theme: "default",
         templateResult: function(option) {
             if (!option.id) return option.text;
-            let $span = $('<span>' + option.html + '</span>');
-            if (option.cantidad === 0) {
-                $span.css('opacity', '0.6');
-            }
-            return $span;
+            return $('<span>' + option.html + '</span>');
         },
         templateSelection: function(option) {
             if (!option.id) return option.text;
             let text = option.text.replace(/<span[^>]*>.*<\/span>/g, '').trim();
             return $('<span>' + text + '</span>');
         }
-    });
-
-    // Validar selección de producto
-    $('#producto-select').on('select2:selecting', function(e) {
-        let optionId = e.params.data.id;
-
-        // Buscar el producto en el array para obtener la cantidad real
-        let producto = productosListados.find(p => p.idPresentacion == optionId);
-
-        if (producto && parseFloat(producto.cantidad) === 0) {
-            e.preventDefault();
-            Swal.fire({
-                icon: 'warning',
-                title: 'Sin stock disponible',
-                text: `"${e.params.data.text.replace(/<span[^>]*>.*<\/span>/g, '').trim()}" no tiene stock disponible. No se permite seleccionar este producto.`,
-                confirmButtonText: 'Entendido'
-            });
-            return false;
-        }
-    });
-
-    // Estilizar opciones sin stock al abrir el dropdown
-    $('#producto-select').on('select2:open', function() {
-        setTimeout(() => {
-            $('.select2-results__option').each(function() {
-                let $option = $(this);
-                let text = $option.text();
-                if (text.includes('Sin stock')) {
-                    $option.css({
-                        'opacity': '0.5',
-                        'color': '#dc3545',
-                        'cursor': 'not-allowed'
-                    });
-                    $option.on('click', function(e) {
-                        e.stopPropagation();
-                    });
-                }
-            });
-        }, 10);
     });
 }
 
