@@ -60,9 +60,12 @@ class InventarioPorSedeModel {
 
             // Actualizar costo unitario y recalcular precios en presentacion_producto
             if ($result !== false) {
-                // Calcular precios con márgenes: 1.20 × 1.15
-                $precioVentaJM = $costoUnitario * 1.20;
-                $precioVentaCliente = $precioVentaJM * 1.15;
+                // Calcular precios con márgenes y redondear a múltiplos de 500
+                $precioJMCalculado = $costoUnitario * 1.20;
+                $precioVentaJM = ceil($precioJMCalculado / 500) * 500;
+
+                $precioClienteCalculado = $precioVentaJM * 1.15;
+                $precioVentaCliente = ceil($precioClienteCalculado / 500) * 500;
 
                 $sqlCosto = "UPDATE presentacion_producto
                             SET precio_compra_presentacion = :costo,
