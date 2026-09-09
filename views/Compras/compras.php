@@ -2,36 +2,40 @@
 session_start();
 ?>
 
-<main class="container mt-5">
+<main class="container mt-4">
     <section class="content-header">
-        <div class="row">
-            <div class="col-md-10">
-                <h1>Compra de productos</h1>
+        <div class="row w-100 align-items-center">
+            <div class="col-12 col-md-9">
+                <h1>Compra de Productos</h1>
                 <p>Aquí se registran todas las compras realizadas de los productos disponibles.</p>
             </div>
-            <div class="col-md-2 header-btn">
-                <a href="#" onclick="logout()"> <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesion</a>
+            <div class="col-12 col-md-3 header-btn mt-2 mt-md-0">
+                <a href="#" onclick="logout()"> <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión</a>
             </div>
         </div>
     </section>
 
     <section class="content-body">
-        <div class="row">
-            <div class="col-md-12 d-flex justify-content-end">
-                <button class="btn btn-primary" onclick="redireccionar('home')">Regresar</button>
+        <div class="row mb-3">
+            <div class="col-12 d-flex justify-content-end">
+                <button class="btn btn-primary" onclick="redireccionar('home')">
+                    <i class="fa-solid fa-arrow-left"></i> Regresar
+                </button>
             </div>
         </div>
-        <div class="row mt-5">
-            <div class="col-md-12">
-                <div class="d-flex justify-content-between align-items-center">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
                     <h2>Historial de Compras</h2>
                     <div>
-                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#formCompra" onclick="cargarDatos()">Registrar compra</button>
+                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#formCompra" onclick="cargarDatos()">
+                            <i class="fa-solid fa-cart-shopping"></i> Registrar Compra
+                        </button>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12 table-responsive mt-4">
+            <div class="row m-0 p-0">
+                <div class="col-12 table-responsive">
                     <table class="table table-striped table-bordered table-hover" id="tabla_compras">
                         <thead class="table-dark">
                             <tr>

@@ -284,7 +284,7 @@ function cargarDetalleCompraTable() {
                     <td class="text-center"><span class="spanSubtotal">$${separarMiles(item.precio * item.cantidad)}</span></td>
                     <td class="text-center"><span class="spanValorJM">$${separarMiles(calcularYRedondear(item.precio, 20))}</span></td>
                     <td class="text-center"><span class="spanValorCliente">$${separarMiles(calcularYRedondear(calcularYRedondear(item.precio, 20), 20))}</span></td>
-                    <td class="text-center"><button class="btn btn-danger btn-sm" onclick="eliminarDetalleCompra('${item.idProducto}')">X</button></td>
+                    <td class="text-center"><button class="btn btn-danger btn-sm" title="Eliminar" onclick="eliminarDetalleCompra('${item.idProducto}')"><i class="fa-solid fa-trash"></i></button></td>
                 </tr>
             `;
         } else {
@@ -296,7 +296,7 @@ function cargarDetalleCompraTable() {
                     <td>$${separarMiles(item.subtotal)}</td>
                     <td>$${separarMiles(item.valorVentaJM)}</td>
                     <td>$${separarMiles(item.valorCliente)}</td>
-                    <td class="text-center"><button class="btn btn-danger" onclick="eliminarDetalleCompra('${item.idProducto}')">X</button></td>
+                    <td class="text-center"><button class="btn btn-danger" title="Eliminar" onclick="eliminarDetalleCompra('${item.idProducto}')"><i class="fa-solid fa-trash"></i></button></td>
                 </tr>
             `;
         }

@@ -2,23 +2,25 @@
     session_start();
 ?>
 
-<main class="container mt-5">
+<main class="container mt-4">
     <section class="content-header">
-        <div class="row">
-            <div class="col-md-10">
+        <div class="row w-100 align-items-center">
+            <div class="col-12 col-md-9">
                 <h1>Ganancias</h1>
-                <p>Aquí puedes ver todas las ganancias generadas.</p>
+                <p>Aquí puedes consultar las métricas de ganancias generadas.</p>
             </div>
-            <div class="col-md-2 header-btn">
-                <a href="#" onclick="logout()"> <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesion</a>
+            <div class="col-12 col-md-3 header-btn mt-2 mt-md-0">
+                <a href="#" onclick="logout()"> <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión</a>
             </div>
         </div>
     </section>
 
     <section class="content-body">
-        <div class="row">
-            <div class="col-md-12 d-flex justify-content-end">
-                <button class="btn btn-primary" onclick="redireccionar('home')">Regresar</button>
+        <div class="row mb-3">
+            <div class="col-12 d-flex justify-content-end">
+                <button class="btn btn-primary" onclick="redireccionar('home')">
+                    <i class="fa-solid fa-arrow-left"></i> Regresar
+                </button>
             </div>
         </div>
 
@@ -33,32 +35,30 @@
 
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                <div class="row mt-5 content-option">
+                <div class="content-option">
                     <div class="card-option bg-primary" onclick="redireccionar('gananciasDelMes', '1')">
+                        <i class="fa-solid fa-calendar-check card-option-icon"></i>
                         <h2>Ganancias del mes actual</h2>
-                        <!-- <i class="fa-solid fa-cart-plus card-option-icon"></i> -->
                     </div>
 
                     <div class="card-option bg-success" onclick="redireccionar('ganaciasTotales', '1')">
+                        <i class="fa-solid fa-vault card-option-icon"></i>
                         <h2>Ganancias Totales</h2>
-                        
                     </div>
                 </div>
             </div>
 
             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                <div class="row mt-5 content-option">
+                <div class="content-option">
                     <div class="card-option bg-success" onclick="redireccionar('ganaciasTotales', '2')">
+                        <i class="fa-solid fa-vault card-option-icon"></i>
                         <h2>Ganancias Totales</h2>
-                        
                     </div>
                 </div>
             </div>
         </div>
 
-        
     </section>
-
 </main>
 
 

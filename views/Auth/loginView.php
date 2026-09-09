@@ -1,6 +1,4 @@
-
-
-    <main class="container login">
+<main class="container login">
         <div class="content-login">
             <section class="bienvenida">
                 <h1>Bienvenidos</h1>

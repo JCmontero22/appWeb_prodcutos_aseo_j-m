@@ -2,50 +2,52 @@
 session_start();
 ?>
 
-<main class="container mt-5">
+<main class="container mt-4">
     <section class="content-header">
-        <div class="row">
-            <div class="col-md-10">
+        <div class="row w-100 align-items-center">
+            <div class="col-12 col-md-9">
                 <h1>Mis Ventas</h1>
-                <p>Aquí puedes ver todos las ventas realizadas.</p>
+                <p>Aquí puedes ver todas las ventas realizadas.</p>
             </div>
-            <div class="col-md-2 header-btn">
-                <a href="#" onclick="logout()"> <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesion</a>
+            <div class="col-12 col-md-3 header-btn mt-2 mt-md-0">
+                <a href="#" onclick="logout()"> <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión</a>
             </div>
         </div>
     </section>
 
     <section class="content-body">
-        <div class="row">
-            <div class="col-md-12 d-flex justify-content-end mb-5">
+        <div class="row mb-3">
+            <div class="col-12 d-flex justify-content-end flex-wrap gap-2">
                 <?php if ($_SESSION['rol'] == 1) : ?>
-                    <button class="btn btn-secondary" style="margin-right: 10px;" onclick="listadoVentas(2,1)">Historial</button>
+                    <button class="btn btn-secondary" onclick="listadoVentas(2,1)">
+                        <i class="fa-solid fa-clock-rotate-left"></i> Historial
+                    </button>
                 <?php endif; ?>
-                <button class="btn btn-success" style="margin-right: 10px;" onclick="realizarCalculo('home')">Calcular cuenta</button>
-                <button class="btn btn-primary" onclick="redireccionar('home')">Regresar</button>
-
+                <button class="btn btn-success" onclick="realizarCalculo('home')">
+                    <i class="fa-solid fa-calculator"></i> Calcular cuenta
+                </button>
+                <button class="btn btn-primary" onclick="redireccionar('home')">
+                    <i class="fa-solid fa-arrow-left"></i> Regresar
+                </button>
             </div>
         </div>
-        <div class="row mt-3">
-            <div class="col-md-12 d-flex justify-content-end">
-                <div class="content-ganancias bg-warning">
+
+        <div class="row align-items-center mb-3 g-2">
+            <div class="col-12 col-md-6">
+                <div class="content-ganancias">
+                    <i class="fa-solid fa-coins"></i>
                     <span>Total Ganancias: $<span id="totalGanancias">0</span></span>
                 </div>
             </div>
-        </div>
-
-        
-        <?php if ($_SESSION['rol'] == 1) : ?>
-            <div class="row mt-3">
-                <div class="col-md-12 d-flex justify-content-end">
-                    <div class="">
+            <?php if ($_SESSION['rol'] == 1) : ?>
+                <div class="col-12 col-md-6 d-flex justify-content-md-end">
+                    <div style="width: 100%; max-width: 300px;">
                         <select name="sedes" id="sedes" class="form-select">
-
                         </select>
                     </div>
                 </div>
-            </div>
-        <?php endif; ?>
+            <?php endif; ?>
+        </div>
 
         <!--*************** tabs ***************-->
         <nav>
@@ -60,7 +62,7 @@ session_start();
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                 <div class="row">
                     <div class="col-md-12 table-responsive">
-                        <table class="table mt-5 table-bordered table-hover tableVentas" id="tabla_pedidos">
+                        <table class="table table-bordered table-hover tableVentas" id="tabla_pedidos">
                             <thead class="table-dark">
                                 <tr>
                                     <th>#</th>
@@ -88,7 +90,7 @@ session_start();
             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                 <div class="row">
                     <div class="col-md-12 table-responsive">
-                        <table class="table mt-5 table-bordered table-hover tableVentas" id="tabla_ventas_admin">
+                        <table class="table table-bordered table-hover tableVentas" id="tabla_ventas_admin">
                             <thead class="table-dark">
                                 <tr>
                                     <th>#</th>

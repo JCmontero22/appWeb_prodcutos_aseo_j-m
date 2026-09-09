@@ -1,49 +1,44 @@
-<main class="container mt-5">
+<main class="container mt-4">
     <section class="content-header">
-        <div class="row">
-            <div class="col-md-10">
+        <div class="row w-100 align-items-center">
+            <div class="col-12 col-md-9">
                 <h1>Listado de Productos</h1>
-                <p>Aquí puedes ver todos los productos disponibles.</p>
+                <p>Aquí puedes ver todos los productos disponibles y el inventario.</p>
             </div>
-            <div class="col-md-2 header-btn">
-                <a href="#" onclick="logout()"> <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesion</a>
+            <div class="col-12 col-md-3 header-btn mt-2 mt-md-0">
+                <a href="#" onclick="logout()"> <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión</a>
             </div>
         </div>
     </section>
 
     <section class="content-body">
-        <div class="row">
-            <div class="col-md-12 d-flex justify-content-end">
-                <button class="btn btn-primary" onclick="redireccionar('home')">Regresar</button>
+        <div class="row mb-3">
+            <div class="col-12 d-flex justify-content-end">
+                <button class="btn btn-primary" onclick="redireccionar('home')">
+                    <i class="fa-solid fa-arrow-left"></i> Regresar
+                </button>
             </div>
         </div>
 
-        <!-- <div class="row">
-            <div class="col-md-12 d-flex justify-content-end"> -->
-                <?php if ($_SESSION['rol'] == 1) : ?>
-                    <div class="row mt-3">
-                        <div class="col-md-12" style="display: flex; justify-content: center;">
-                            <div style="width: 100%; max-width: 300px;">
-                                <label for="sedes" class="form-label" style="font-weight: 500; margin-bottom: 0.5rem; display: block; text-align: center;">Seleccione sede:</label>
-                                <select name="sedes" id="sedes" class="form-select">
-                                    <option value="">-- Todas las sedes --</option>
-                                </select>
-                            </div>
-                        </div>
+        <?php if ($_SESSION['rol'] == 1) : ?>
+            <div class="row align-items-end mb-3 g-2">
+                <div class="col-12 col-md-6">
+                    <div style="width: 100%; max-width: 320px;">
+                        <label for="sedes" class="form-label">Filtrar por sede:</label>
+                        <select name="sedes" id="sedes" class="form-select">
+                            <option value="">-- Todas las sedes --</option>
+                        </select>
                     </div>
-
-                    <div class="row mt-3">
-                        <div class="col-md-12 d-flex justify-content-end">
-                            <span id="valorTotalStock"></span>
-                        </div>
-                    </div>
-                <?php endif; ?>
-            <!-- </div>
-        </div> -->
+                </div>
+                <div class="col-12 col-md-6 d-flex justify-content-md-end mt-2 mt-md-0">
+                    <span id="valorTotalStock" class="content-ganancias"></span>
+                </div>
+            </div>
+        <?php endif; ?>
 
         <div class="row">
-            <div class="col-md-12 table-responsive">
-                <table class="table mt-5 table-bordered table-hover tablaProductos" id="tablaProductos">
+            <div class="col-12 table-responsive">
+                <table class="table table-bordered table-hover tablaProductos" id="tablaProductos">
                     <thead class="table-dark">
                         <tr>
                             <!-- <th>ID</th> -->

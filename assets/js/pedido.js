@@ -117,7 +117,7 @@ function mostrarCarrito() {
                 <td>${item.nombre}</td>
                 <td>${item.cantidad}</td>
                 <td>$${separarMiles(item.total)}</td>
-                <td><button class="btn btn-danger" onclick="eliminarProducto('${item.presentacion}')">X</button></td>
+                <td><button class="btn btn-danger" title="Eliminar" onclick="eliminarProducto('${item.presentacion}')"><i class="fa-solid fa-trash"></i></button></td>
             </tr>
         `;
         tableBody.append(row);

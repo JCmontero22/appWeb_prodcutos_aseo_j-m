@@ -5,15 +5,15 @@
 
 
 
-<main class="container mt-5">
+<main class="container mt-4">
     <section class="content-header">
-        <div class="row">
-            <div class="col-md-10">
+        <div class="row w-100 align-items-center">
+            <div class="col-12 col-md-9">
                 <h1>Bienvenido panel vendedor</h1>
                 <p>Contenido protegido. Solo usuarios autenticados pueden ver esto.</p>
             </div>
-            <div class="col-md-2 header-btn">
-                <a href="#" onclick="logout()"> <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesion</a>
+            <div class="col-12 col-md-3 header-btn mt-2 mt-md-0">
+                <a href="#" onclick="logout()"> <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión</a>
             </div>
         </div>
     </section>
@@ -51,7 +51,7 @@
                 <h2>Movimientos</h2>
             </div>
 
-            <div class="card-option pedidos" onclick="redireccionar('compras')">
+            <div class="card-option compras" onclick="redireccionar('compras')">
                 <i class="fa-solid fa-bag-shopping card-option-icon"></i>
                 <h2>Compras</h2>
             </div>

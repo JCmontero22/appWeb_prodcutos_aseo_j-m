@@ -2,41 +2,46 @@
     session_start();
 ?>
 
-<main class="container mt-5">
+<main class="container mt-4">
     <section class="content-header">
-        <div class="row">
-            <div class="col-md-10">
+        <div class="row w-100 align-items-center">
+            <div class="col-12 col-md-9">
                 <h1>Ganancias Del Mes</h1>
-                <p>Aquí puedes ver todas las ganancias generadas en el mes.</p>
+                <p>Aquí puedes ver todas las ganancias generadas en el mes actual.</p>
             </div>
-            <div class="col-md-2 header-btn">
-                <a href="#" onclick="logout()"> <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesion</a>
+            <div class="col-12 col-md-3 header-btn mt-2 mt-md-0">
+                <a href="#" onclick="logout()"> <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión</a>
             </div>
         </div>
     </section>
 
     <section class="content-body">
-        <div class="row">
-            <div class="col-md-12 d-flex justify-content-end">
-                <button class="btn btn-primary" onclick="redireccionar('ganancias')">Regresar</button>
+        <div class="row mb-3">
+            <div class="col-12 d-flex justify-content-end">
+                <button class="btn btn-primary" onclick="redireccionar('ganancias')">
+                    <i class="fa-solid fa-arrow-left"></i> Regresar
+                </button>
             </div>
         </div>
 
-        <div class="row mt-5">
+        <div class="row">
              <div class="content-option">
                 <div class="card-option bg-primary">
+                    <i class="fa-solid fa-money-bill-trend-up card-option-icon"></i>
                     <h2>Ganancias Netas</h2>
                     <span class="detalle-card">Suma J&M + Vendedores</span>
                     <p class="valor-card" id="gananciasNetas"></p>
                 </div>
 
                 <div class="card-option bg-secondary">
+                    <i class="fa-solid fa-chart-pie card-option-icon"></i>
                     <h2>Total Ventas</h2>
                     <span class="detalle-card">Total ventas sin restar ganancias</span>
                     <p class="valor-card" id="totalVendido"></p>
                 </div>
 
                 <div class="card-option bg-info">
+                    <i class="fa-solid fa-calculator card-option-icon"></i>
                     <h2>Total Costo Vendido</h2>
                     <span class="detalle-card">Costo total de lo vendido</span>
                     <p class="valor-card" id="costoVendido"></p>

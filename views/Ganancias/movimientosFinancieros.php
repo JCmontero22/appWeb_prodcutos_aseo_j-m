@@ -2,63 +2,73 @@
 session_start();
 ?>
 
-<main class="container mt-5">
+<main class="container mt-4">
     <section class="content-header">
-        <div class="row">
-            <div class="col-md-10">
-                <h1>Movimientos financieros</h1>
-                <p>Aquí puedes ver todos los movimientos financieros generados </p>
+        <div class="row w-100 align-items-center">
+            <div class="col-12 col-md-9">
+                <h1>Movimientos Financieros</h1>
+                <p>Aquí puedes monitorear todos los ingresos, egresos y el balance en cuenta.</p>
             </div>
-            <div class="col-md-2 header-btn">
-                <a href="#" onclick="logout()"> <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesion</a>
+            <div class="col-12 col-md-3 header-btn mt-2 mt-md-0">
+                <a href="#" onclick="logout()"> <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión</a>
             </div>
         </div>
     </section>
 
     <section class="content-body">
-        <div class="row">
-            <div class="col-md-12 d-flex justify-content-end">
-                <button class="btn btn-primary" onclick="redireccionar('home')">Regresar</button>
-                <button class="btn btn-warning" style="margin-left: 1rem;" onclick="obtenerListadoMovimientosAntiguos()">Historial</button>
+        <div class="row mb-3">
+            <div class="col-12 d-flex justify-content-end flex-wrap gap-2">
+                <button class="btn btn-secondary" onclick="obtenerListadoMovimientosAntiguos()">
+                    <i class="fa-solid fa-clock-rotate-left"></i> Historial
+                </button>
+                <button class="btn btn-primary" onclick="redireccionar('home')">
+                    <i class="fa-solid fa-arrow-left"></i> Regresar
+                </button>
             </div>
         </div>
 
-        <div class="row mt-5">
+        <div class="row">
             <div class="content-option">
-
                 <div class="card-option bg-primary">
-                    <h2>Total diferencia / Dinero en cuenta</h2>
-                    <span class="detalle-card">Total de ingresos - Total de egresos</span>
+                    <i class="fa-solid fa-scale-balanced card-option-icon"></i>
+                    <h2>Dinero en Cuenta (Diferencia)</h2>
+                    <span class="detalle-card">Total ingresos - Total egresos</span>
                     <p class="valor-card" id="diferencia"></p>
                 </div>
 
                 <div class="card-option bg-success">
-                    <h2>Ingresos</h2>
+                    <i class="fa-solid fa-circle-arrow-up card-option-icon"></i>
+                    <h2>Ingresos Totales</h2>
                     <span class="detalle-card">Suma de todos los ingresos</span>
                     <p class="valor-card" id="ingresos"></p>
                 </div>
 
                 <div class="card-option bg-danger">
-                    <h2>Egresos</h2>
+                    <i class="fa-solid fa-circle-arrow-down card-option-icon"></i>
+                    <h2>Egresos Totales</h2>
                     <span class="detalle-card">Total de todos los egresos</span>
                     <p class="valor-card" id="egresos"></p>
                 </div>
             </div>
         </div>
 
-        <div class="row mt-5">
-            <div class="col-md-12">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h2>Historial de Movimientos Financieros</h2>
-                    <div>
-                        <button class="btn btn-primary" onclick="obtenerListadoMovimientos()">Actualizar</button>
-                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#formEgreso">Ingresar egreso</button>
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+                    <h2>Historial de Movimientos</h2>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-primary" onclick="obtenerListadoMovimientos()">
+                            <i class="fa-solid fa-rotate"></i> Actualizar
+                        </button>
+                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#formEgreso">
+                            <i class="fa-solid fa-minus"></i> Ingresar Egreso
+                        </button>
                     </div>
                 </div>
 
-                <div class="table-responsive mt-4">
+                <div class="table-responsive">
                     <table class="table table-striped table-bordered table-hover" id="tablaMovimientosFinancieros">
-                        <thead>
+                        <thead class="table-dark">
                             <tr>
                                 <th>Fecha</th>
                                 <th>Movimiento</th>

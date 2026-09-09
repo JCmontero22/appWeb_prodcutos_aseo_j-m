@@ -2,29 +2,31 @@
     session_start();
 ?>
 
-<main class="container mt-5">
+<main class="container mt-4">
     <section class="content-header">
-        <div class="row">
-            <div class="col-md-10">
+        <div class="row w-100 align-items-center">
+            <div class="col-12 col-md-9">
                 <h1>Clientes</h1>
                 <p>Aquí puedes ver todos los clientes registrados.</p>
             </div>
-            <div class="col-md-2 header-btn">
-                <a href="#" onclick="logout()"> <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesion</a>
+            <div class="col-12 col-md-3 header-btn mt-2 mt-md-0">
+                <a href="#" onclick="logout()"> <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión</a>
             </div>
         </div>
     </section>
 
     <section class="content-body">
-        <div class="row">
-            <div class="col-md-12 d-flex justify-content-end">
-                <button class="btn btn-primary" onclick="redireccionar('home')">Regresar</button>
+        <div class="row mb-3">
+            <div class="col-12 d-flex justify-content-end">
+                <button class="btn btn-primary" onclick="redireccionar('home')">
+                    <i class="fa-solid fa-arrow-left"></i> Regresar
+                </button>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-md-12 table-responsive">
-                <table class="table mt-5 table-bordered table-hover" id="tabla-clientes">
+            <div class="col-12 table-responsive">
+                <table class="table table-bordered table-hover" id="tabla-clientes">
                     <thead class="table-dark">
                         <tr>
                             <th>#</th>
@@ -48,33 +50,35 @@
 
 <!-- Modal Detalle-->
 <div class="modal fade" id="modalUsuario" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Detalle Pedido</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">Editar Cliente</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="row">
-                    <form action="" id="formActualizarCliente">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <input type="text" id="nombre" name="nombre" class="form-control mb-3" placeholder="Nombre completo">
-                            </div>
-                            <div class="col-md-4">
-                                <input type="text" id="telefono" name="telefono" class="form-control mb-3" placeholder="Teléfono">
-                            </div>
-                            <div class="col-md-4">
-                                <input type="text" id="direccion" name="direccion" class="form-control mb-3" placeholder="Dirección">
-                            </div>
+                <form action="" id="formActualizarCliente">
+                    <div class="row g-3">
+                        <div class="col-12 col-md-4">
+                            <label for="nombre" class="form-label">Nombre Completo</label>
+                            <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre completo" required>
                         </div>
-                        
-                    </form>
-                </div>
+                        <div class="col-12 col-md-4">
+                            <label for="telefono" class="form-label">Teléfono</label>
+                            <input type="text" id="telefono" name="telefono" class="form-control" placeholder="Teléfono">
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label for="direccion" class="form-label">Dirección</label>
+                            <input type="text" id="direccion" name="direccion" class="form-control" placeholder="Dirección">
+                        </div>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success" onclick="actualizarCliente()">Guardar Cambios</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-success" onclick="actualizarCliente()">
+                    <i class="fa-solid fa-floppy-disk"></i> Guardar Cambios
+                </button>
             </div>
         </div>
     </div>
