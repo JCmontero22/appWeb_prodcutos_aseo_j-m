@@ -58,14 +58,22 @@ class InventarioPorSedeModel {
         try {
             $result = $this->db->execute($sql, $params);
 
-            // Actualizar costo unitario en presentacion_producto (solo costo, no precios)
+            // Actualizar costo unitario y recalcular precios en presentacion_producto
             if ($result !== false) {
+                // Calcular precios con márgenes: 1.20 × 1.15
+                $precioVentaJM = $costoUnitario * 1.20;
+                $precioVentaCliente = $precioVentaJM * 1.15;
+
                 $sqlCosto = "UPDATE presentacion_producto
-                            SET precio_compra_presentacion = :costo
+                            SET precio_compra_presentacion = :costo,
+                                precio_venta_jm_presentacion = :precio_jm,
+                                precio_venta_cliente_presentacion = :precio_cliente
                             WHERE id_presentacion = :id_presentacion";
 
                 $paramsCosto = [
                     ':costo' => $costoUnitario,
+                    ':precio_jm' => $precioVentaJM,
+                    ':precio_cliente' => $precioVentaCliente,
                     ':id_presentacion' => $idPresentacion
                 ];
 
