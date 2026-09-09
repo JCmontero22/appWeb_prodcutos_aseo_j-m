@@ -21,8 +21,7 @@ class inventarioController {
 
     public function obtenerInventario($idSede) {
         try {
-            $idSede = Validador::validarID($idSede);
-            if (!$idSede) {
+            if (!Validador::validarID($idSede)) {
                 return ['status' => 'error', 'mensaje' => 'Sede inválida'];
             }
 
@@ -35,21 +34,26 @@ class inventarioController {
 
     public function actualizarStock($idSede, $idPresentacion, $cantidad, $costoUnitario) {
         try {
-            $idSede = Validador::validarID($idSede);
-            $idPresentacion = Validador::validarID($idPresentacion);
-            $cantidad = Validador::validarCantidad($cantidad);
-            $costoUnitario = Validador::validarPrecio($costoUnitario);
-
-            if (!$idSede || !$idPresentacion || $cantidad === false || $costoUnitario === false) {
-                return ['status' => 'error', 'mensaje' => 'Datos inválidos'];
+            if (!Validador::validarID($idSede)) {
+                return ['status' => 'error', 'mensaje' => 'Sede inválida'];
+            }
+            if (!Validador::validarID($idPresentacion)) {
+                return ['status' => 'error', 'mensaje' => 'Presentación inválida'];
+            }
+            if (!Validador::validarCantidad($cantidad)) {
+                return ['status' => 'error', 'mensaje' => 'Cantidad inválida'];
+            }
+            if (!Validador::validarPrecio($costoUnitario)) {
+                return ['status' => 'error', 'mensaje' => 'Costo unitario inválido'];
             }
 
             $result = $this->model->actualizarStock($idSede, $idPresentacion, $cantidad, $costoUnitario);
 
-            if ($result) {
+            // $result devuelve rowCount (0 o más)
+            if ($result !== false) {
                 return ['status' => 'success', 'mensaje' => 'Stock actualizado correctamente'];
             } else {
-                return ['status' => 'error', 'mensaje' => 'Error al actualizar el stock'];
+                return ['status' => 'error', 'mensaje' => 'No se pudo actualizar el stock'];
             }
         } catch (Exception $e) {
             return ['status' => 'error', 'mensaje' => $e->getMessage()];

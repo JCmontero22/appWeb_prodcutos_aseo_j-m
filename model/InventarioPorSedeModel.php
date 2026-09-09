@@ -55,23 +55,27 @@ class InventarioPorSedeModel {
             ':id_presentacion' => $idPresentacion
         ];
 
-        $result = $this->db->execute($sql, $params);
+        try {
+            $result = $this->db->execute($sql, $params);
 
-        // Actualizar costo unitario en presentacion_producto (solo costo, no precios)
-        if ($result) {
-            $sqlCosto = "UPDATE presentacion_producto
-                        SET precio_compra_presentacion = :costo
-                        WHERE id_presentacion = :id_presentacion";
+            // Actualizar costo unitario en presentacion_producto (solo costo, no precios)
+            if ($result !== false) {
+                $sqlCosto = "UPDATE presentacion_producto
+                            SET precio_compra_presentacion = :costo
+                            WHERE id_presentacion = :id_presentacion";
 
-            $paramsCosto = [
-                ':costo' => $costoUnitario,
-                ':id_presentacion' => $idPresentacion
-            ];
+                $paramsCosto = [
+                    ':costo' => $costoUnitario,
+                    ':id_presentacion' => $idPresentacion
+                ];
 
-            $this->db->execute($sqlCosto, $paramsCosto);
+                $this->db->execute($sqlCosto, $paramsCosto);
+            }
+
+            return $result;
+        } catch (Exception $e) {
+            throw new Exception("Error actualizando stock: " . $e->getMessage());
         }
-
-        return $result;
     }
 
     /**
