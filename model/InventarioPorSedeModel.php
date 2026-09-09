@@ -31,7 +31,7 @@ class InventarioPorSedeModel {
                     pp.precio_venta_cliente_presentacion,
                     pr.nombre_produto,
                     pp.tamano_presentacion
-                FROM stock_sede_ppresentacion ssp
+                FROM stock_sede_presentacion ssp
                 INNER JOIN presentacion_producto pp ON ssp.id_presentacion = pp.id_presentacion
                 INNER JOIN productos pr ON pp.id_producto = pr.id_producto
                 WHERE ssp.id_sede = :id_sede AND pp.estado = 1
@@ -45,7 +45,7 @@ class InventarioPorSedeModel {
      * Actualizar stock de una presentación en una sede
      */
     public function actualizarStock($idSede, $idPresentacion, $cantidad, $costoUnitario) {
-        $sql = "UPDATE stock_sede_ppresentacion
+        $sql = "UPDATE stock_sede_presentacion
                 SET cantidad_stock_presentacion_sede = :cantidad
                 WHERE id_sede = :id_sede AND id_presentacion = :id_presentacion";
 
