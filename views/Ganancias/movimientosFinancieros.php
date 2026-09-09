@@ -100,14 +100,14 @@ session_start();
             </div>
             <div class="modal-body">
                 <div class="form">
-                    <div class="row">
-                        <div class="col-md-4">
+                    <div class="row g-3">
+                        <div class="col-12 col-md-4">
                             <input class="form-control" type="number" name="montoEgreso" id="montoEgreso" placeholder="* Monto" required>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-12 col-md-4">
                             <input class="form-control" type="text" name="referencia" id="referencia" placeholder="* Referencia">
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-12 col-md-4">
                             <textarea name="descripcion" id="descripcion" class="form-control" placeholder="* Descripción"></textarea>
                         </div>
                     </div>

@@ -17,7 +17,7 @@ session_start();
 
     <section class="content-body">
         <div class="row mb-3">
-            <div class="col-12 d-flex justify-content-end flex-wrap gap-2">
+            <div class="col-12 d-flex justify-content-end align-items-center gap-1 gap-md-2">
                 <?php if ($_SESSION['rol'] == 1) : ?>
                     <button class="btn btn-secondary" onclick="listadoVentas(2,1)">
                         <i class="fa-solid fa-clock-rotate-left"></i> Historial
@@ -41,7 +41,7 @@ session_start();
             </div>
             <?php if ($_SESSION['rol'] == 1) : ?>
                 <div class="col-12 col-md-6 d-flex justify-content-md-end">
-                    <div style="width: 100%; max-width: 300px;">
+                    <div class="select-sede-container">
                         <select name="sedes" id="sedes" class="form-select">
                         </select>
                     </div>

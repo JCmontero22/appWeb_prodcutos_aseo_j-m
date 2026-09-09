@@ -23,7 +23,7 @@
         <?php if ($_SESSION['rol'] == 1) : ?>
             <div class="row align-items-end mb-3 g-2">
                 <div class="col-12 col-md-6">
-                    <div style="width: 100%; max-width: 320px;">
+                    <div class="select-sede-container">
                         <label for="sedes" class="form-label">Filtrar por sede:</label>
                         <select name="sedes" id="sedes" class="form-select">
                             <option value="">-- Todas las sedes --</option>
