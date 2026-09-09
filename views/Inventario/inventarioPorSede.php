@@ -34,8 +34,8 @@ session_start();
 
         <!-- Tabla de Inventario -->
         <div class="row mt-4">
-            <div class="col-md-12 table-responsive">
-                <table class="table table-striped table-bordered table-hover" id="tablaInventario">
+            <div class="col-md-12">
+                <table class="table table-striped table-bordered table-hover dt-responsive nowrap" id="tablaInventario" width="100%">
                     <thead class="table-dark">
                         <tr>
                             <th>Producto</th>
@@ -47,7 +47,7 @@ session_start();
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody id="inventarioBody">
+                    <tbody>
                         <tr>
                             <td colspan="7" class="text-center text-muted">Seleccione una sede para ver el inventario</td>
                         </tr>
@@ -57,6 +57,19 @@ session_start();
         </div>
     </section>
 </main>
+
+<!-- DataTable CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap5.min.css">
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<!-- DataTable JS -->
+<script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"></script>
 
 <!-- Modal Editar Stock -->
 <div class="modal fade" id="modalEditarStock" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">

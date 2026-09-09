@@ -38,7 +38,13 @@ function cargarInventarioPorSede() {
     sedeActual = $('#sedes').val();
 
     if (!sedeActual) {
-        $('#inventarioBody').html('<tr><td colspan="7" class="text-center text-muted">Seleccione una sede para ver el inventario</td></tr>');
+        // Destruir DataTable si existe
+        if ($.fn.DataTable.isDataTable('#tablaInventario')) {
+            $('#tablaInventario').DataTable().destroy();
+        }
+        // Limpiar la tabla
+        let html = '<tr><td colspan="7" class="text-center text-muted">Seleccione una sede para ver el inventario</td></tr>';
+        $('#tablaInventario tbody').html(html);
         return;
     }
 
@@ -66,34 +72,54 @@ function cargarInventarioPorSede() {
 }
 
 /**
- * Cargar tabla de inventario
+ * Cargar tabla de inventario con DataTable
  */
 function cargarTablaInventario(data) {
-    let html = '';
+    // Si DataTable ya existe, destruirlo
+    if ($.fn.DataTable.isDataTable('#tablaInventario')) {
+        $('#tablaInventario').DataTable().destroy();
+    }
 
-    if (data.length === 0) {
-        html = '<tr><td colspan="7" class="text-center text-muted">No hay productos en esta sede</td></tr>';
-    } else {
+    let tableData = [];
+
+    if (data.length > 0) {
         data.forEach(item => {
-            html += `
-                <tr>
-                    <td>${item.nombre_producto}</td>
-                    <td>${item.tamano_presentacion}</td>
-                    <td class="text-center">${item.cantidad_stock_presentacion_sede}</td>
-                    <td class="text-center">$${separarMiles(item.precio_compra_presentacion)}</td>
-                    <td class="text-center">$${separarMiles(item.precio_venta_jm_presentacion)}</td>
-                    <td class="text-center">$${separarMiles(item.precio_venta_cliente_presentacion)}</td>
-                    <td class="text-center">
-                        <button class="btn btn-primary btn-sm" onclick="abrirModalEditar(${item.id_presentacion}, '${item.nombre_producto} - ${item.tamano_presentacion}', ${item.cantidad_stock_presentacion_sede}, ${item.precio_compra_presentacion})">
-                            <i class="fa-solid fa-pencil"></i>
-                        </button>
-                    </td>
-                </tr>
-            `;
+            tableData.push([
+                item.nombre_produto,
+                item.tamano_presentacion,
+                item.cantidad_stock_presentacion_sede,
+                '$' + separarMiles(item.precio_compra_presentacion),
+                '$' + separarMiles(item.precio_venta_jm_presentacion),
+                '$' + separarMiles(item.precio_venta_cliente_presentacion),
+                `<button class="btn btn-primary btn-sm" onclick="abrirModalEditar(${item.id_presentacion}, '${item.nombre_produto} - ${item.tamano_presentacion}', ${item.cantidad_stock_presentacion_sede}, ${item.precio_compra_presentacion})">
+                    <i class="fa-solid fa-pencil"></i>
+                </button>`
+            ]);
         });
     }
 
-    $('#inventarioBody').html(html);
+    // Limpiar tbody antes de inicializar
+    $('#tablaInventario tbody').empty();
+
+    // Inicializar DataTable
+    $('#tablaInventario').DataTable({
+        data: tableData,
+        responsive: true,
+        language: {
+            "url": "//cdn.datatables.net/plug-ins/1.13.8/i18n/es-ES.json"
+        },
+        columnDefs: [
+            { targets: -1, orderable: false, searchable: false }
+        ],
+        pageLength: 10,
+        order: [[0, 'asc']],
+        layout: {
+            topStart: 'search',
+            topEnd: 'info',
+            bottomStart: 'pageLength',
+            bottomEnd: 'paging'
+        }
+    });
 }
 
 /**
