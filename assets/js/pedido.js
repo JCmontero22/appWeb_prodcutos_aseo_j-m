@@ -11,6 +11,7 @@ function listadoProductos(historial = 0) {
     $.ajax({
         url: 'ajax/listadoProductosAjax.php',
         type: 'GET',
+        data: { sedeId: SEDE_ID }, // Pasar la sede_id para obtener stock correcto
         success: function(response) {
             response = JSON.parse(response);
             productosListados = response.data; // Guardar los productos en la variable global

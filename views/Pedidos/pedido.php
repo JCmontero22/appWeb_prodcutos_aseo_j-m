@@ -1,3 +1,7 @@
+<?php
+    $sedeId = $_SESSION['sede_id'] ?? 1;
+?>
+
 <main class="container mt-4">
     <section class="content-header">
         <div class="row w-100 align-items-center">
@@ -121,6 +125,11 @@
         </div>
     </div>
 </div>
+
+<script>
+    // Pasar sede_id desde PHP a JavaScript
+    const SEDE_ID = <?php echo $sedeId; ?>;
+</script>
 
 <script src="assets/js/pedido.js"></script>
 
