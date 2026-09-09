@@ -35,9 +35,16 @@ function listadoClientes() {
 function dataSelectProductos(params) {
     $data = [];
     params.forEach(item => {
+        let cantidad = parseFloat(item.cantidad) || 0;
+        let textoStock = cantidad > 0 ? `(${cantidad})` : '(Sin stock)';
+        let claseStock = cantidad === 0 ? 'style="color: #dc3545; font-weight: bold;"' : '';
+
         $data.push({
             id: item.idPresentacion,
-            text: `${item.nombre} - ${item.presentacion} - $${separarMiles(item.precio)}`
+            text: `${item.nombre} - ${item.presentacion} - $${separarMiles(item.precio)} <span ${claseStock}>${textoStock}</span>`,
+            html: `${item.nombre} - ${item.presentacion} - $${separarMiles(item.precio)} <span ${claseStock}>${textoStock}</span>`,
+            cantidad: cantidad,
+            disabled: cantidad === 0
         });
     });
 
@@ -70,7 +77,45 @@ function selectProductos(data) {
         data: data,
         placeholder: "Seleccione una opción",
         allowClear: true,
-        theme: "default"
+        theme: "default",
+        templateResult: function(option) {
+            if (!option.id) return option.text;
+            return $('<span>' + option.html + '</span>');
+        },
+        templateSelection: function(option) {
+            if (!option.id) return option.text;
+            return $('<span>' + option.text + '</span>');
+        }
+    });
+
+    // Deshabilitar opciones sin stock
+    $('#producto-select').on('select2:opening', function() {
+        $('.select2-results__option').each(function() {
+            let $option = $(this);
+            let optionData = $option.data('data');
+            if (optionData && optionData.disabled) {
+                $option.addClass('select2-option-disabled').css({
+                    'opacity': '0.5',
+                    'cursor': 'not-allowed',
+                    'pointer-events': 'none'
+                });
+            }
+        });
+    });
+
+    // Validar si intenta seleccionar sin stock
+    $('#producto-select').on('select2:select', function(e) {
+        let option = e.params.data;
+        if (option.disabled) {
+            e.preventDefault();
+            $(this).val(null).trigger('change');
+            Swal.fire({
+                icon: 'warning',
+                title: 'Stock no disponible',
+                text: `"${option.text.replace(/<span[^>]*>.*<\/span>/g, '').trim()}" no tiene stock disponible para esta operación.`,
+                confirmButtonText: 'Entendido'
+            });
+        }
     });
 }
 
@@ -78,32 +123,59 @@ function agregarProducto() {
     let productoId = $('#producto-select').val();
     let cantidad = $('#cantidad').val();
 
-    if (productoId && cantidad) {
-        let producto = productosListados.find(p => p.idPresentacion == productoId);
-        
-        if (producto) {
-            let total = producto.precio * cantidad;
-            let precioCompraTotal = producto.precioCompra * cantidad;
-            let precioVentaJMTotal = producto.precioVentaJM * cantidad;
-            carrito.push({
-                nombre: producto.nombre + ' - ' + producto.presentacion,
-                presentacion: producto.presentacion,
-                idPresentacion: producto.idPresentacion,
-                cantidad: cantidad,
-                precioVenta: producto.precio,
-                precioCompra: producto.precioCompra,
-                precioCompraTotal: precioCompraTotal,
-                precioVentaJMTotal: precioVentaJMTotal,
-                total: total
-            });
-
-            mostrarCarrito();
-            $('#producto-select').val(null).trigger('change');
-            $('#cantidad').val('');
-        }
-    } else {
-        alert("Por favor, seleccione un producto y una cantidad.");
+    if (!productoId || !cantidad) {
+        Swal.fire('Error', 'Por favor, seleccione un producto y una cantidad.', 'error');
+        return;
     }
+
+    let producto = productosListados.find(p => p.idPresentacion == productoId);
+
+    if (!producto) {
+        Swal.fire('Error', 'Producto no encontrado.', 'error');
+        return;
+    }
+
+    // Validar stock disponible
+    let stockDisponible = parseFloat(producto.cantidad) || 0;
+    if (stockDisponible === 0) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Sin stock',
+            text: `"${producto.nombre} - ${producto.presentacion}" no tiene stock disponible.`,
+            confirmButtonText: 'Entendido'
+        });
+        return;
+    }
+
+    // Validar que cantidad solicitada no exceda el stock
+    if (parseFloat(cantidad) > stockDisponible) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Stock insuficiente',
+            text: `Solo hay ${stockDisponible} unidades disponibles de "${producto.nombre} - ${producto.presentacion}".`,
+            confirmButtonText: 'Entendido'
+        });
+        return;
+    }
+
+    let total = producto.precio * cantidad;
+    let precioCompraTotal = producto.precioCompra * cantidad;
+    let precioVentaJMTotal = producto.precioVentaJM * cantidad;
+    carrito.push({
+        nombre: producto.nombre + ' - ' + producto.presentacion,
+        presentacion: producto.presentacion,
+        idPresentacion: producto.idPresentacion,
+        cantidad: cantidad,
+        precioVenta: producto.precio,
+        precioCompra: producto.precioCompra,
+        precioCompraTotal: precioCompraTotal,
+        precioVentaJMTotal: precioVentaJMTotal,
+        total: total
+    });
+
+    mostrarCarrito();
+    $('#producto-select').val(null).trigger('change');
+    $('#cantidad').val('');
 }
 
 function mostrarCarrito() {
