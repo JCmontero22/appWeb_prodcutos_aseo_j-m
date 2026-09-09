@@ -1,10 +1,12 @@
 <?php
 
+require_once('../core/conexion.php');
+
 class InventarioPorSedeModel {
     private $db;
 
     public function __construct() {
-        $this->db = new Database();
+        $this->db = new Conexion();
     }
 
     /**
