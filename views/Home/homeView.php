@@ -55,6 +55,11 @@
                 <i class="fa-solid fa-bag-shopping card-option-icon"></i>
                 <h2>Compras</h2>
             </div>
+
+            <div class="card-option inventario" onclick="redireccionar('inventarioPorSede')">
+                <i class="fa-solid fa-warehouse card-option-icon"></i>
+                <h2>Inventario por Sede</h2>
+            </div>
             <?php endif; ?>
             <!-- <div class="card-option bg-success" onclick="redireccionar('ganancias')">
                 <h2>Mis Ganancias</h2>
