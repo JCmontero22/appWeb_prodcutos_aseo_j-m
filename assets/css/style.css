@@ -806,6 +806,51 @@ textarea.form-control {
     gap: 0.5rem;
 }
 
+/* ==========================================================================
+   SWEETALERT - ESTILOS PERSONALIZADOS
+   ========================================================================== */
+
+.swal2-popup {
+    width: 85% !important;
+    max-width: 450px !important;
+    padding: 1.25rem !important;
+    border-radius: var(--border-radius) !important;
+}
+
+.swal2-title {
+    font-size: 1.15rem !important;
+    margin: 0.5rem 0 !important;
+    font-weight: 700 !important;
+}
+
+.swal2-html-container {
+    font-size: 0.92rem !important;
+    line-height: 1.4 !important;
+    margin: 0.75rem 0 !important;
+}
+
+.swal2-icon {
+    width: 3.5rem !important;
+    height: 3.5rem !important;
+    margin: 0.5rem auto !important;
+}
+
+.swal2-icon.swal2-success::after {
+    font-size: 2.1rem !important;
+}
+
+.swal2-actions {
+    gap: 0.5rem !important;
+    margin-top: 1rem !important;
+}
+
+.swal2-button {
+    padding: 0.5rem 1.25rem !important;
+    font-size: 0.9rem !important;
+    height: 38px !important;
+    min-height: 38px !important;
+}
+
 /* Login View */
 .login {
     display: flex;
@@ -936,6 +981,29 @@ textarea.form-control {
         max-width: 100%;
         width: 100% !important;
     }
+
+    /* SweetAlert en tablets */
+    .swal2-popup {
+        width: 90% !important;
+        max-width: 400px !important;
+        padding: 1rem !important;
+    }
+
+    .swal2-title {
+        font-size: 1.05rem !important;
+        margin: 0.4rem 0 !important;
+    }
+
+    .swal2-html-container {
+        font-size: 0.88rem !important;
+        margin: 0.6rem 0 !important;
+    }
+
+    .swal2-icon {
+        width: 3rem !important;
+        height: 3rem !important;
+        margin: 0.4rem auto !important;
+    }
 }
 
 /* ==========================================================================
@@ -945,6 +1013,35 @@ textarea.form-control {
 @media (max-width: 480px) {
     html {
         font-size: 16px; /* Evita auto-zoom forzado en inputs */
+    }
+
+    .swal2-popup {
+        width: 92% !important;
+        max-width: 320px !important;
+        padding: 0.85rem !important;
+    }
+
+    .swal2-title {
+        font-size: 0.95rem !important;
+        margin: 0.35rem 0 !important;
+    }
+
+    .swal2-html-container {
+        font-size: 0.82rem !important;
+        margin: 0.5rem 0 !important;
+    }
+
+    .swal2-icon {
+        width: 2.8rem !important;
+        height: 2.8rem !important;
+        margin: 0.35rem auto !important;
+    }
+
+    .swal2-button {
+        padding: 0.35rem 0.85rem !important;
+        font-size: 0.8rem !important;
+        height: 35px !important;
+        min-height: 35px !important;
     }
 
     .container {
