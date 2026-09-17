@@ -63,10 +63,19 @@ function cargarTablaVentas(data) {
                 }
             },
             {
-                data: "ganancia_total_pedido",
+                data: null,
                 className: "text-center",
-                render: function(data) {
-                    return '$' + separarMiles(data);
+                render: function(data, type, row) {
+                    // Calcular ganancia de J&M según si es admin (id_usuario=1) o vendedor
+                    let gananciaJM;
+                    if (row.id_usuario == 1) {
+                        // Admin: toda la ganancia es de J&M
+                        gananciaJM = row.valor_total_pedido - row.costo_total_pedido;
+                    } else {
+                        // Vendedor: J&M recibe lo que quedó después de pagar al vendedor
+                        gananciaJM = (row.valor_total_pedido - row.ganancia_total_pedido) - row.costo_total_pedido;
+                    }
+                    return '$' + separarMiles(gananciaJM);
                 }
             }
         ],

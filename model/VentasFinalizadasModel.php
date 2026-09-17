@@ -20,7 +20,9 @@ class VentasFinalizadasModel {
                     ped.fecha_pedido,
                     ped.id_estado,
                     ped.costo_total_pedido,
-                    ped.ganancia_total_pedido
+                    ped.valor_total_pedido,
+                    ped.ganancia_total_pedido,
+                    ped.id_usuario
                 FROM pedidos ped
                 INNER JOIN usuarios usu ON ped.id_usuario = usu.id_usuario
                 INNER JOIN sedes sed ON usu.id_sede = sed.id_sede
