@@ -61,6 +61,11 @@
                 <h2>Inventario por Sede</h2>
             </div>
             <?php endif; ?>
+
+            <div class="card-option movimientos" onclick="redireccionar('ventasFinalizadas')">
+                <i class="fa-solid fa-check-circle card-option-icon"></i>
+                <h2>Ventas Finalizadas</h2>
+            </div>
             <!-- <div class="card-option bg-success" onclick="redireccionar('ganancias')">
                 <h2>Mis Ganancias</h2>
                 <i class="fa-solid fa-clipboard-list card-option-icon"></i>

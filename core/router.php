@@ -28,7 +28,8 @@
         'ganaciasTotales' => 'Ganancias/ganaciasTotales.php',
         'movimientosFinancieros' => 'Ganancias/movimientosFinancieros.php',
         'compras' => 'Compras/compras.php',
-        'inventarioPorSede' => 'Inventario/inventarioPorSede.php'
+        'inventarioPorSede' => 'Inventario/inventarioPorSede.php',
+        'ventasFinalizadas' => 'Ventas/ventasFinalizadas.php'
 
     ];
 
