@@ -6,10 +6,15 @@ function initVentasFinalizadas() {
  * Cargar ventas finalizadas
  */
 function cargarVentasFinalizadas() {
+    let mes = $('#filtroMes').val() || '';
+
     $.ajax({
         url: 'ajax/ventasFinalizadasAjax.php',
         type: 'GET',
-        data: { accion: 'obtenerVentas' },
+        data: {
+            accion: 'obtenerVentas',
+            mes: mes
+        },
         success: function(response) {
             response = JSON.parse(response);
             if (response.status === 'success') {

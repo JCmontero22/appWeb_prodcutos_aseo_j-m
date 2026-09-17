@@ -12,9 +12,9 @@ class VentasFinalizadasController {
     /**
      * Obtener todas las ventas finalizadas y pagadas
      */
-    public function obtenerVentas() {
+    public function obtenerVentas($mes = '') {
         try {
-            $ventas = $this->model->obtenerVentasFinalizadas();
+            $ventas = $this->model->obtenerVentasFinalizadas($mes);
             return ['status' => 'success', 'data' => $ventas];
         } catch (Exception $e) {
             return ['status' => 'error', 'mensaje' => $e->getMessage()];

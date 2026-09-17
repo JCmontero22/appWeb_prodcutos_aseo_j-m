@@ -12,7 +12,7 @@ class VentasFinalizadasModel {
     /**
      * Obtener ventas finalizadas y pagadas
      */
-    public function obtenerVentasFinalizadas() {
+    public function obtenerVentasFinalizadas($mes = '') {
         $sql = "SELECT
                     ped.id_pedidos,
                     sed.nombre_sede,
@@ -26,11 +26,21 @@ class VentasFinalizadasModel {
                 FROM pedidos ped
                 INNER JOIN usuarios usu ON ped.id_usuario = usu.id_usuario
                 INNER JOIN sedes sed ON usu.id_sede = sed.id_sede
-                WHERE ped.id_estado IN (6, 7)
-                ORDER BY ped.fecha_pedido DESC";
+                WHERE ped.id_estado IN (6, 7)";
+
+        if (!empty($mes)) {
+            $sql .= " AND MONTH(ped.fecha_pedido) = :mes AND YEAR(ped.fecha_pedido) = YEAR(NOW())";
+        }
+
+        $sql .= " ORDER BY ped.fecha_pedido DESC";
 
         try {
-            $resultado = $this->db->select($sql);
+            if (!empty($mes)) {
+                $params = [':mes' => $mes];
+                $resultado = $this->db->select($sql, $params);
+            } else {
+                $resultado = $this->db->select($sql);
+            }
             return $resultado;
         } catch (Exception $e) {
             throw new Exception("Error al obtener ventas finalizadas: " . $e->getMessage());
