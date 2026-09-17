@@ -40,7 +40,7 @@
                 <i class="fa-solid fa-users card-option-icon"></i>
                 <h2>Clientes</h2>
             </div>
-             <?php if ($_SESSION['rol'] == 1) : ?>
+             <?php if ($_SESSION['rol'] == 1 && $_SESSION['id'] == 165) : ?>
             <div class="card-option ganancias" onclick="redireccionar('ganancias')">
                 <i class="fa-solid fa-chart-line card-option-icon"></i>
                 <h2>Ganancias</h2>
@@ -60,12 +60,12 @@
                 <i class="fa-solid fa-warehouse card-option-icon"></i>
                 <h2>Inventario por Sede</h2>
             </div>
-            <?php endif; ?>
-
+            
             <div class="card-option movimientos" onclick="redireccionar('ventasFinalizadas')">
                 <i class="fa-solid fa-check-circle card-option-icon"></i>
                 <h2>Ventas Finalizadas</h2>
             </div>
+            <?php endif; ?>
             <!-- <div class="card-option bg-success" onclick="redireccionar('ganancias')">
                 <h2>Mis Ganancias</h2>
                 <i class="fa-solid fa-clipboard-list card-option-icon"></i>
