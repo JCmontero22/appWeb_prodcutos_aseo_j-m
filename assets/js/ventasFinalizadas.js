@@ -34,7 +34,7 @@ function cargarTablaVentas(data) {
         responsive: true,
         data: data,
         columns: [
-            {data: "id_pedido"},
+            {data: "id_pedidos"},
             {data: "nombre_sede"},
             {data: "vendedor"},
             {data: "fecha_pedido"},
@@ -63,7 +63,7 @@ function cargarTablaVentas(data) {
                 }
             },
             {
-                data: "totalGanancia",
+                data: "ganancia_total_pedido",
                 className: "text-center",
                 render: function(data) {
                     return '$' + separarMiles(data);
