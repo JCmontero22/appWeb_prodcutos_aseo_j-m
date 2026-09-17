@@ -39,15 +39,20 @@ function cargarTablaVentas(data) {
             {data: "vendedor"},
             {data: "fecha_pedido"},
             {
-                data: "estado",
+                data: "id_estado",
                 className: "text-center",
                 render: function(data) {
+                    const estadoMap = {
+                        6: 'Finalizado',
+                        7: 'Pagado'
+                    };
+                    let nombreEstado = estadoMap[data] || 'Desconocido';
                     const clasesEstado = {
                         'Pagado': 'bg-primary text-white',
                         'Finalizado': 'bg-dark text-white'
                     };
-                    let clase = clasesEstado[data] || 'bg-light text-dark';
-                    return `<span class="${clase} p-2 estados">${data}</span>`;
+                    let clase = clasesEstado[nombreEstado] || 'bg-light text-dark';
+                    return `<span class="${clase} p-2 estados">${nombreEstado}</span>`;
                 }
             },
             {

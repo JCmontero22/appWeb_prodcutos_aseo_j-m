@@ -18,13 +18,12 @@ class VentasFinalizadasModel {
                     sed.nombre_sede,
                     usu.nombre_usuario as vendedor,
                     ped.fecha_pedido,
-                    est.descripcion_estado as estado,
+                    ped.id_estado,
                     ped.costo_total_pedido,
                     ped.totalGanancia
                 FROM pedidos ped
                 INNER JOIN sedes sed ON ped.id_sede = sed.id_sede
                 INNER JOIN usuarios usu ON ped.id_usuario = usu.id_usuario
-                INNER JOIN estado_pedido est ON ped.id_estado = est.id_estado
                 WHERE ped.id_estado IN (6, 7)
                 ORDER BY ped.fecha_pedido DESC";
 
