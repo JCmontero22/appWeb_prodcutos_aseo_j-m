@@ -70,18 +70,6 @@ function cargarInventarioPorSede() {
 function cargarTablaInventario(data) {
     $('#tablaInventario').DataTable({
         destroy: true,
-        responsive: {
-            details: {
-                display: $.fn.dataTable.Responsive.display.modal({
-                    header: function (row) {
-                        return 'Detalles del Producto';
-                    }
-                }),
-                renderer: $.fn.dataTable.Responsive.renderer.tableAll({
-                    tableClass: 'table'
-                })
-            }
-        },
         data: data,
         pageLength: 25,
         columns: [
