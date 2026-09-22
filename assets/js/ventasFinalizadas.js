@@ -42,6 +42,15 @@ function cargarTablaVentas(data) {
             {data: "id_pedidos"},
             {data: "nombre_sede"},
             {data: "vendedor"},
+            {
+                data: "nombre_rol",
+                className: "text-center",
+                render: function(data) {
+                    let rol = data || 'Sin rol';
+                    let badgeClass = rol.toLowerCase().includes('admin') ? 'bg-info text-dark' : 'bg-secondary text-white';
+                    return `<span class="badge ${badgeClass} p-2">${rol}</span>`;
+                }
+            },
             {data: "fecha_pedido"},
             {
                 data: "id_estado",
@@ -68,19 +77,11 @@ function cargarTablaVentas(data) {
                 }
             },
             {
-                data: null,
+                data: "ganancia_total_pedido",
                 className: "text-center",
-                render: function(data, type, row) {
-                    // Calcular ganancia de J&M según si es admin (id_usuario=1) o vendedor
-                    let gananciaJM;
-                    if (row.id_usuario == 1) {
-                        // Admin: toda la ganancia es de J&M
-                        gananciaJM = row.valor_total_pedido - row.costo_total_pedido;
-                    } else {
-                        // Vendedor: J&M recibe lo que quedó después de pagar al vendedor
-                        gananciaJM = (row.valor_total_pedido - row.ganancia_total_pedido) - row.costo_total_pedido;
-                    }
-                    return '$' + separarMiles(gananciaJM);
+                render: function(data) {
+                    let ganancia = parseFloat(data) || 0;
+                    return '$' + separarMiles(ganancia);
                 }
             }
         ],

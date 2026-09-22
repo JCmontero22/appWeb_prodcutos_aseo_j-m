@@ -49,6 +49,7 @@ session_start();
                             <th>ID Pedido</th>
                             <th>Sede</th>
                             <th>Vendedor</th>
+                            <th>Rol</th>
                             <th>Fecha</th>
                             <th>Estado</th>
                             <th>Costo Total</th>
