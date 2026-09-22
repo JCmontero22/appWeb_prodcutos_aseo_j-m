@@ -134,15 +134,17 @@
 <script src="assets/js/pedido.js"></script>
 
 <script>
-// Mover pantalla cuando el teclado aparece para que no se tape el input
+// Mover pantalla cuando el teclado aparece para que no se tape el input (solo inputs nativos visibles)
 document.addEventListener('DOMContentLoaded', function() {
-    const focusableElements = document.querySelectorAll('input, select, textarea');
+    const focusableInputs = document.querySelectorAll('input:not([type="hidden"]):not(.select2-search__field), textarea');
 
-    focusableElements.forEach(element => {
+    focusableInputs.forEach(element => {
         element.addEventListener('focus', function(e) {
-            setTimeout(() => {
-                this.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 300);
+            if (window.innerWidth <= 768 && this.offsetParent !== null) {
+                setTimeout(() => {
+                    this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 300);
+            }
         });
     });
 });

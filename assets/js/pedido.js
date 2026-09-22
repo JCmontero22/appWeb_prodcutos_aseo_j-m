@@ -34,16 +34,18 @@ function listadoClientes() {
 }
 
 function dataSelectProductos(params) {
-    $data = [];
+    let $data = [];
     params.forEach(item => {
         let cantidad = parseFloat(item.cantidad) || 0;
         let textoStock = cantidad > 0 ? `(${cantidad})` : '(Sin stock)';
         let claseStock = cantidad === 0 ? 'style="color: #dc3545; font-weight: bold;"' : '';
+        let baseText = `${item.nombre} - ${item.presentacion} - $${separarMiles(item.precio)}`;
 
         $data.push({
             id: item.idPresentacion,
-            text: `${item.nombre} - ${item.presentacion} - $${separarMiles(item.precio)} <span ${claseStock}>${textoStock}</span>`,
-            html: `${item.nombre} - ${item.presentacion} - $${separarMiles(item.precio)} <span ${claseStock}>${textoStock}</span>`,
+            text: `${baseText} ${textoStock}`,
+            nombreSimple: baseText,
+            html: `${baseText} <span ${claseStock}>${textoStock}</span>`,
             cantidad: cantidad,
             disabled: cantidad === 0
         });
@@ -53,7 +55,7 @@ function dataSelectProductos(params) {
 }
 
 function dataSelectClientes(params) {
-    $data = [];
+    let $data = [];
     params.forEach(item => {
         $data.push({
             id: item.id_usuario,
@@ -65,27 +67,39 @@ function dataSelectClientes(params) {
 }
 
 function selectClientes(data) {
-    $('#cliente-select').select2({
+    let $select = $('#cliente-select');
+    if ($select.hasClass("select2-hidden-accessible")) {
+        $select.select2('destroy');
+    }
+    $select.empty().append('<option value="">Seleccione un cliente</option>');
+    $select.select2({
         data: data,
-        placeholder: "Seleccione una opción",
+        placeholder: "Seleccione un cliente",
         allowClear: true,
+        width: '100%',
         theme: "default"
     });
 }
 
 function selectProductos(data) {
-    $('#producto-select').select2({
+    let $select = $('#producto-select');
+    if ($select.hasClass("select2-hidden-accessible")) {
+        $select.select2('destroy');
+    }
+    $select.empty().append('<option value="">Seleccione un producto</option>');
+    $select.select2({
         data: data,
-        placeholder: "Seleccione una opción",
+        placeholder: "Seleccione un producto",
         allowClear: true,
+        width: '100%',
         theme: "default",
         templateResult: function(option) {
             if (!option.id) return option.text;
-            return $('<span>' + option.html + '</span>');
+            return $('<span>' + (option.html || option.text) + '</span>');
         },
         templateSelection: function(option) {
             if (!option.id) return option.text;
-            let text = option.text.replace(/<span[^>]*>.*<\/span>/g, '').trim();
+            let text = option.nombreSimple || (option.text ? option.text.replace(/<span[^>]*>.*<\/span>/g, '').trim() : '');
             return $('<span>' + text + '</span>');
         }
     });
@@ -241,6 +255,8 @@ function realizarPedido() {
 
 function limpiar() {
     $('#cliente-select').val(null).trigger('change');
+    $('#producto-select').val(null).trigger('change');
+    $('#cantidad').val('');
     $('#carrito-table tbody').empty();
     $('#total').text('Total: 0');
     carrito = [];
@@ -290,5 +306,11 @@ function registrarUsuario() {
     
 }
 
+// Cuando se limpie el producto, también limpiar el campo cantidad
+$('#producto-select').on('change', function() {
+    if (!$(this).val()) {
+        $('#cantidad').val('');
+    }
+});
 
 initPedidos();

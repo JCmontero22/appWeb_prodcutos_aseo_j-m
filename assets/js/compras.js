@@ -151,13 +151,18 @@ function dataSelectProductos(params) {
 }
 
 function selectProductos(data) {
-    $('#idProducto').select2({
+    let $select = $('#idProducto');
+    if ($select.hasClass("select2-hidden-accessible")) {
+        $select.select2('destroy');
+    }
+    $select.empty().append('<option value="">Seleccione una opción</option>');
+    $select.select2({
         data: data,
         placeholder: "Seleccione una opción",
         allowClear: true,
         theme: "default",
         zindex: 20001,
-        dropdownParent: $('#formCompra'), // <-- agrega esto
+        dropdownParent: $('#formCompra'),
         width: '100%'
     });
 }
