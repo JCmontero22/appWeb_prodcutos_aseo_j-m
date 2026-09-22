@@ -45,8 +45,13 @@ class VentasFinalizadasModel {
                 INNER JOIN detalle_pedido dp ON dp.id_pedidos = ped.id_pedidos 
                 INNER JOIN presentacion_producto pp ON pp.id_presentacion = dp.id_presentacion
                 INNER JOIN rol_usuario ru ON usu.id_rol = ru.id_rol 
-                WHERE ped.id_estado IN (6, 7)
-                GROUP BY
+                WHERE ped.id_estado IN (6, 7)";
+
+        if (!empty($mes)) {
+            $sql .= " AND MONTH(ped.fecha_pedido) = :mes AND YEAR(ped.fecha_pedido) = YEAR(NOW())";
+        }
+
+        $sql .= " GROUP BY
                     ped.id_pedidos,
                     sed.nombre_sede,
                     usu.nombre_usuario,
@@ -55,13 +60,8 @@ class VentasFinalizadasModel {
                     ped.id_estado,
                     ped.costo_total_pedido,
                     ped.valor_total_pedido,
-                    ped.id_usuario;";
-
-        if (!empty($mes)) {
-            $sql .= " AND MONTH(ped.fecha_pedido) = :mes AND YEAR(ped.fecha_pedido) = YEAR(NOW())";
-        }
-
-        $sql .= " ORDER BY ped.fecha_pedido DESC";
+                    ped.id_usuario
+                ORDER BY ped.fecha_pedido DESC";
 
         try {
             if (!empty($mes)) {
