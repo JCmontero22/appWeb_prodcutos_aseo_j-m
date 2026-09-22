@@ -119,7 +119,18 @@ function cargarTable(data, rol, idTabla) {
     // 4. Inicializamos el DataTable apuntando al idTabla recibido
     $(idTabla).DataTable({
         destroy: true, // Esto es clave para poder recargar tablas sobre el mismo elemento
-        responsive: true,
+        responsive: {
+            details: {
+                display: $.fn.dataTable.Responsive.display.modal({
+                    header: function (row) {
+                        return 'Detalles del Pedido';
+                    }
+                }),
+                renderer: $.fn.dataTable.Responsive.renderer.tableAll({
+                    tableClass: 'table'
+                })
+            }
+        },
         data: data,
         columns: columnas,
         pageLength: 25,
@@ -144,10 +155,21 @@ function cargarTable(data, rol, idTabla) {
 }
 
 function cargarTablaVentasAdmin(data) {
-    
+
     $("#tabla_ventas_admin").DataTable({
         destroy: true,
-        responsive: true,
+        responsive: {
+            details: {
+                display: $.fn.dataTable.Responsive.display.modal({
+                    header: function (row) {
+                        return 'Detalles del Pedido';
+                    }
+                }),
+                renderer: $.fn.dataTable.Responsive.renderer.tableAll({
+                    tableClass: 'table'
+                })
+            }
+        },
         data: data,
         pageLength: 25,
         columns: [
