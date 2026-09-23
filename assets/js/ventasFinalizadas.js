@@ -36,7 +36,6 @@ function cargarVentasFinalizadas() {
 function cargarTablaVentas(data) {
     $('#tablaVentasFinalizadas').DataTable({
         destroy: true,
-        responsive: false,
         data: data,
         columns: [
             {data: "id_pedidos"},

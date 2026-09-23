@@ -711,6 +711,7 @@ textarea.form-control {
     border-bottom: 1px solid var(--color-borde);
     color: var(--color-texto);
     vertical-align: middle;
+    white-space: nowrap;
 }
 
 .table tbody tr:hover {

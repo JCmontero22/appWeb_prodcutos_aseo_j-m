@@ -70,7 +70,6 @@ function cargarInventarioPorSede() {
 function cargarTablaInventario(data) {
     $('#tablaInventario').DataTable({
         destroy: true,
-        responsive: false,
         data: data,
         pageLength: 25,
         columns: [
