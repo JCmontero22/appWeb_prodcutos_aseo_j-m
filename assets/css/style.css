@@ -1085,6 +1085,7 @@ table.dataTable > tbody > tr.child,
     .header-btn {
         width: 100%;
         justify-content: flex-end;
+        margin-top: 1rem;
     }
 
     .content-body {
