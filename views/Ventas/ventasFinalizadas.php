@@ -17,6 +17,11 @@ session_start();
 
     <section class="content-body">
         <div class="row">
+            <div class="col-md-9 d-flex align-items-end justify-content-end mb-3">
+                <button class="btn btn-primary" onclick="redireccionar('home')">Regresar</button>
+            </div>
+        </div>
+        <div class="row mt-3 mb-4">
             <div class="col-md-3">
                 <label for="filtroMes" class="form-label">Filtrar por Mes:</label>
                 <select id="filtroMes" class="form-select" onchange="cargarVentasFinalizadas()">
@@ -34,9 +39,6 @@ session_start();
                     <option value="11">Noviembre</option>
                     <option value="12">Diciembre</option>
                 </select>
-            </div>
-            <div class="col-md-9 d-flex align-items-end justify-content-end mb-3">
-                <button class="btn btn-primary" onclick="redireccionar('home')">Regresar</button>
             </div>
         </div>
 
