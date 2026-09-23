@@ -740,6 +740,8 @@ table.dataTable > tbody > tr.child,
 }
 
 /* Ancho mínimo para tablas con scroll horizontal nativo en móviles */
+#tabla_inventario_sede,
+#tabla_ventas_finalizadas,
 #tablaInventario,
 #tablaVentasFinalizadas,
 #tabla_pedidos,

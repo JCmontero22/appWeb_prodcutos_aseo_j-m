@@ -2,7 +2,7 @@ let inventarioActual = [];
 let sedeActual = 0;
 let productoEditando = {};
 
-function init() {
+function initInventario() {
     cargarSedes();
 }
 
@@ -68,19 +68,9 @@ function cargarInventarioPorSede() {
  * Cargar tabla de inventario con DataTable
  */
 function cargarTablaInventario(data) {
-    if (window.jQuery && jQuery.fn) {
-        if (jQuery.fn.dataTable && jQuery.fn.dataTable.Responsive) {
-            try { delete jQuery.fn.dataTable.Responsive; } catch(e) {}
-        }
-        if (jQuery.fn.DataTable && jQuery.fn.DataTable.Responsive) {
-            try { delete jQuery.fn.DataTable.Responsive; } catch(e) {}
-        }
-    }
-
-    $('#tablaInventario').DataTable({
+    $("#tabla_inventario_sede").DataTable({
         destroy: true,
-        responsive: false,
-        autoWidth: false,
+        responsive: true,
         data: data,
         pageLength: 25,
         columns: [
@@ -215,4 +205,4 @@ function separarMiles(numero) {
     return new Intl.NumberFormat("es-CO").format(numero);
 }
 
-init();
+initInventario();

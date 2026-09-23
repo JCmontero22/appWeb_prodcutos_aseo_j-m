@@ -35,7 +35,7 @@ session_start();
         <!-- Tabla de Inventario -->
         <div class="row mt-4">
             <div class="col-12 table-responsive">
-                <table class="table table-bordered table-hover" id="tablaInventario">
+                <table class="table table-striped table-bordered table-hover" id="tabla_inventario_sede">
                     <thead class="table-dark">
                         <tr>
                             <th>Producto</th>

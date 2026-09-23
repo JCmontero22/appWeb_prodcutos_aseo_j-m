@@ -1,13 +1,3 @@
-// Neutralizar cualquier remanente de la extensión Responsive de DataTables en memoria
-if (window.jQuery && jQuery.fn) {
-    if (jQuery.fn.dataTable && jQuery.fn.dataTable.Responsive) {
-        try { delete jQuery.fn.dataTable.Responsive; } catch(e) {}
-    }
-    if (jQuery.fn.DataTable && jQuery.fn.DataTable.Responsive) {
-        try { delete jQuery.fn.DataTable.Responsive; } catch(e) {}
-    }
-}
-
 function init() {
     $("#form-login").submit(function(e) {
         e.preventDefault();

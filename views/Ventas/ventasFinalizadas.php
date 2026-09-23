@@ -43,7 +43,7 @@ session_start();
         <!-- Tabla de Ventas Finalizadas -->
         <div class="row mt-4">
             <div class="col-12 table-responsive">
-                <table class="table table-bordered table-hover" id="tablaVentasFinalizadas">
+                <table class="table table-striped table-bordered table-hover" id="tabla_ventas_finalizadas">
                     <thead class="table-dark">
                         <tr>
                             <th>ID Pedido</th>

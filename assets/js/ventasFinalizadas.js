@@ -34,20 +34,11 @@ function cargarVentasFinalizadas() {
  * Cargar tabla de ventas con DataTable
  */
 function cargarTablaVentas(data) {
-    if (window.jQuery && jQuery.fn) {
-        if (jQuery.fn.dataTable && jQuery.fn.dataTable.Responsive) {
-            try { delete jQuery.fn.dataTable.Responsive; } catch(e) {}
-        }
-        if (jQuery.fn.DataTable && jQuery.fn.DataTable.Responsive) {
-            try { delete jQuery.fn.DataTable.Responsive; } catch(e) {}
-        }
-    }
-
-    $('#tablaVentasFinalizadas').DataTable({
+    $("#tabla_ventas_finalizadas").DataTable({
         destroy: true,
-        responsive: false,
-        autoWidth: false,
+        responsive: true,
         data: data,
+        pageLength: 25,
         columns: [
             {data: "id_pedidos"},
             {data: "nombre_sede"},
