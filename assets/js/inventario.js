@@ -68,8 +68,19 @@ function cargarInventarioPorSede() {
  * Cargar tabla de inventario con DataTable
  */
 function cargarTablaInventario(data) {
+    if (window.jQuery && jQuery.fn) {
+        if (jQuery.fn.dataTable && jQuery.fn.dataTable.Responsive) {
+            try { delete jQuery.fn.dataTable.Responsive; } catch(e) {}
+        }
+        if (jQuery.fn.DataTable && jQuery.fn.DataTable.Responsive) {
+            try { delete jQuery.fn.DataTable.Responsive; } catch(e) {}
+        }
+    }
+
     $('#tablaInventario').DataTable({
         destroy: true,
+        responsive: false,
+        autoWidth: false,
         data: data,
         pageLength: 25,
         columns: [

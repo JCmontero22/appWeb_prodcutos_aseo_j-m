@@ -718,6 +718,38 @@ textarea.form-control {
     background-color: #f1f5f9;
 }
 
+/* Neutralizar cualquier pseudo-elemento de colapso de DataTables Responsive y eliminar flechas '►' */
+table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control::before,
+table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control::before,
+table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before,
+table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control:before,
+.dtr-control::before,
+.dtr-control:before {
+    display: none !important;
+    content: "" !important;
+}
+
+table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control,
+table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control {
+    padding-left: 0.65rem !important;
+}
+
+table.dataTable > tbody > tr.child,
+.dtr-details {
+    display: none !important;
+}
+
+/* Ancho mínimo para tablas con scroll horizontal nativo en móviles */
+#tablaInventario,
+#tablaVentasFinalizadas,
+#tabla_pedidos,
+#tabla_ventas_admin,
+#tablaProductos,
+#tabla_compras,
+#tablaClientes {
+    min-width: 750px !important;
+}
+
 /* Badges de Estados en tablas (.estados) */
 .estados {
     display: inline-block;

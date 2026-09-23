@@ -64,4 +64,4 @@ session_start();
     </section>
 </main>
 
-<script src="assets/js/ventasFinalizadas.js"></script>
+<script src="assets/js/ventasFinalizadas.js?v=<?= time() ?>"></script>
