@@ -9,7 +9,7 @@
     <section class="content-header">
         <div class="row w-100 align-items-center">
             <div class="col-12 col-md-9">
-                <h1>Bienvenido panel vendedor</h1>
+                <h1>Bienvenido panel vendedor.</h1>
                 <p>Contenido protegido. Solo usuarios autenticados pueden ver esto.</p>
             </div>
             <div class="col-12 col-md-3 header-btn mt-2 mt-md-0">
