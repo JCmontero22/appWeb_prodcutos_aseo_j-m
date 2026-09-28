@@ -264,7 +264,7 @@ function limpiar() {
 
 function registrarUsuario() {
     
-    if ($('#nombre').val() === '' || $('#telefono').val() === '' || $('#direccion').val() === '') {
+    if ($('#nombre').val() === '') {
             Swal.fire({
                 icon: 'warning',
                 title: 'Campos incompletos',
