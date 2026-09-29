@@ -132,6 +132,34 @@ function cargarTablaVentas(data) {
         let idPedido = checkbox.data('id');
         let valor = checkbox.is(':checked') ? 1 : 0;
 
+        // Si se está desmarcando, pedir confirmación al usuario
+        if (valor === 0) {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: 'Confirma que deseas desmarcar este pedido como separado.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, desmarcar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Proceder con la petición AJAX para desmarcar
+                    enviarActualizacionSeparado(idPedido, valor, checkbox);
+                } else {
+                    // Revertir el checkbox (dejarlo marcado)
+                    checkbox.prop('checked', true);
+                }
+            });
+        } else {
+            // Si se está marcando, no hace falta confirmación
+            enviarActualizacionSeparado(idPedido, valor, checkbox);
+        }
+    });
+
+    /**
+     * Función auxiliar para enviar la actualización via AJAX
+     */
+    function enviarActualizacionSeparado(idPedido, valor, checkbox) {
         $.ajax({
             url: 'ajax/ventasFinalizadasAjax.php',
             type: 'POST',
@@ -166,7 +194,7 @@ function cargarTablaVentas(data) {
                 Swal.fire('Error', 'No se pudo actualizar el estado', 'error');
             }
         });
-    });
+    }
 }
 
 /**

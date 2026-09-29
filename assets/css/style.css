@@ -978,8 +978,11 @@ table.dataTable > tbody > tr.child,
 }
 
 .swal2-icon svg {
-    width: 100% !important;
+    width: auto !important;
     height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    display: block !important;
 }
 
 .swal2-icon.swal2-success::after {
@@ -1155,8 +1158,11 @@ table.dataTable > tbody > tr.child,
     }
 
     .swal2-icon svg {
-        width: 100% !important;
+        width: auto !important;
         height: 100% !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
+        display: block !important;
     }
 }
 
@@ -1204,8 +1210,11 @@ table.dataTable > tbody > tr.child,
     }
 
     .swal2-icon svg {
-        width: 100% !important;
+        width: auto !important;
         height: 100% !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
+        display: block !important;
     }
 
     .swal2-button {
