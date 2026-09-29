@@ -17,7 +17,7 @@ session_start();
 
     <section class="content-body">
         <div class="row">
-            <div class="col-md-9 d-flex align-items-end justify-content-end mb-3">
+            <div class="col-md-12 d-flex align-items-end justify-content-end mb-3">
                 <button class="btn btn-primary" onclick="redireccionar('home')">Regresar</button>
             </div>
         </div>
