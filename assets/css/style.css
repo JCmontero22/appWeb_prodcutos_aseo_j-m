@@ -1398,23 +1398,18 @@ table.dataTable > tbody > tr.child,
     .swal2-icon { width: 2.8rem !important; height: 2.8rem !important; }
 }
 
-/* Ajustes para móviles - evitar ocupar media pantalla */
+/* Ajustes móviles: reducir ancho máximo para que no ocupe media pantalla */
 @media (max-width: 480px) {
-    /* Ajustes más compactos para móviles pequeños */
     .swal2-popup {
-        width: calc(100% - 24px) !important;
-        max-width: 300px !important;
-        padding: 0.6rem 0.65rem !important;
+        width: calc(100% - 32px) !important;
+        max-width: 320px !important;
+        padding: 0.9rem 0.95rem !important;
         margin: 10px auto !important;
-        border-radius: 8px !important;
+        border-radius: 10px !important;
     }
-    .swal2-title { font-size: 0.9rem !important; margin: 0.25rem 0 !important; }
-    .swal2-html-container { font-size: 0.78rem !important; line-height: 1.25 !important; }
-    .swal2-icon { width: 1.8rem !important; height: 1.8rem !important; margin-top: 6px !important; }
-    .swal2-actions { display: flex !important; gap: 0.4rem !important; justify-content: center !important; }
-    .swal2-button { font-size: 0.8rem !important; height: 34px !important; padding: 0.32rem 0.6rem !important; }
-    /* Evitar que contenido se desplace y ocupe mucho alto */
-    .swal2-popup .swal2-html-container { max-height: 36vh; overflow-y: auto; }
+    .swal2-title { font-size: 0.98rem !important; }
+    .swal2-html-container { font-size: 0.86rem !important; line-height: 1.25 !important; }
+    .swal2-icon { width: 2.2rem !important; height: 2.2rem !important; }
 }
 
 
