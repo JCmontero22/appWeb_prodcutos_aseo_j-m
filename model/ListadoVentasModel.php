@@ -20,7 +20,7 @@
                                 p.valor_total_pedido AS totalVenta,
                                 p.ganancia_total_pedido AS totalGanancia,
                                 p.fecha_pedido AS fechaPedido,
-                                p.fecha_entrega_pedido AS fechaEntrega,
+                                p.fecha_actualizacion_pedido AS fechaEntrega,
                                 e.nombre_estado AS estado,
                                 e.id_estado_pedido AS idEstado,
                                 p.valor_total_pedido - p.costo_total_pedido AS gananciaAdmin,

@@ -71,6 +71,10 @@ function cargarTablaVentas(data) {
                 }
             },
             {
+                data: "fecha_actualizacion",
+                className: "text-center"
+            },
+            {
                 data: "costo_total_pedido",
                 className: "text-center",
                 render: function(data) {
@@ -84,8 +88,25 @@ function cargarTablaVentas(data) {
                     let ganancia = parseFloat(data) || 0;
                     return '$' + separarMiles(ganancia);
                 }
+            },
+            {
+                data: "separado",
+                className: "text-center",
+                render: function(data, type, row) {
+                    let checked = parseInt(data) === 1 ? 'checked' : '';
+                    return `<input type="checkbox" class="check-separado" data-id="${row.id_pedidos}" ${checked}>`;
+                }
             }
         ],
+        createdRow: function(row, data) {
+            try {
+                if (parseInt(data.separado) === 1) {
+                    $(row).css('background-color', '#e9f7ef');
+                }
+            } catch (e) {
+                // ignore
+            }
+        },
         order: [[0, "desc"]],
         language: {
             "processing": "Procesando...",
@@ -103,6 +124,48 @@ function cargarTablaVentas(data) {
                 "previous": "Anterior"
             }
         }
+    });
+
+    // Manejar change en el checkbox para marcar/desmarcar separado
+    $('#tabla_ventas_finalizadas').off('change', '.check-separado').on('change', '.check-separado', function() {
+        let checkbox = $(this);
+        let idPedido = checkbox.data('id');
+        let valor = checkbox.is(':checked') ? 1 : 0;
+
+        $.ajax({
+            url: 'ajax/ventasFinalizadasAjax.php',
+            type: 'POST',
+            data: {
+                accion: 'marcarSeparado',
+                id_pedidos: idPedido,
+                valor: valor
+            },
+            success: function(response) {
+                try {
+                    response = JSON.parse(response);
+                } catch (e) {
+                    // response might already be an object
+                }
+
+                if (response.status === 'success') {
+                    let tr = checkbox.closest('tr');
+                    if (valor === 1) {
+                        tr.css('background-color', '#e9f7ef');
+                    } else {
+                        tr.css('background-color', '');
+                    }
+                    Swal.fire({icon: 'success', title: 'Actualizado', text: response.mensaje, timer: 900, showConfirmButton: false});
+                } else {
+                    // Revertir el estado del checkbox si hubo error
+                    checkbox.prop('checked', !checkbox.is(':checked'));
+                    Swal.fire('Error', response.mensaje || 'No se pudo actualizar', 'error');
+                }
+            },
+            error: function(err) {
+                checkbox.prop('checked', !checkbox.is(':checked'));
+                Swal.fire('Error', 'No se pudo actualizar el estado', 'error');
+            }
+        });
     });
 }
 

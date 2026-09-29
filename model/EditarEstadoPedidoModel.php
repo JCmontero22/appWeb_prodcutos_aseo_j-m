@@ -11,7 +11,7 @@
 
                 $pago = $medioPago ? ", id_tipo_de_pago = :medioPago" : "";
 
-                $query = "UPDATE pedidos SET id_estado = :idEstado $pago WHERE id_pedidos = :idPedido";
+                $query = "UPDATE pedidos SET id_estado = :idEstado $pago, fecha_actualizacion_pedido = NOW() WHERE id_pedidos = :idPedido";
 
                 $parametros = [
                     ':idEstado' => $idEstado,

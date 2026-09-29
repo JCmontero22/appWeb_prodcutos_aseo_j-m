@@ -54,8 +54,10 @@ session_start();
                             <th>Rol</th>
                             <th>Fecha</th>
                             <th>Estado</th>
+                            <th>Fecha Actualización</th>
                             <th>Costo Total</th>
                             <th>Ganancia J&M</th>
+                            <th>Separado</th>
                         </tr>
                     </thead>
                     <tbody>

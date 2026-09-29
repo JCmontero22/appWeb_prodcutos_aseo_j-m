@@ -19,9 +19,11 @@ class VentasFinalizadasModel {
                     usu.nombre_usuario AS vendedor,
                     ru.nombre_rol,
                     ped.fecha_pedido,
+                    ped.fecha_actualizacion_pedido AS fecha_actualizacion,
                     ped.id_estado,
                     ped.costo_total_pedido,
                     ped.valor_total_pedido,
+                    ped.separado,
                     SUM(
                         dp.cantidad_detalle_pedido *
                         CASE
@@ -45,10 +47,10 @@ class VentasFinalizadasModel {
                 INNER JOIN detalle_pedido dp ON dp.id_pedidos = ped.id_pedidos 
                 INNER JOIN presentacion_producto pp ON pp.id_presentacion = dp.id_presentacion
                 INNER JOIN rol_usuario ru ON usu.id_rol = ru.id_rol 
-                WHERE ped.id_estado IN (6, 7)";
+                WHERE ped.id_estado IN (6)";
 
         if (!empty($mes)) {
-            $sql .= " AND MONTH(ped.fecha_pedido) = :mes AND YEAR(ped.fecha_pedido) = YEAR(NOW())";
+            $sql .= " AND MONTH(ped.fecha_actualizacion_pedido) = :mes AND YEAR(ped.fecha_actualizacion_pedido) = YEAR(NOW())";
         }
 
         $sql .= " GROUP BY
@@ -75,5 +77,19 @@ class VentasFinalizadasModel {
             throw new Exception("Error al obtener ventas finalizadas: " . $e->getMessage());
         }
     }
+    
+        /**
+         * Actualizar el campo separado de un pedido (0 o 1)
+         */
+        public function actualizarSeparado($idPedido, $valor = 1) {
+            $sql = "UPDATE pedidos SET separado = :valor WHERE id_pedidos = :id";
+            try {
+                $params = [':id' => $idPedido, ':valor' => $valor];
+                $rowCount = $this->db->execute($sql, $params);
+                return $rowCount >= 0;
+            } catch (Exception $e) {
+                throw new Exception("Error al actualizar separado: " . $e->getMessage());
+            }
+        }
 }
 ?>
