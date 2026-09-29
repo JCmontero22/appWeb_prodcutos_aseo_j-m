@@ -978,37 +978,8 @@ table.dataTable > tbody > tr.child,
 }
 
 .swal2-icon svg {
-    width: auto !important;
+    width: 100% !important;
     height: 100% !important;
-    max-width: 100% !important;
-    max-height: 100% !important;
-    display: block !important;
-}
-
-/* Forzar que los iconos de SweetAlert no reciban filtros/transformaciones globales
-   y mantener buena renderización de SVG/pseudo-elementos (check/cross). */
-.swal2-icon,
-.swal2-icon *,
-.swal2-icon::before,
-.swal2-icon::after {
-    filter: none !important;
-    -webkit-filter: none !important;
-    transform: none !important;
-    -webkit-transform: none !important;
-    image-rendering: auto !important;
-}
-
-.swal2-icon {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-}
-
-.swal2-icon.swal2-success::after,
-.swal2-icon.swal2-error::after {
-    font-family: inherit !important;
-    line-height: 1 !important;
-    font-size: 1.8rem !important;
 }
 
 .swal2-icon.swal2-success::after {
@@ -1184,11 +1155,8 @@ table.dataTable > tbody > tr.child,
     }
 
     .swal2-icon svg {
-        width: auto !important;
+        width: 100% !important;
         height: 100% !important;
-        max-width: 100% !important;
-        max-height: 100% !important;
-        display: block !important;
     }
 }
 
@@ -1236,11 +1204,8 @@ table.dataTable > tbody > tr.child,
     }
 
     .swal2-icon svg {
-        width: auto !important;
+        width: 100% !important;
         height: 100% !important;
-        max-width: 100% !important;
-        max-height: 100% !important;
-        display: block !important;
     }
 
     .swal2-button {
